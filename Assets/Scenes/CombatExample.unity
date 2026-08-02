@@ -699,7 +699,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 557b10b3797f842f2878068955d5d75d, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Hwatu.Deck.PlayerDeckInitializer
   startingCards:
   - {fileID: 11400000, guid: a1f62e34d73f54b489c96cfa3016fc13, type: 2}
@@ -713,7 +713,53 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 007a958b8760d4ccdbcfce9ca697d20e, type: 2}
   - {fileID: 11400000, guid: 82792fce39c664374b1509d042b82ac2, type: 2}
   battleDeckController: {fileID: 996896955}
-  battleDeckSeed: 0
+  battleDeckSeed: 1
+--- !u!1 &515754915
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 515754916}
+  - component: {fileID: 515754917}
+  m_Layer: 0
+  m_Name: BattleController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &515754916
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 515754915}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2058751368}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &515754917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 515754915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f711e38d7aab445dd8aae3e6f36514e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Hwatu.Combat.BattleController
+  battleDeckController: {fileID: 996896955}
+  playerHandView: {fileID: 1892097288}
 --- !u!1 &622296648
 GameObject:
   m_ObjectHideFlags: 0
@@ -1156,7 +1202,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 68d0936f9bbae45418031b24f23bc284, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Hwatu.Deck.BattleDeckController
 --- !u!1 &1267027813
 GameObject:
@@ -1697,6 +1743,7 @@ GameObject:
   - component: {fileID: 1892097286}
   - component: {fileID: 1892097285}
   - component: {fileID: 1892097287}
+  - component: {fileID: 1892097288}
   m_Layer: 5
   m_Name: CardSlot
   m_TagString: Untagged
@@ -1776,6 +1823,22 @@ MonoBehaviour:
   cardSpacing: 120
   arcHeight: 30
   maxRotationAngle: 15
+--- !u!114 &1892097288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1892097283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b966aa165faf4367927683ed9925532, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Hwatu.UI.PlayerHandView
+  cardPrefab: {fileID: 3531806768604769005, guid: 9e34a68de48af4d8493612e7fa0c3ef9, type: 3}
+  cardSlot: {fileID: 1892097284}
+  fanCardLayout: {fileID: 1892097287}
+  cardCatalog: {fileID: 11400000, guid: f9402a04d09c04c41a2eb0235231c3f5, type: 2}
 --- !u!1 &1893465352
 GameObject:
   m_ObjectHideFlags: 0
@@ -2157,6 +2220,7 @@ Transform:
   - {fileID: 1460216242}
   - {fileID: 996896954}
   - {fileID: 441365900}
+  - {fileID: 515754916}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2132686307

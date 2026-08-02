@@ -9,7 +9,7 @@ namespace Hwatu.UI
             switch (cardType)
             {
                 case CardType.Normal:
-                    return "일반";
+                    return "피";
                 case CardType.Bright:
                     return "광";
                 case CardType.Ribbon:

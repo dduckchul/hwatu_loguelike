@@ -197,9 +197,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8c314e9ee5a049699305e18e2d66b64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Hwatu.UI.CardView
-  artworkImage: {fileID: 0}
-  monthText: {fileID: 0}
-  typeText: {fileID: 0}
+  artworkImage: {fileID: 7188888288002452842}
+  monthText: {fileID: 6626613843836508715}
+  typeText: {fileID: 481299322787785063}
 --- !u!1 &6100218655752600086
 GameObject:
   m_ObjectHideFlags: 0

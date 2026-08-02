@@ -1,3 +1,4 @@
+using System;
 using Hwatu.Cards;
 using TMPro;
 using UnityEngine;
@@ -12,17 +13,30 @@ namespace Hwatu.UI
         [SerializeField] private TMP_Text monthText;
         [SerializeField] private TMP_Text typeText;
 
+        public CardInstance Card { get; private set; }
         public CardData Data { get; private set; }
 
-        public void Bind(CardData cardData)
+        public void Bind(CardInstance card, CardData cardData)
         {
-            Data = cardData;
+            if (card == null)
+            {
+                throw new ArgumentNullException(nameof(card));
+            }
 
             if (cardData == null)
             {
-                Clear();
-                return;
+                throw new ArgumentNullException(nameof(cardData));
             }
+
+            if (!string.Equals(card.Definition.Id, cardData.CardId, StringComparison.Ordinal))
+            {
+                throw new ArgumentException(
+                    "Card instance and card data must have the same ID.",
+                    nameof(cardData));
+            }
+
+            Card = card;
+            Data = cardData;
 
             if (artworkImage != null)
             {
@@ -31,17 +45,18 @@ namespace Hwatu.UI
 
             if (monthText != null)
             {
-                monthText.text = cardData.Month.ToString();
+                monthText.text = card.Definition.Month.ToString();
             }
 
             if (typeText != null)
             {
-                typeText.text = CardTypeDisplayName.Get(cardData.CardType);
+                typeText.text = CardTypeDisplayName.Get(card.Definition.CardType);
             }
         }
 
         public void Clear()
         {
+            Card = null;
             Data = null;
 
             if (artworkImage != null)

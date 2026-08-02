@@ -6,189 +6,178 @@
 
 ## 기본 방향
 
-- 코드는 `Cards`, `Deck`, `Hands`, `Combat`, `Rewards`, `UI`처럼 기능별로 나눈다.
-- 한 기능에 필요한 모델, 로직, Unity 연결 코드는 가능한 한 같은 기능 폴더에 둔다.
-- 별도 계층, 인터페이스, 이벤트 버스는 실제로 두 곳 이상에서 필요할 때만 만든다.
-- 족보 판정과 피해 계산처럼 독립적으로 확인할 규칙은 `MonoBehaviour`와 분리된 일반 C# 클래스로 작성한다.
-- UI는 계산 결과를 표시하며 족보나 피해 공식을 다시 구현하지 않는다.
+- 코드는 `Cards`, `Deck`, `Hands`, `Combat`, `Rewards`, `UI` 기능별로 나눈다.
+- 한 기능에 필요한 데이터, 규칙, Unity 연결 코드는 같은 기능 폴더에 둔다.
+- 별도 계층, 인터페이스, 이벤트 버스는 실제로 필요할 때만 만든다.
+- 족보, 덱 순환, 피해 계산 같은 규칙은 가능한 한 `MonoBehaviour`와 분리된 일반 C# 클래스로 작성한다.
+- UI는 계산 결과를 표시하고 입력을 전달한다. UI에서 족보나 피해를 다시 계산하지 않는다.
 - 제출 범위에 없는 저장, 네트워크, 범용 프레임워크는 미리 만들지 않는다.
 
-## 폴더 구조
-
-기존 Unity 폴더를 유지하면서 아래 구조로 정리한다.
+## 현재 폴더 구조
 
 ```text
 Assets/
   Images/
   Prefabs/
+    UI/
   Scenes/
   Scripts/
-    Cards/
-    Deck/
-    Hands/
-    Combat/
-    Rewards/
-    UI/
-    Common/
-  Data/
-    Cards/
-    Enemies/
-    Rewards/
+    Hwatu/
+      Cards/
+        ScriptableObjects/
+      Combat/
+      Deck/
+      Hands/
+      UI/
 ```
 
-### `Scripts/Cards`
+추후 보상 기능을 구현할 때 `Assets/Scripts/Hwatu/Rewards`를 추가한다. 사용하지 않는 빈 기능 폴더는 미리 만들지 않는다.
 
-- 카드의 월, 종류, 태그 등 기본 정보
-- 런 중 카드의 강화 상태
-- 카드 데이터와 런타임 카드 사이의 변환
+## 기능별 책임
 
-예시:
+### `Hwatu/Cards`
 
-- `CardDefinition.cs`
-- `CardInstance.cs`
-- `CardType.cs`
+현재 구성:
 
-### `Scripts/Deck`
+- `CardData`: Inspector에서 작성하는 ScriptableObject 카드 원본
+- `CardCatalogData`: 전체 카드 목록과 ID 조회
+- `CardDefinition`: 덱과 족보 계산에 사용하는 일반 C# 정의
+- `CardInstance`: 덱에 들어가는 카드 한 장과 강화 단계
+- `CardType`: 피, 광, 띠, 열끗 중 하나
 
-- 드로우 더미, 손패, 버림 더미 관리
-- 셔플, 드로우, 제출, 재순환
-- 시작 덱 생성
+`CardData.ToDefinition()`이 Unity 데이터에서 규칙 데이터로 넘어가는 경계다.
 
-예시:
+### `Hwatu/Deck`
 
-- `Deck.cs`
-- `DeckFactory.cs`
-- `IRandomSource.cs`
+현재 구성:
 
-현재 빈 `Assets/Scripts/Deck.cs`는 덱 기능 구현을 시작할 때 `Assets/Scripts/Deck/Deck.cs`로 이동해 사용한다.
+- `PlayerDeck`: 한 런 동안 보유하는 전체 카드
+- `BattleDeck`: 전투용 드로우 더미, 손패, 버림 더미
+- `PlayerDeckInitializer`: 1~10월 Normal 카드로 시작 덱 생성
+- `BattleDeckController`: Unity와 전투 덱 초기화 연결
+- `IRandomSource`: 셔플에서 사용하는 최소 난수 인터페이스
+- `SeededRandomSource`: 고정 시드 기반 난수 구현
 
-### `Scripts/Hands`
+`BattleDeck`은 생성 시 Fisher–Yates 방식으로 셔플한다. 손패를 목표 수량까지 뽑고, 드로우 더미가 비면 버림 더미를 다시 섞어 사용한다.
 
-- 두 장의 카드로 섯다 족보 판정
-- 족보 이름, 등급, 구성 결과 반환
-- 특수 족보와 상성 규칙
+### `Hwatu/Hands`
 
-예시:
+현재 구성:
 
-- `HandEvaluator.cs`
-- `HandResult.cs`
-- `HandType.cs`
+- `HandEvaluator`: 두 카드의 섯다 족보 판정
+- `HandResult`: 족보 타입, 순위, 끗, 태그, 구성 카드
+- `HandType`: 끗, 중간 족보, 땡, 광땡
+- `HandTag`: 일반 족보와 특수 상성에서 사용할 결과 태그
 
-족보 판정기는 피해량이나 UI 문자열을 직접 결정하지 않는다.
+`HandEvaluator`는 피해량이나 UI 문자열을 계산하지 않는다. UI 표시 이름은 `HandDisplayName`이 담당한다.
 
-### `Scripts/Combat`
+### `Hwatu/Combat`
 
-- 플레이어와 적 체력
-- 적의 공개 패와 행동
-- 카드 제출, 패 비교, 승자 피해, 무승부와 전투 종료 판정
-- 한 전투의 진행 순서
+현재 `BattleController`는 전투 시작 시 다음 흐름만 연결한다.
 
-예시:
+1. 초기화된 `BattleDeck` 확인
+2. 시작 손패 3장 드로우
+3. `PlayerHandView`에 카드 전달
+4. `DeckCountView` 갱신
 
-- `CombatController.cs`
-- `CombatState.cs`
-- `DamageCalculator.cs`
-- `EnemyDefinition.cs`
+카드 선택, 제출, 적 행동, 패 비교, 피해, 승패는 아직 구현하지 않았다.
 
-`CombatController`가 Unity 생명주기와 입력 연결을 맡을 수 있지만, 족보와 피해 계산은 일반 C# 클래스에 위임한다.
+### `Hwatu/UI`
 
-### `Scripts/Rewards`
+현재 구성:
 
-- 전투 후 카드 후보 생성
-- 카드 선택과 건너뛰기
-- 선택한 카드를 현재 덱에 추가
+- `CardView`: 카드 이미지, 월, 타입 표시
+- `PlayerHandView`: 카탈로그 조회와 카드 프리팹 생성
+- `FanCardLayout`: 손패 부채꼴 배치
+- `DeckCountView`: 드로우 더미와 버림 더미 수 표시
+- `CardTypeDisplayName`: 카드 타입의 한국어 표시
+- `HandDisplayName`: 족보 결과의 한국어 표시
 
-예시:
+UI는 `CardInstance` ID를 `CardCatalogData`에서 조회해 Sprite를 연결한다. 족보와 덱 규칙은 UI에 다시 구현하지 않는다.
 
-- `RewardService.cs`
-- `RewardResult.cs`
-
-### `Scripts/UI`
-
-- 카드 선택 표시
-- 적 패, 체력, 족보, 피해량 표시
-- 버튼 입력을 전투와 보상 기능에 전달
-- 최소한의 전투 연출
-
-예시:
-
-- `CardView.cs`
-- `CombatView.cs`
-- `RewardView.cs`
-
-UI 클래스는 게임 규칙을 계산하지 않는다. 화면 갱신을 위해 필요한 경우 직접 메서드 호출이나 단순 C# 이벤트를 사용한다.
-
-### `Scripts/Common`
-
-둘 이상의 기능에서 실제로 공유하는 작은 코드만 둔다.
-
-- 난수 공급자
-- 공통 결과 타입
-- 범용 확장 메서드
-
-어느 기능에 둘지 애매하다는 이유만으로 `Common`에 넣지 않는다.
-
-## 기능 사이의 연결
-
-첫 프로토타입은 다음 정도의 직접 참조를 허용한다.
+## 현재 실행 흐름
 
 ```text
-UI → Combat → Deck
-            → Hands
+PlayerDeckInitializer.Awake
+  → Normal 카드 10장 검증
+  → PlayerDeck 생성
+  → BattleDeckController.Initialize
+  → BattleDeck 생성 및 시드 셔플
 
-UI → Rewards → Deck
-
-Cards ← Deck / Hands / Combat / Rewards
+BattleController.Start
+  → BattleDeck.DrawToHand
+  → PlayerHandView.SetCards
+  → CardCatalogData.GetById
+  → CardView.Bind
+  → DeckCountView.Refresh
 ```
 
-- `Combat`은 `Deck`과 `Hands`를 사용해 한 턴을 처리한다.
-- `Rewards`는 선택된 카드를 `Deck`에 추가한다.
-- `UI`는 `Combat`과 `Rewards`의 공개 메서드를 호출하고 결과를 표시한다.
-- 순환 참조가 생기면 책임을 다시 나누되, 이를 예방한다는 이유로 처음부터 여러 추상 계층을 만들지 않는다.
+## 기능 사이의 의존 방향
 
-## Unity 데이터 사용
+```text
+Combat → Deck
+Combat → UI
+Deck   → Cards
+Hands  → Cards
+UI     → Cards
+UI     → Deck
+UI     → Hands
+```
 
-- 카드와 적의 작성용 데이터는 `ScriptableObject`를 사용할 수 있다.
-- ScriptableObject는 변하지 않는 원형 데이터만 보관한다.
-- 체력, 현재 손패, 강화 단계 등 플레이 중 바뀌는 값은 일반 C# 객체에 둔다.
-- 카드와 적은 표시 이름 대신 안정적인 ID로 참조한다.
-- 첫 프로토타입에서는 JSON 변환이나 범용 데이터 로더를 만들지 않아도 된다.
+- `Cards`는 다른 게임 기능에 의존하지 않는다.
+- `Deck`과 `Hands`는 Unity UI를 알지 않는다.
+- `Combat`은 규칙과 UI 흐름을 연결하지만 족보 계산을 직접 구현하지 않는다.
+- 순환 참조가 실제로 생길 때만 책임을 다시 나눈다.
+
+## ScriptableObject 경계
+
+- `CardData`와 `CardCatalogData`는 작성용 원본 데이터다.
+- ScriptableObject는 플레이 중 수정하지 않는다.
+- `CardDefinition`과 `CardInstance`는 Unity 객체에 의존하지 않는다.
+- UI는 카탈로그로 원본 데이터를 다시 조회해 이미지를 표시한다.
+- 적과 보상 데이터는 해당 기능을 구현할 때 ScriptableObject로 추가한다.
 
 ## 난수
 
-- 덱 셔플과 보상 생성에는 시드를 지정할 수 있는 난수 공급자를 사용한다.
-- 재현이 필요한 디버깅에서는 고정 시드를 사용할 수 있게 한다.
-- 난수 공급자 외에는 프레임 시간이나 전역 난수 상태에 의존하지 않는다.
-- 난수 구현은 하나만 두고, 필요하기 전까지 별도 전략 계층을 늘리지 않는다.
+- 셔플은 `IRandomSource`를 통해 난수를 받는다.
+- 현재 구현은 `SeededRandomSource`와 `System.Random`을 사용한다.
+- 같은 시드는 같은 셔플 결과를 재현할 수 있어야 한다.
+- 전역 Unity 난수와 프레임 시간은 덱 규칙에서 사용하지 않는다.
 
 ## 수동 검증
 
-자동화된 EditMode·PlayMode 테스트는 이번 제출 범위에서 제외한다. Unity 에디터에서 다음 흐름을 직접 확인한다.
+Unity 에디터에서 다음을 직접 확인한다.
 
-- 기본 족보와 족보 우선순위
-- 광 태그가 필요한 광땡 판정
-- 덱 드로우와 버림 더미 재순환
-- 제출한 패 2장과 제출하지 않은 패 1장의 턴 종료 후 버림 처리
-- 고정 시드 셔플 재현
-- 피해 계산 예시
-- 패 비교에 따른 승자 피해와 무승부 처리
-- 동시 전멸 예외의 게임 오버 처리
-- 보상 카드가 덱에 추가되는 흐름
+- 시작 덱이 1~10월 Normal 카드 한 장씩으로 생성되는지
+- 같은 시드에서 같은 카드 순서가 나오는지
+- 시작 손패가 3장 표시되는지
+- 카드 이미지, 월, 타입이 올바르게 표시되는지
+- 덱 수량과 버림 더미 수량이 맞는지
+- 끗, 중간 족보, 땡, 13·18·38광땡 판정이 맞는지
+- 드로우 더미가 비면 버림 더미가 다시 섞이는지
+
+자동화된 EditMode·PlayMode 테스트는 이번 제출 범위에서 제외한다.
 
 ## 네임스페이스
 
-- 이번 프로토타입을 위해 별도 asmdef를 만들지 않는다.
-- 네임스페이스는 `Hwatu.Cards`, `Hwatu.Deck`, `Hwatu.Hands`, `Hwatu.Combat`, `Hwatu.Rewards`, `Hwatu.UI`처럼 기능 이름을 사용한다.
+기능 이름을 그대로 사용한다.
+
+- `Hwatu.Cards`
+- `Hwatu.Deck`
+- `Hwatu.Hands`
+- `Hwatu.Combat`
+- `Hwatu.UI`
+
+이번 프로토타입을 위해 별도 asmdef를 만들지 않는다.
 
 ## 프로토타입에서 만들지 않는 구조
 
-- Domain/Application/Infrastructure/Presentation 계층 분리
+- Domain/Application/Infrastructure/Presentation 계층
 - 기능마다 Repository, Service, UseCase 인터페이스 생성
-- 범용 이벤트 버스 또는 메시지 브로커
-- 의존성 주입 컨테이너
-- 저장 데이터 마이그레이션 체계
+- 범용 이벤트 버스와 의존성 주입 컨테이너
+- 저장 데이터 마이그레이션
 - 플러그인형 피해 공식 프레임워크
 - Unity Test Framework 기반 자동화 테스트
 - 제출 범위 밖 기능을 위한 확장 포인트
 
-필요한 기능을 가장 단순한 형태로 완성하고, 실제 중복이나 변경 요구가 생겼을 때만 구조를 확장한다.
+실제 중복이나 변경 요구가 생겼을 때만 구조를 확장한다.

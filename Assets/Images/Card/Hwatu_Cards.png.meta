@@ -1,0 +1,1380 @@
+fileFormatVersion: 2
+guid: a3d8d51729b1b472ab1f2130b0f3e80f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3679067126986776812
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_0
+  - first:
+      213: -1485087404411574580
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_1
+  - first:
+      213: -1634143533055238175
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_2
+  - first:
+      213: -1773479361792822457
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_3
+  - first:
+      213: -1224783106063489980
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_4
+  - first:
+      213: 5289758833892422090
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_5
+  - first:
+      213: 340225362735133090
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_6
+  - first:
+      213: -1808010056050176271
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_7
+  - first:
+      213: 4107706084092860267
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_8
+  - first:
+      213: -5057149505586529158
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_9
+  - first:
+      213: 1453796505984989542
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_10
+  - first:
+      213: 6980510306454774615
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_11
+  - first:
+      213: -708921106081482000
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_12
+  - first:
+      213: -5438908130568438875
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_13
+  - first:
+      213: 4324198634058045723
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_14
+  - first:
+      213: -8721042878894766157
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_15
+  - first:
+      213: 2611989811513887920
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_16
+  - first:
+      213: 538976289026251752
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_17
+  - first:
+      213: 6095335054237934947
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_18
+  - first:
+      213: -3226772465415903958
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_19
+  - first:
+      213: -822973830593481829
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_20
+  - first:
+      213: 5047599720822070848
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_21
+  - first:
+      213: -8437292501367932757
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_22
+  - first:
+      213: 9015582405977401424
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_23
+  - first:
+      213: -2649347406933122228
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_24
+  - first:
+      213: 4494483613617864856
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_25
+  - first:
+      213: 6018217129106213186
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_26
+  - first:
+      213: -8461794941932820331
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_27
+  - first:
+      213: -115907608761842740
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_28
+  - first:
+      213: 6824968125450487595
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_29
+  - first:
+      213: -4202858104832766331
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_30
+  - first:
+      213: 9157516838119245445
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_31
+  - first:
+      213: 1976649064231499532
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_32
+  - first:
+      213: 944878679510882509
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_33
+  - first:
+      213: -1158345111919593775
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_34
+  - first:
+      213: 8051810769198043057
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_35
+  - first:
+      213: 3456989913624323168
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_36
+  - first:
+      213: -5413633362541708889
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_37
+  - first:
+      213: 6032181662541223874
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_38
+  - first:
+      213: 758034364570264310
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_39
+  - first:
+      213: 6809465744481989664
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_40
+  - first:
+      213: 8969538110836925658
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_41
+  - first:
+      213: 8251982823880789716
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_42
+  - first:
+      213: -3571092006724578085
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_43
+  - first:
+      213: -8368227091142649020
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_44
+  - first:
+      213: 1173548383479625473
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_45
+  - first:
+      213: -1211632168997207023
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_46
+  - first:
+      213: 126217375439913251
+    second: MSpNcnrBbf4OnaaxElvSqEmSni35LI1lM-Fbbq0gPSN7mvRW2zD5LFYbahJRTXCevlVVYU9Pa16bvXF0qSIQzjWX1n6BBWYeDUjvrDB29j2_iTuJiTNyouARNP2pF1Fovb9SJ_ZKtY9UEq-yIFUdhQ_47
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Hwatu_Cards_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 943
+        width: 119
+        height: 183
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e1452d1773fd46859b91d67b7d28ec1
+      internalID: 316625941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_1
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 943
+        width: 119
+        height: 183
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7320c944eba5c46b8b0e84b82232e46f
+      internalID: 1156476439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_2
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 942
+        width: 121
+        height: 184
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e97098ac6c334aaaa12fd8dee0a6163
+      internalID: 1139684387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_3
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 944
+        width: 120
+        height: 182
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c40d7d76cf8a41e5a22a30079537ebd
+      internalID: -1305542028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_4
+      rect:
+        serializedVersion: 2
+        x: 501
+        y: 945
+        width: 121
+        height: 181
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3cb17c37cf11347568f433f7d9ba46e2
+      internalID: -58692584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_5
+      rect:
+        serializedVersion: 2
+        x: 629
+        y: 942
+        width: 121
+        height: 184
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c22639458e7743da8653496d1c7c0c3
+      internalID: 121029596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_6
+      rect:
+        serializedVersion: 2
+        x: 755
+        y: 941
+        width: 121
+        height: 184
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b0b315cd02ae451c9920ff65e160e72
+      internalID: 590551948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_7
+      rect:
+        serializedVersion: 2
+        x: 880
+        y: 941
+        width: 120
+        height: 184
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77b5887849f0c4189adbe42cd3759c88
+      internalID: 1649632847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 754
+        width: 119
+        height: 186
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40f4c2758b676475db4bc5891fb03e77
+      internalID: -1711105444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_9
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 754
+        width: 120
+        height: 186
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f19ab148f8b7b4f1fb3e6698ae023ff4
+      internalID: 1726268509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_10
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 754
+        width: 122
+        height: 186
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c66cbffe66ba24165b0c6a8469838268
+      internalID: 1336657069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_11
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 754
+        width: 120
+        height: 184
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d99dc0e5a3fd742cfb1282d26d8fa7a2
+      internalID: 929798062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_12
+      rect:
+        serializedVersion: 2
+        x: 501
+        y: 754
+        width: 119
+        height: 184
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65f2cce7bee4248f3b59fa6837fa37fe
+      internalID: 1520981353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_13
+      rect:
+        serializedVersion: 2
+        x: 629
+        y: 753
+        width: 121
+        height: 186
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cadbf1a96f8464c9197e701b10452149
+      internalID: -557573450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_14
+      rect:
+        serializedVersion: 2
+        x: 755
+        y: 752
+        width: 121
+        height: 186
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97f08e338e94844bc9750affdaec1e8d
+      internalID: -927153572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_15
+      rect:
+        serializedVersion: 2
+        x: 880
+        y: 752
+        width: 120
+        height: 186
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6999ffb4427c54814a12c69e8e6ce300
+      internalID: 2035110966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 565
+        width: 119
+        height: 186
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b2d611fbe53540a1a952d03b1d0a15f
+      internalID: -644961115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_17
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 567
+        width: 120
+        height: 184
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0af058fc48cb4b95948ffe86d44a441
+      internalID: -1841075598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_18
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 378
+        width: 120
+        height: 188
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7194be451db75417b87ca1dda6466f86
+      internalID: 1019208079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_19
+      rect:
+        serializedVersion: 2
+        x: 253
+        y: 565
+        width: 120
+        height: 186
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55c79a41ed5a44c89beb5b19669a208a
+      internalID: -539445292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_20
+      rect:
+        serializedVersion: 2
+        x: 379
+        y: 565
+        width: 119
+        height: 186
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dade6408c47cc4706893ee8a411a3f97
+      internalID: 473200399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_21
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 564
+        width: 122
+        height: 186
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3bb9a821a654c446cbd593f745e46500
+      internalID: -949807755
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_22
+      rect:
+        serializedVersion: 2
+        x: 628
+        y: 565
+        width: 122
+        height: 184
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 314f750e6f58c4c2789b4a28a4783b24
+      internalID: -1649586104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_23
+      rect:
+        serializedVersion: 2
+        x: 754
+        y: 563
+        width: 122
+        height: 186
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4144b5c78a1684a34b2c207f79702f40
+      internalID: -550982145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_24
+      rect:
+        serializedVersion: 2
+        x: 881
+        y: 562
+        width: 119
+        height: 186
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd431ac352b614dac90b9c75d4e9c1f6
+      internalID: 1784778237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_25
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 378
+        width: 119
+        height: 184
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e54505cb162064058b905880244df9b7
+      internalID: 1465495461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_26
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 378
+        width: 121
+        height: 186
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: feaa3c1122180429dbefe4d1c8ee5804
+      internalID: -1014536836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_27
+      rect:
+        serializedVersion: 2
+        x: 379
+        y: 378
+        width: 119
+        height: 186
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5302f5ea02c4541ac845ce2b1f9c5081
+      internalID: -1115946516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_28
+      rect:
+        serializedVersion: 2
+        x: 501
+        y: 378
+        width: 121
+        height: 184
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e75bb94d33d304e50bcfd21d367d9b23
+      internalID: 1959255310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_29
+      rect:
+        serializedVersion: 2
+        x: 628
+        y: 377
+        width: 122
+        height: 187
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0fdb484d1d9742ec9a149efa76ceac8
+      internalID: 1290414137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_30
+      rect:
+        serializedVersion: 2
+        x: 754
+        y: 379
+        width: 122
+        height: 183
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13b7d4916282e416e90e9a1742fa1470
+      internalID: -1189534295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_31
+      rect:
+        serializedVersion: 2
+        x: 881
+        y: 376
+        width: 119
+        height: 184
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d77b6005fe8fd481e900389541bc2e70
+      internalID: -957106252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_32
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 189
+        width: 119
+        height: 186
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15c1e93ef64a2473a8e055897e29fa8f
+      internalID: 1307290919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_33
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 189
+        width: 121
+        height: 186
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 792521efab9504135886a692300f17e8
+      internalID: 1058162043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_34
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 189
+        width: 121
+        height: 186
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ad7e2cb48cd246d69120b7f89cc81f1
+      internalID: 1986453203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_35
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 188
+        width: 120
+        height: 186
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73e23bfe5312b447f9f0267439c8fa38
+      internalID: -2133571402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_36
+      rect:
+        serializedVersion: 2
+        x: 501
+        y: 190
+        width: 121
+        height: 184
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf053f2f960874f31ad8e6002d43935b
+      internalID: 1702528914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_37
+      rect:
+        serializedVersion: 2
+        x: 631
+        y: 189
+        width: 119
+        height: 186
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d3a5f9c9e0c24b2695db80dd127a932
+      internalID: -79511776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_38
+      rect:
+        serializedVersion: 2
+        x: 754
+        y: 189
+        width: 122
+        height: 186
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bee134339dc274d0e95fe53f6b94f6d1
+      internalID: 421478550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_39
+      rect:
+        serializedVersion: 2
+        x: 881
+        y: 188
+        width: 119
+        height: 183
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8a4934e1d9bf44f2965428b45a69fb4
+      internalID: -977512688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_40
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 120
+        height: 186
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97334ab8b70154686a08f4447ede044f
+      internalID: -1588819833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_41
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 1
+        width: 119
+        height: 184
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cba666585653b4cafa47a49d247c4352
+      internalID: -1108112400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_42
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 0
+        width: 121
+        height: 185
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca041cee4274a43c5a259e76fad97484
+      internalID: 1975658326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_43
+      rect:
+        serializedVersion: 2
+        x: 379
+        y: 1
+        width: 119
+        height: 184
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9c0869a26f0740d69291629c387e202
+      internalID: -1872497636
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_44
+      rect:
+        serializedVersion: 2
+        x: 502
+        y: 0
+        width: 121
+        height: 185
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 526ed114a2697432aba24f56b6e5686a
+      internalID: 1449428122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_45
+      rect:
+        serializedVersion: 2
+        x: 629
+        y: 0
+        width: 121
+        height: 185
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4821abeecf94746da95eecb8e55e043f
+      internalID: 889310676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_46
+      rect:
+        serializedVersion: 2
+        x: 754
+        y: 0
+        width: 122
+        height: 184
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22be3cf3ab49d47e8aa7ee274e7db3b7
+      internalID: 2009454188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Hwatu_Cards_47
+      rect:
+        serializedVersion: 2
+        x: 881
+        y: 0
+        width: 119
+        height: 183
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66b5db21465ba4cf383e03dbde7590bc
+      internalID: 607755808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 6fbdff8b76d6140a1b8cc1a958f8ff5b
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":8.0,"y":6.0},"gridSpriteSize":{"x":120.0,"y":181.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":5.0,"y":7.0},"pivot":{"x":0.0,"y":1.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":1,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      Hwatu_Cards_0: 316625941
+      Hwatu_Cards_1: 1156476439
+      Hwatu_Cards_10: 1336657069
+      Hwatu_Cards_11: 929798062
+      Hwatu_Cards_12: 1520981353
+      Hwatu_Cards_13: -557573450
+      Hwatu_Cards_14: -927153572
+      Hwatu_Cards_15: 2035110966
+      Hwatu_Cards_16: -644961115
+      Hwatu_Cards_17: -1841075598
+      Hwatu_Cards_18: 1019208079
+      Hwatu_Cards_19: -539445292
+      Hwatu_Cards_2: 1139684387
+      Hwatu_Cards_20: 473200399
+      Hwatu_Cards_21: -949807755
+      Hwatu_Cards_22: -1649586104
+      Hwatu_Cards_23: -550982145
+      Hwatu_Cards_24: 1784778237
+      Hwatu_Cards_25: 1465495461
+      Hwatu_Cards_26: -1014536836
+      Hwatu_Cards_27: -1115946516
+      Hwatu_Cards_28: 1959255310
+      Hwatu_Cards_29: 1290414137
+      Hwatu_Cards_3: -1305542028
+      Hwatu_Cards_30: -1189534295
+      Hwatu_Cards_31: -957106252
+      Hwatu_Cards_32: 1307290919
+      Hwatu_Cards_33: 1058162043
+      Hwatu_Cards_34: 1986453203
+      Hwatu_Cards_35: -2133571402
+      Hwatu_Cards_36: 1702528914
+      Hwatu_Cards_37: -79511776
+      Hwatu_Cards_38: 421478550
+      Hwatu_Cards_39: -977512688
+      Hwatu_Cards_4: -58692584
+      Hwatu_Cards_40: -1588819833
+      Hwatu_Cards_41: -1108112400
+      Hwatu_Cards_42: 1975658326
+      Hwatu_Cards_43: -1872497636
+      Hwatu_Cards_44: 1449428122
+      Hwatu_Cards_45: 889310676
+      Hwatu_Cards_46: 2009454188
+      Hwatu_Cards_47: 607755808
+      Hwatu_Cards_5: 121029596
+      Hwatu_Cards_6: 590551948
+      Hwatu_Cards_7: 1649632847
+      Hwatu_Cards_8: -1711105444
+      Hwatu_Cards_9: 1726268509
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

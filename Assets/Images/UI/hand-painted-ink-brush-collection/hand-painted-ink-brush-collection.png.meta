@@ -1,0 +1,1609 @@
+fileFormatVersion: 2
+guid: c1f3a5b99d98b4ab5a9a9266be3a0e0f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1130040283648851267
+    second: hand-painted-ink-brush-collection_0
+  - first:
+      213: 2883686378363856174
+    second: hand-painted-ink-brush-collection_1
+  - first:
+      213: -539441829518248302
+    second: hand-painted-ink-brush-collection_2
+  - first:
+      213: -3314802123203801066
+    second: hand-painted-ink-brush-collection_3
+  - first:
+      213: -7771463959666801247
+    second: hand-painted-ink-brush-collection_4
+  - first:
+      213: 5801584615223143604
+    second: hand-painted-ink-brush-collection_5
+  - first:
+      213: -7259164310700855115
+    second: hand-painted-ink-brush-collection_6
+  - first:
+      213: 985180559654498190
+    second: hand-painted-ink-brush-collection_7
+  - first:
+      213: 3869258393294877960
+    second: hand-painted-ink-brush-collection_8
+  - first:
+      213: -2021967304724914787
+    second: hand-painted-ink-brush-collection_9
+  - first:
+      213: 3411170005559543495
+    second: hand-painted-ink-brush-collection_10
+  - first:
+      213: 6291691175601705649
+    second: hand-painted-ink-brush-collection_11
+  - first:
+      213: 8714621541288722331
+    second: hand-painted-ink-brush-collection_12
+  - first:
+      213: 6760645992227826206
+    second: hand-painted-ink-brush-collection_13
+  - first:
+      213: -502460177812644287
+    second: hand-painted-ink-brush-collection_14
+  - first:
+      213: 7823827597403582809
+    second: hand-painted-ink-brush-collection_15
+  - first:
+      213: 5427222098447955080
+    second: hand-painted-ink-brush-collection_16
+  - first:
+      213: -4965254775419485402
+    second: hand-painted-ink-brush-collection_17
+  - first:
+      213: 1479589174063972080
+    second: hand-painted-ink-brush-collection_18
+  - first:
+      213: 7458260152852979426
+    second: hand-painted-ink-brush-collection_19
+  - first:
+      213: 5053957996330135440
+    second: hand-painted-ink-brush-collection_20
+  - first:
+      213: 6079787328486493249
+    second: hand-painted-ink-brush-collection_21
+  - first:
+      213: -1744024165647798497
+    second: hand-painted-ink-brush-collection_22
+  - first:
+      213: -7939049643591723130
+    second: hand-painted-ink-brush-collection_23
+  - first:
+      213: -8402574122639436667
+    second: hand-painted-ink-brush-collection_24
+  - first:
+      213: 2893499469813801903
+    second: hand-painted-ink-brush-collection_25
+  - first:
+      213: -5532380986949353507
+    second: hand-painted-ink-brush-collection_26
+  - first:
+      213: -5855054074033466757
+    second: hand-painted-ink-brush-collection_27
+  - first:
+      213: -759695288390828800
+    second: hand-painted-ink-brush-collection_28
+  - first:
+      213: -6448372267705884410
+    second: hand-painted-ink-brush-collection_29
+  - first:
+      213: 7693742647440380743
+    second: hand-painted-ink-brush-collection_30
+  - first:
+      213: -2903081253291575238
+    second: hand-painted-ink-brush-collection_31
+  - first:
+      213: 4240317014045237031
+    second: hand-painted-ink-brush-collection_32
+  - first:
+      213: 1739112534505541971
+    second: hand-painted-ink-brush-collection_33
+  - first:
+      213: -3678990527784889125
+    second: hand-painted-ink-brush-collection_34
+  - first:
+      213: 2982310479560185051
+    second: hand-painted-ink-brush-collection_35
+  - first:
+      213: -3474490754678756612
+    second: hand-painted-ink-brush-collection_36
+  - first:
+      213: -5842371818165100597
+    second: hand-painted-ink-brush-collection_37
+  - first:
+      213: -7393951039214381014
+    second: hand-painted-ink-brush-collection_38
+  - first:
+      213: -1016191604034836412
+    second: hand-painted-ink-brush-collection_39
+  - first:
+      213: -9210649604275899794
+    second: hand-painted-ink-brush-collection_40
+  - first:
+      213: 2461368217132221133
+    second: hand-painted-ink-brush-collection_41
+  - first:
+      213: 3676112302680801649
+    second: hand-painted-ink-brush-collection_42
+  - first:
+      213: -2300055232838454075
+    second: hand-painted-ink-brush-collection_43
+  - first:
+      213: 1702024364210577288
+    second: hand-painted-ink-brush-collection_44
+  - first:
+      213: 8566557729972753504
+    second: hand-painted-ink-brush-collection_45
+  - first:
+      213: -5079140692768063205
+    second: hand-painted-ink-brush-collection_46
+  - first:
+      213: 1822850904823227839
+    second: hand-painted-ink-brush-collection_47
+  - first:
+      213: -3148546653688026378
+    second: hand-painted-ink-brush-collection_48
+  - first:
+      213: -7853933227610532548
+    second: hand-painted-ink-brush-collection_49
+  - first:
+      213: -4961899777078672825
+    second: hand-painted-ink-brush-collection_50
+  - first:
+      213: -5335713917721314233
+    second: hand-painted-ink-brush-collection_51
+  - first:
+      213: 9167557027228682983
+    second: hand-painted-ink-brush-collection_52
+  - first:
+      213: 8255829931947908545
+    second: hand-painted-ink-brush-collection_53
+  - first:
+      213: -2760376419693115429
+    second: hand-painted-ink-brush-collection_54
+  - first:
+      213: -1349451633922655570
+    second: hand-painted-ink-brush-collection_55
+  - first:
+      213: 7196319360600440696
+    second: hand-painted-ink-brush-collection_56
+  - first:
+      213: 919084406485547161
+    second: hand-painted-ink-brush-collection_57
+  - first:
+      213: -8386406339957841091
+    second: hand-painted-ink-brush-collection_58
+  - first:
+      213: 8968548451306309338
+    second: hand-painted-ink-brush-collection_59
+  - first:
+      213: -8400336247172474156
+    second: hand-painted-ink-brush-collection_60
+  - first:
+      213: -1641845673238104050
+    second: hand-painted-ink-brush-collection_61
+  - first:
+      213: -3219209363137728443
+    second: hand-painted-ink-brush-collection_62
+  - first:
+      213: -5910880658718639066
+    second: hand-painted-ink-brush-collection_63
+  - first:
+      213: -6092381940850111539
+    second: hand-painted-ink-brush-collection_64
+  - first:
+      213: 8471839746822375778
+    second: hand-painted-ink-brush-collection_65
+  - first:
+      213: 3729302703613746895
+    second: hand-painted-ink-brush-collection_66
+  - first:
+      213: -7407036409942311111
+    second: hand-painted-ink-brush-collection_67
+  - first:
+      213: -3907138301247041716
+    second: hand-painted-ink-brush-collection_68
+  - first:
+      213: -757969702577281971
+    second: hand-painted-ink-brush-collection_69
+  - first:
+      213: -8290858119364333157
+    second: hand-painted-ink-brush-collection_70
+  - first:
+      213: -6514188151653023880
+    second: hand-painted-ink-brush-collection_71
+  - first:
+      213: -4143247678941229688
+    second: hand-painted-ink-brush-collection_72
+  - first:
+      213: -6309253422089125067
+    second: hand-painted-ink-brush-collection_73
+  - first:
+      213: -1522849136913194503
+    second: hand-painted-ink-brush-collection_74
+  - first:
+      213: -3958503073500002981
+    second: hand-painted-ink-brush-collection_75
+  - first:
+      213: 3223517206703694882
+    second: hand-painted-ink-brush-collection_76
+  - first:
+      213: -1076647542273727388
+    second: hand-painted-ink-brush-collection_77
+  - first:
+      213: 4585647901651810558
+    second: hand-painted-ink-brush-collection_78
+  - first:
+      213: -8512121696715040593
+    second: hand-painted-ink-brush-collection_79
+  - first:
+      213: -7043384673052526467
+    second: hand-painted-ink-brush-collection_80
+  - first:
+      213: 1714094257459619535
+    second: hand-painted-ink-brush-collection_81
+  - first:
+      213: -8181869812682510785
+    second: hand-painted-ink-brush-collection_82
+  - first:
+      213: 1623489961732670439
+    second: hand-painted-ink-brush-collection_83
+  - first:
+      213: 3406971676788232974
+    second: hand-painted-ink-brush-collection_84
+  - first:
+      213: 1053711986991324341
+    second: hand-painted-ink-brush-collection_85
+  - first:
+      213: 5290381316954671762
+    second: hand-painted-ink-brush-collection_86
+  - first:
+      213: 37517602044596791
+    second: hand-painted-ink-brush-collection_87
+  - first:
+      213: 8933040452204324120
+    second: hand-painted-ink-brush-collection_88
+  - first:
+      213: -2700207502293799267
+    second: hand-painted-ink-brush-collection_89
+  - first:
+      213: -486780235834956575
+    second: hand-painted-ink-brush-collection_90
+  - first:
+      213: -3947790293602774718
+    second: hand-painted-ink-brush-collection_91
+  - first:
+      213: 8060203257731245869
+    second: hand-painted-ink-brush-collection_92
+  - first:
+      213: -1486754470856402683
+    second: hand-painted-ink-brush-collection_93
+  - first:
+      213: 8618493622332741847
+    second: hand-painted-ink-brush-collection_94
+  - first:
+      213: 5397136166045444933
+    second: hand-painted-ink-brush-collection_95
+  - first:
+      213: -2336662422013125750
+    second: hand-painted-ink-brush-collection_96
+  - first:
+      213: 5790503060756473571
+    second: hand-painted-ink-brush-collection_97
+  - first:
+      213: -1968426317381081319
+    second: hand-painted-ink-brush-collection_98
+  - first:
+      213: 1281363599498411889
+    second: hand-painted-ink-brush-collection_99
+  - first:
+      213: -9137663930911238202
+    second: hand-painted-ink-brush-collection_100
+  - first:
+      213: 2530616846761105544
+    second: hand-painted-ink-brush-collection_101
+  - first:
+      213: -4894325555888622572
+    second: hand-painted-ink-brush-collection_102
+  - first:
+      213: 8403559819575821661
+    second: hand-painted-ink-brush-collection_103
+  - first:
+      213: 4209671226198267737
+    second: hand-painted-ink-brush-collection_104
+  - first:
+      213: 1797698561905219003
+    second: hand-painted-ink-brush-collection_105
+  - first:
+      213: 992805851705967008
+    second: hand-painted-ink-brush-collection_106
+  - first:
+      213: -2772684786352011518
+    second: hand-painted-ink-brush-collection_107
+  - first:
+      213: -7216374058014674036
+    second: hand-painted-ink-brush-collection_108
+  - first:
+      213: 7646146281853564409
+    second: hand-painted-ink-brush-collection_109
+  - first:
+      213: 1803998303527830610
+    second: hand-painted-ink-brush-collection_110
+  - first:
+      213: -6706326175211280898
+    second: hand-painted-ink-brush-collection_111
+  - first:
+      213: -2457326081578929119
+    second: hand-painted-ink-brush-collection_112
+  - first:
+      213: 6998045180117798324
+    second: hand-painted-ink-brush-collection_113
+  - first:
+      213: 5299310609026814853
+    second: hand-painted-ink-brush-collection_114
+  - first:
+      213: 290363447365307607
+    second: hand-painted-ink-brush-collection_115
+  - first:
+      213: 4810986799832033880
+    second: hand-painted-ink-brush-collection_116
+  - first:
+      213: 3645463870005813635
+    second: hand-painted-ink-brush-collection_117
+  - first:
+      213: -369970782365720706
+    second: hand-painted-ink-brush-collection_118
+  - first:
+      213: -8121746605373291918
+    second: hand-painted-ink-brush-collection_119
+  - first:
+      213: -4650915356520582528
+    second: hand-painted-ink-brush-collection_120
+  - first:
+      213: -6918431391757521404
+    second: hand-painted-ink-brush-collection_121
+  - first:
+      213: -3470422782966133795
+    second: hand-painted-ink-brush-collection_122
+  - first:
+      213: 7518176232127228977
+    second: hand-painted-ink-brush-collection_123
+  - first:
+      213: -2704317405569626032
+    second: hand-painted-ink-brush-collection_124
+  - first:
+      213: 5824941348557988335
+    second: hand-painted-ink-brush-collection_125
+  - first:
+      213: 8099516590791969277
+    second: hand-painted-ink-brush-collection_126
+  - first:
+      213: -1679098461851978224
+    second: hand-painted-ink-brush-collection_127
+  - first:
+      213: -4395877273901043402
+    second: hand-painted-ink-brush-collection_128
+  - first:
+      213: 3180914060054594592
+    second: hand-painted-ink-brush-collection_129
+  - first:
+      213: 3533478281450137415
+    second: hand-painted-ink-brush-collection_130
+  - first:
+      213: 754828686219993799
+    second: hand-painted-ink-brush-collection_131
+  - first:
+      213: 8694900533779882772
+    second: hand-painted-ink-brush-collection_132
+  - first:
+      213: 7258171435850739875
+    second: hand-painted-ink-brush-collection_133
+  - first:
+      213: 4901371362458831845
+    second: hand-painted-ink-brush-collection_134
+  - first:
+      213: 3698476987785776145
+    second: hand-painted-ink-brush-collection_135
+  - first:
+      213: -7681040029733112284
+    second: hand-painted-ink-brush-collection_136
+  - first:
+      213: -5724248815897274224
+    second: hand-painted-ink-brush-collection_137
+  - first:
+      213: -2793792642215785424
+    second: hand-painted-ink-brush-collection_138
+  - first:
+      213: -6722873190719761195
+    second: hand-painted-ink-brush-collection_139
+  - first:
+      213: 5130484129440088115
+    second: hand-painted-ink-brush-collection_140
+  - first:
+      213: 2039564445056326952
+    second: hand-painted-ink-brush-collection_141
+  - first:
+      213: 7009173417227934826
+    second: hand-painted-ink-brush-collection_142
+  - first:
+      213: 7600656653480574513
+    second: hand-painted-ink-brush-collection_143
+  - first:
+      213: -6449239023466574084
+    second: hand-painted-ink-brush-collection_144
+  - first:
+      213: -200771474235658394
+    second: hand-painted-ink-brush-collection_145
+  - first:
+      213: 6674299959592880638
+    second: hand-painted-ink-brush-collection_146
+  - first:
+      213: -2429500285912633169
+    second: hand-painted-ink-brush-collection_147
+  - first:
+      213: -8226727228839850338
+    second: hand-painted-ink-brush-collection_148
+  - first:
+      213: -1329762622843421077
+    second: hand-painted-ink-brush-collection_149
+  - first:
+      213: -1535941137797641382
+    second: hand-painted-ink-brush-collection_150
+  - first:
+      213: 2863292959350397882
+    second: hand-painted-ink-brush-collection_151
+  - first:
+      213: -6901824098993828355
+    second: hand-painted-ink-brush-collection_152
+  - first:
+      213: 6844168113300973129
+    second: hand-painted-ink-brush-collection_153
+  - first:
+      213: -1299314784162503549
+    second: hand-painted-ink-brush-collection_154
+  - first:
+      213: -8435421588017164750
+    second: hand-painted-ink-brush-collection_155
+  - first:
+      213: -8093108244802400735
+    second: hand-painted-ink-brush-collection_156
+  - first:
+      213: 2749641151093087405
+    second: hand-painted-ink-brush-collection_157
+  - first:
+      213: -8388103460038860165
+    second: hand-painted-ink-brush-collection_158
+  - first:
+      213: -4983652971287205926
+    second: hand-painted-ink-brush-collection_159
+  - first:
+      213: 7847106714075862904
+    second: hand-painted-ink-brush-collection_160
+  - first:
+      213: 7002435031186102773
+    second: hand-painted-ink-brush-collection_161
+  - first:
+      213: 1660664365442995500
+    second: hand-painted-ink-brush-collection_162
+  - first:
+      213: 6261553570812123084
+    second: hand-painted-ink-brush-collection_163
+  - first:
+      213: -8970845948946141489
+    second: hand-painted-ink-brush-collection_164
+  - first:
+      213: -3472727321245194725
+    second: hand-painted-ink-brush-collection_165
+  - first:
+      213: -319827285818982972
+    second: hand-painted-ink-brush-collection_166
+  - first:
+      213: 4663805598109829877
+    second: hand-painted-ink-brush-collection_167
+  - first:
+      213: 7735789362461313819
+    second: hand-painted-ink-brush-collection_168
+  - first:
+      213: 329807146012585103
+    second: hand-painted-ink-brush-collection_169
+  - first:
+      213: -6577439678354413091
+    second: hand-painted-ink-brush-collection_170
+  - first:
+      213: 595294716766368739
+    second: hand-painted-ink-brush-collection_171
+  - first:
+      213: -6297640074063034808
+    second: hand-painted-ink-brush-collection_172
+  - first:
+      213: -4856556891157214853
+    second: hand-painted-ink-brush-collection_173
+  - first:
+      213: -3524698758851025
+    second: hand-painted-ink-brush-collection_174
+  - first:
+      213: 1593963117481032999
+    second: hand-painted-ink-brush-collection_175
+  - first:
+      213: -109359690668622926
+    second: hand-painted-ink-brush-collection_176
+  - first:
+      213: -7949962917333729935
+    second: hand-painted-ink-brush-collection_177
+  - first:
+      213: -3507848142381092675
+    second: hand-painted-ink-brush-collection_178
+  - first:
+      213: -6717970888821734958
+    second: hand-painted-ink-brush-collection_179
+  - first:
+      213: -7057313624392872540
+    second: hand-painted-ink-brush-collection_180
+  - first:
+      213: 6157884806210125588
+    second: hand-painted-ink-brush-collection_181
+  - first:
+      213: 8036847498164171095
+    second: hand-painted-ink-brush-collection_182
+  - first:
+      213: -4248175947917891987
+    second: hand-painted-ink-brush-collection_183
+  - first:
+      213: -6842266505139064227
+    second: hand-painted-ink-brush-collection_184
+  - first:
+      213: 4823587298742878063
+    second: hand-painted-ink-brush-collection_185
+  - first:
+      213: -4857039418181504103
+    second: hand-painted-ink-brush-collection_186
+  - first:
+      213: -4932621276757230598
+    second: hand-painted-ink-brush-collection_187
+  - first:
+      213: -5880888227924502203
+    second: hand-painted-ink-brush-collection_188
+  - first:
+      213: 5603868070288515383
+    second: hand-painted-ink-brush-collection_189
+  - first:
+      213: -7190791265625352872
+    second: hand-painted-ink-brush-collection_190
+  - first:
+      213: -2584846104273595963
+    second: hand-painted-ink-brush-collection_191
+  - first:
+      213: -117181107223055022
+    second: hand-painted-ink-brush-collection_192
+  - first:
+      213: -6010312288612495601
+    second: hand-painted-ink-brush-collection_193
+  - first:
+      213: -6267295066737931783
+    second: hand-painted-ink-brush-collection_194
+  - first:
+      213: 2928902248653531140
+    second: hand-painted-ink-brush-collection_195
+  - first:
+      213: 8368863713061667799
+    second: hand-painted-ink-brush-collection_196
+  - first:
+      213: 2086425227593062394
+    second: hand-painted-ink-brush-collection_197
+  - first:
+      213: -4785812597035915725
+    second: hand-painted-ink-brush-collection_198
+  - first:
+      213: 869607988154579074
+    second: hand-painted-ink-brush-collection_199
+  - first:
+      213: 2391324021909585062
+    second: hand-painted-ink-brush-collection_200
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: hand-painted-ink-brush-collection_0
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 1810
+        width: 825
+        height: 95
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db28a37695a4150f0800000000000000
+      internalID: -1130040283648851267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand-painted-ink-brush-collection_1
+      rect:
+        serializedVersion: 2
+        x: 1050
+        y: 1810
+        width: 850
+        height: 95
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e25a2029b79e40820800000000000000
+      internalID: 2883686378363856174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand-painted-ink-brush-collection_2
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 1715
+        width: 825
+        height: 95
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 296f39e93848388f0800000000000000
+      internalID: -539441829518248302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand-painted-ink-brush-collection_3
+      rect:
+        serializedVersion: 2
+        x: 1050
+        y: 1715
+        width: 850
+        height: 95
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6101ab118057ff1d0800000000000000
+      internalID: -3314802123203801066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand-painted-ink-brush-collection_4
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 1620
+        width: 825
+        height: 95
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a54f4324b6362490800000000000000
+      internalID: -7771463959666801247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand-painted-ink-brush-collection_5
+      rect:
+        serializedVersion: 2
+        x: 1050
+        y: 1620
+        width: 850
+        height: 95
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4bc2fbc287e538050800000000000000
+      internalID: 5801584615223143604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand-painted-ink-brush-collection_6
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 1525
+        width: 825
+        height: 95
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b07b762584424b90800000000000000
+      internalID: -7259164310700855115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand-painted-ink-brush-collection_7
+      rect:
+        serializedVersion: 2
+        x: 1050
+        y: 1525
+        width: 850
+        height: 95
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8fa3d1df701cad00800000000000000
+      internalID: 985180559654498190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand-painted-ink-brush-collection_8
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 1430
+        width: 825
+        height: 95
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8053a8c220e52b530800000000000000
+      internalID: 3869258393294877960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand-painted-ink-brush-collection_9
+      rect:
+        serializedVersion: 2
+        x: 1050
+        y: 1430
+        width: 850
+        height: 95
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9dda6ef27780f3e0800000000000000
+      internalID: -2021967304724914787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand-painted-ink-brush-collection_10
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 1335
+        width: 825
+        height: 95
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c608d10c09e65f20800000000000000
+      internalID: 3411170005559543495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand-painted-ink-brush-collection_11
+      rect:
+        serializedVersion: 2
+        x: 1050
+        y: 1335
+        width: 850
+        height: 95
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b213361ac3905750800000000000000
+      internalID: 6291691175601705649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand-painted-ink-brush-collection_12
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 1240
+        width: 825
+        height: 95
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9f3b78ae1e80f870800000000000000
+      internalID: 8714621541288722331
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand-painted-ink-brush-collection_13
+      rect:
+        serializedVersion: 2
+        x: 1050
+        y: 1240
+        width: 850
+        height: 95
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1a68e2e5b3a2dd50800000000000000
+      internalID: 6760645992227826206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand-painted-ink-brush-collection_14
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 1145
+        width: 825
+        height: 95
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14e92b36127e609f0800000000000000
+      internalID: -502460177812644287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand-painted-ink-brush-collection_15
+      rect:
+        serializedVersion: 2
+        x: 1050
+        y: 1145
+        width: 850
+        height: 95
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95173275fb1d39c60800000000000000
+      internalID: 7823827597403582809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand-painted-ink-brush-collection_16
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 1050
+        width: 825
+        height: 95
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 884f32f6ebd515b40800000000000000
+      internalID: 5427222098447955080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand-painted-ink-brush-collection_17
+      rect:
+        serializedVersion: 2
+        x: 1050
+        y: 1050
+        width: 850
+        height: 95
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6234fcbb61fd71bb0800000000000000
+      internalID: -4965254775419485402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand-painted-ink-brush-collection_18
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 955
+        width: 825
+        height: 95
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0feb89db38e888410800000000000000
+      internalID: 1479589174063972080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand-painted-ink-brush-collection_19
+      rect:
+        serializedVersion: 2
+        x: 1050
+        y: 955
+        width: 850
+        height: 95
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ee904de710118760800000000000000
+      internalID: 7458260152852979426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand-painted-ink-brush-collection_20
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 860
+        width: 825
+        height: 95
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09fa0094504432640800000000000000
+      internalID: 5053957996330135440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand-painted-ink-brush-collection_21
+      rect:
+        serializedVersion: 2
+        x: 1050
+        y: 860
+        width: 850
+        height: 95
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14ccb58fc5ebf5450800000000000000
+      internalID: 6079787328486493249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand-painted-ink-brush-collection_22
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 765
+        width: 825
+        height: 95
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1fadd6f24bfbc7e0800000000000000
+      internalID: -1744024165647798497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand-painted-ink-brush-collection_23
+      rect:
+        serializedVersion: 2
+        x: 1050
+        y: 765
+        width: 850
+        height: 95
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 687168b7964d2d190800000000000000
+      internalID: -7939049643591723130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand-painted-ink-brush-collection_24
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 670
+        width: 825
+        height: 95
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 584df2daa5f046b80800000000000000
+      internalID: -8402574122639436667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand-painted-ink-brush-collection_25
+      rect:
+        serializedVersion: 2
+        x: 1050
+        y: 670
+        width: 850
+        height: 95
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa36808ff66c72820800000000000000
+      internalID: 2893499469813801903
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand-painted-ink-brush-collection_26
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 575
+        width: 825
+        height: 95
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ddf32ceddc80933b0800000000000000
+      internalID: -5532380986949353507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand-painted-ink-brush-collection_27
+      rect:
+        serializedVersion: 2
+        x: 1050
+        y: 575
+        width: 850
+        height: 95
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b721880575baebea0800000000000000
+      internalID: -5855054074033466757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand-painted-ink-brush-collection_28
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 480
+        width: 825
+        height: 95
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00d3de509250575f0800000000000000
+      internalID: -759695288390828800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand-painted-ink-brush-collection_29
+      rect:
+        serializedVersion: 2
+        x: 1050
+        y: 480
+        width: 850
+        height: 95
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60129e36697c286a0800000000000000
+      internalID: -6448372267705884410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand-painted-ink-brush-collection_30
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 385
+        width: 825
+        height: 95
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74315f5bc2aa5ca60800000000000000
+      internalID: 7693742647440380743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand-painted-ink-brush-collection_31
+      rect:
+        serializedVersion: 2
+        x: 1050
+        y: 385
+        width: 850
+        height: 95
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a38b5773bfe26b7d0800000000000000
+      internalID: -2903081253291575238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand-painted-ink-brush-collection_32
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 290
+        width: 825
+        height: 95
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72f163dabd1a8da30800000000000000
+      internalID: 4240317014045237031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand-painted-ink-brush-collection_33
+      rect:
+        serializedVersion: 2
+        x: 1050
+        y: 290
+        width: 850
+        height: 95
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 351d1abc2a1922810800000000000000
+      internalID: 1739112534505541971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand-painted-ink-brush-collection_34
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 195
+        width: 825
+        height: 95
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd4da5b6b9991fcc0800000000000000
+      internalID: -3678990527784889125
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand-painted-ink-brush-collection_35
+      rect:
+        serializedVersion: 2
+        x: 1050
+        y: 195
+        width: 850
+        height: 95
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd41c18849b436920800000000000000
+      internalID: 2982310479560185051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand-painted-ink-brush-collection_36
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 100
+        width: 825
+        height: 95
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cfa6ef7311128cfc0800000000000000
+      internalID: -3474490754678756612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hand-painted-ink-brush-collection_37
+      rect:
+        serializedVersion: 2
+        x: 1050
+        y: 100
+        width: 850
+        height: 95
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bcf148c19c9bbeea0800000000000000
+      internalID: -5842371818165100597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 54b0e5762b9784bb5a11f8fe584a5ba0
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":2.0,"y":21.0},"gridSpriteSize":{"x":1000.0,"y":95.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":1.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":1,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      hand-painted-ink-brush-collection_0: -1130040283648851267
+      hand-painted-ink-brush-collection_1: 2883686378363856174
+      hand-painted-ink-brush-collection_10: 3411170005559543495
+      hand-painted-ink-brush-collection_11: 6291691175601705649
+      hand-painted-ink-brush-collection_12: 8714621541288722331
+      hand-painted-ink-brush-collection_13: 6760645992227826206
+      hand-painted-ink-brush-collection_14: -502460177812644287
+      hand-painted-ink-brush-collection_15: 7823827597403582809
+      hand-painted-ink-brush-collection_16: 5427222098447955080
+      hand-painted-ink-brush-collection_17: -4965254775419485402
+      hand-painted-ink-brush-collection_18: 1479589174063972080
+      hand-painted-ink-brush-collection_19: 7458260152852979426
+      hand-painted-ink-brush-collection_2: -539441829518248302
+      hand-painted-ink-brush-collection_20: 5053957996330135440
+      hand-painted-ink-brush-collection_21: 6079787328486493249
+      hand-painted-ink-brush-collection_22: -1744024165647798497
+      hand-painted-ink-brush-collection_23: -7939049643591723130
+      hand-painted-ink-brush-collection_24: -8402574122639436667
+      hand-painted-ink-brush-collection_25: 2893499469813801903
+      hand-painted-ink-brush-collection_26: -5532380986949353507
+      hand-painted-ink-brush-collection_27: -5855054074033466757
+      hand-painted-ink-brush-collection_28: -759695288390828800
+      hand-painted-ink-brush-collection_29: -6448372267705884410
+      hand-painted-ink-brush-collection_3: -3314802123203801066
+      hand-painted-ink-brush-collection_30: 7693742647440380743
+      hand-painted-ink-brush-collection_31: -2903081253291575238
+      hand-painted-ink-brush-collection_32: 4240317014045237031
+      hand-painted-ink-brush-collection_33: 1739112534505541971
+      hand-painted-ink-brush-collection_34: -3678990527784889125
+      hand-painted-ink-brush-collection_35: 2982310479560185051
+      hand-painted-ink-brush-collection_36: -3474490754678756612
+      hand-painted-ink-brush-collection_37: -5842371818165100597
+      hand-painted-ink-brush-collection_4: -7771463959666801247
+      hand-painted-ink-brush-collection_5: 5801584615223143604
+      hand-painted-ink-brush-collection_6: -7259164310700855115
+      hand-painted-ink-brush-collection_7: 985180559654498190
+      hand-painted-ink-brush-collection_8: 3869258393294877960
+      hand-painted-ink-brush-collection_9: -2021967304724914787
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

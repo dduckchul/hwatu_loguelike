@@ -1,177 +1,204 @@
-# 데이터 스키마 초안
+# ScriptableObject 데이터 구성
 
-## 원칙
+## 문서 목적
 
-- 아래 이름은 Unity 코드와 콘텐츠가 공유하는 논리 스키마다.
-- 작성용 데이터는 ScriptableObject를 우선 검토하고, 저장과 외부 시뮬레이션에는 JSON 호환 DTO를 사용한다.
-- 모든 ID는 저장과 참조에 사용되므로 출시 후 임의로 바꾸지 않는다.
-- 표시 이름과 설명은 ID와 분리해 현지화 가능하게 만든다.
+8월 10일 제출용 프로토타입에 필요한 데이터만 정의한다. 카드와 적처럼 에디터에서 조정할 콘텐츠는 `ScriptableObject`로 만들고, 전투 중 바뀌는 값은 일반 C# 객체에 둔다.
 
-## 공통 형식
+JSON, 저장 스키마, 범용 데이터 로더는 현재 범위에 포함하지 않는다.
 
-```yaml
-schema_version: 1
-```
+## 기본 원칙
 
-ID 권장 규칙:
+- 카드, 적, 보상 풀은 ScriptableObject로 작성한다.
+- 체력, 손패, 덱 순서, 강화 단계는 런타임 객체에 저장한다.
+- ScriptableObject 원본은 플레이 중 수정하지 않는다.
+- 프로토타입에서 사용하지 않는 필드는 미리 추가하지 않는다.
+- Inspector에서 직접 알아볼 수 있는 이름과 참조를 사용한다.
+- 데이터 검증은 `OnValidate`의 간단한 범위 검사만 사용한다.
+
+## 폴더
 
 ```text
-card.m01.base
-enemy.m02.warbler
-hand.ali
-counter.ddang_killer
-reward.common_cards
+Assets/
+  Data/
+    Cards/
+    Enemies/
+    Rewards/
+  Scripts/
+    Cards/
+    Combat/
+    Rewards/
 ```
 
-## 카드 정의
+## 카드 데이터
 
-```yaml
-id: card.m03.bright
-month: 3
-variant: bright
-tags:
-  - bright
-base_damage_modifier: 0
-upgrade:
-  max_level: 1
-  damage_modifier_per_level: 2
-presentation:
-  name_key: card.m03.bright.name
-  art_id: hwatu.m03.bright
+### `CardData`
+
+화투패 한 종류의 변하지 않는 원본 데이터다.
+
+```csharp
+[CreateAssetMenu(menuName = "Hwatu/Card")]
+public sealed class CardData : ScriptableObject
+{
+    [SerializeField] private string cardId;
+    [SerializeField, Range(1, 10)] private int month;
+    [SerializeField] private bool isBright;
+    [SerializeField] private Sprite artwork;
+
+    public CardDefinition ToDefinition()
+        => new(cardId, month, isBright);
+}
 ```
 
-제약:
+8월 7일까지 필요한 필드:
 
-- `month`: 첫 플레이어블에서는 1~10
-- `variant`: 같은 월 패를 구분하는 안정적인 문자열
-- `tags`: 등록된 태그만 사용
-- 강화 단계는 카드 정의가 아니라 카드 인스턴스에 저장
+- `cardId`: 카드 구분용 문자열
+- `month`: 1~10월
+- `isBright`: 광땡 판정에 사용
+- `artwork`: 카드 화면 표시
 
-## 카드 인스턴스
+띠, 열끗, 피 분류는 해당 기능을 실제로 구현할 때 추가한다.
 
-```yaml
-instance_id: run-card-0001
-definition_id: card.m03.bright
-upgrade_level: 0
-permanent_modifiers: []
+### 런타임 카드
+
+족보와 덱 로직이 `ScriptableObject`에 직접 의존하지 않도록 필요한 값만 일반 C# 타입으로 변환한다. 덱에 같은 카드가 여러 장 들어가거나 카드별 강화가 필요하므로 원본 정의와 카드 한 장의 상태도 분리한다.
+
+```csharp
+public sealed class CardDefinition
+{
+    public string Id { get; }
+    public int Month { get; }
+    public bool IsBright { get; }
+
+    public CardDefinition(string id, int month, bool isBright)
+    {
+        Id = id;
+        Month = month;
+        IsBright = isBright;
+    }
+}
+
+public sealed class CardInstance
+{
+    public CardDefinition Definition { get; }
+    public int UpgradeLevel { get; private set; }
+}
 ```
 
-## 족보 정의
+- `Definition`: `CardData`에서 복사한 최소 규칙 데이터
+- `upgradeLevel`: 현재 카드 한 장의 강화 단계
 
-```yaml
-id: hand.ali
-rank: 30
-matcher:
-  months:
-    - 1
-    - 2
-  required_tags: []
-damage_tier: middle
-presentation:
-  name_key: hand.ali.name
+강화를 구현하기 전에는 `upgradeLevel`을 항상 0으로 두어도 된다.
+
+## 적 데이터
+
+### `EnemyData`
+
+적의 표시 정보, 체력, 공개할 패 순서를 가진다.
+
+```csharp
+[CreateAssetMenu(menuName = "Hwatu/Enemy")]
+public sealed class EnemyData : ScriptableObject
+{
+    [SerializeField] private string enemyId;
+    [SerializeField] private string displayName;
+    [SerializeField, Min(1)] private int maxHp;
+    [SerializeField] private Sprite artwork;
+    [SerializeField] private List<EnemyTurnData> turnPattern;
+}
+
+[Serializable]
+public sealed class EnemyTurnData
+{
+    [SerializeField] private CardData firstCard;
+    [SerializeField] private CardData secondCard;
+}
 ```
 
-`rank`는 족보 비교용이며 피해량이 아니다.
+8월 7일까지 적 AI는 `turnPattern`을 처음부터 끝까지 반복하는 방식으로 충분하다.
 
-## 특수 상성 정의
+현재 넣지 않는 필드:
 
-```yaml
-id: counter.ddang_killer
-attacker_hand_ids:
-  - hand.ddang_killer
-target_hand_tags:
-  - ddang
-resolution:
-  negate_target_damage: true
-  bonus_damage: 0
-priority: 100
+- 패시브 목록
+- 행동 가중치
+- 체력 조건 분기
+- 보상 테이블 ID
+- 특수 효과 ID
+
+## 보상 데이터
+
+### `RewardPoolData`
+
+전투 후 제시할 수 있는 카드 목록만 가진다.
+
+```csharp
+[CreateAssetMenu(menuName = "Hwatu/Reward Pool")]
+public sealed class RewardPoolData : ScriptableObject
+{
+    [SerializeField] private List<CardData> cards;
+}
 ```
 
-## 피해 전략 설정
+보상 로직은 목록에서 중복되지 않는 카드 3장을 뽑고, 플레이어가 한 장을 선택하거나 건너뛰게 한다.
 
-```yaml
-id: damage.trailing_digit
-kind: trailing_digit
-hand_bonuses:
-  middle: 5
-  ddang: 10
-  bright_ddang: 20
-minimum_damage: 0
+현재 넣지 않는 필드:
+
+- 희귀도
+- 가중치
+- 조건부 보상
+- 별도 카드 풀 참조
+- 스킵 보너스
+
+## 피해 밸런스 데이터
+
+피해 수치를 Inspector에서 자주 조정해야 한다면 `DamageBalanceData` 하나만 추가한다.
+
+```csharp
+[CreateAssetMenu(menuName = "Hwatu/Damage Balance")]
+public sealed class DamageBalanceData : ScriptableObject
+{
+    [SerializeField] private int middleHandBonus;
+    [SerializeField] private int ddangBonus;
+    [SerializeField] private int brightDdangBonus;
+}
 ```
 
-후보 전략마다 같은 전투 표본을 실행할 수 있도록 설정과 결과를 분리한다.
+피해 공식 자체는 `DamageCalculator`에 두고, ScriptableObject에는 조정할 숫자만 둔다. 피해 비교 실험 전까지 이 자산은 선택 사항이다.
 
-## 적 정의
+## ScriptableObject로 만들지 않는 것
 
-```yaml
-id: enemy.m02.warbler
-max_hp: 40
-intent_pattern_id: intent.m02.basic
-passive_ids: []
-reward_table_id: reward.common_cards
-presentation:
-  name_key: enemy.m02.warbler.name
-  art_id: monster.m02.warbler
-```
+다음 값은 플레이 중 계속 바뀌므로 일반 C# 객체가 소유한다.
 
-## 적 행동 패턴
+- 플레이어와 적의 현재 체력
+- 드로우 더미, 손패, 버림 더미
+- 현재 선택한 카드
+- 전투 턴 번호
+- 카드별 강화 단계
+- 현재 보상 후보와 선택 결과
+- 전투 승패 상태
 
-```yaml
-id: intent.m02.basic
-mode: cycle
-steps:
-  - cards:
-      - card.m02.base_a
-      - card.m07.base
-    effect_ids: []
-  - cards:
-      - card.m01.base
-      - card.m02.base_b
-    effect_ids: []
-```
+씬 전환 중 상태 보존이 필요해지기 전에는 별도 저장용 ScriptableObject를 만들지 않는다.
 
-첫 구현에서는 고정 순환 패턴으로 시작하고, 이후 가중치와 조건 분기를 추가한다.
+## 8월 7일까지 필요한 자산
 
-## 보상 테이블
+- 1~10월 시작 덱용 `CardData` 10개
+- 같은 월 중복과 광땡을 확인할 추가 `CardData`
+- 일반 적용 `EnemyData` 1개
+- 카드 보상용 `RewardPoolData` 1개
+- 카드와 적의 플레이스홀더 Sprite
 
-```yaml
-id: reward.common_cards
-choices: 3
-allow_skip: true
-entries:
-  - card_pool_id: pool.common
-    weight: 100
-```
+일반 적 추가, 12월 비광 보스, 카드 강화 데이터는 시간이 남으면 만든다.
 
-## 런 상태
+## 현재 만들지 않는 데이터 구조
 
-```yaml
-schema_version: 1
-run_seed: 123456
-current_hp: 60
-max_hp: 60
-money: 0
-stage_index: 0
-deck:
-  - instance_id: run-card-0001
-    definition_id: card.m01.base
-    upgrade_level: 0
-    permanent_modifiers: []
-```
+- `schema_version`
+- JSON DTO와 변환기
+- 저장 및 불러오기 데이터
+- 현지화 키와 별도 표시 데이터
+- 범용 태그 시스템
+- 족보별 ScriptableObject
+- 특수 상성 ScriptableObject
+- 적 행동 하나마다 별도 ScriptableObject
+- 효과와 패시브의 범용 ID 시스템
+- 데이터 마이그레이션과 전체 자동 검증 도구
 
-## 초기 태그 목록
-
-카드 태그:
-
-- `bright`
-- `ribbon`
-- `animal`
-- `junk`
-
-족보 결과 태그:
-
-- `middle_hand`
-- `ddang`
-- `bright_ddang`
-
-카드 태그와 판정 결과 태그를 서로 다른 형식으로 관리한다. 실제 게임 로직에 사용되지 않는 미술 분류 태그는 별도 네임스페이스로 분리한다.
+족보는 수가 적고 규칙이 고정되어 있으므로 우선 `HandEvaluator`와 enum으로 구현한다. 실제 콘텐츠 추가 과정에서 코드 수정이 반복될 때만 데이터화한다.

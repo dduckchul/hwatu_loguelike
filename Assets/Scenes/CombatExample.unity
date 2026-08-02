@@ -367,7 +367,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 220}
+  m_SizeDelta: {x: 200, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &210442894
 GameObject:
@@ -713,7 +713,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 007a958b8760d4ccdbcfce9ca697d20e, type: 2}
   - {fileID: 11400000, guid: 82792fce39c664374b1509d042b82ac2, type: 2}
   battleDeckController: {fileID: 996896955}
-  battleDeckSeed: 1
+  battleDeckSeed: 0
 --- !u!1 &515754915
 GameObject:
   m_ObjectHideFlags: 0
@@ -760,6 +760,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Hwatu.Combat.BattleController
   battleDeckController: {fileID: 996896955}
   playerHandView: {fileID: 1892097288}
+  deckCountView: {fileID: 1643427176}
 --- !u!1 &622296648
 GameObject:
   m_ObjectHideFlags: 0
@@ -1456,7 +1457,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 220}
+  m_SizeDelta: {x: 200, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1643427171
 GameObject:
@@ -1470,6 +1471,7 @@ GameObject:
   - component: {fileID: 1643427174}
   - component: {fileID: 1643427173}
   - component: {fileID: 1643427172}
+  - component: {fileID: 1643427176}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1565,6 +1567,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1643427176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1643427171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eea31739b69e44ca7a7c0b9822d5d30b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Hwatu.UI.DeckCountView
+  deckCountText: {fileID: 144741729}
+  usedCardCountText: {fileID: 1893465354}
 --- !u!1 &1709098692
 GameObject:
   m_ObjectHideFlags: 0
@@ -1600,7 +1616,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 120}
+  m_SizeDelta: {x: 100, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1709098694
 MonoBehaviour:
@@ -2011,7 +2027,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 135}
+  m_SizeDelta: {x: 200, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1933789203
 MonoBehaviour:
@@ -2035,7 +2051,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 0fad0f1f9600046209a4826132384896, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1

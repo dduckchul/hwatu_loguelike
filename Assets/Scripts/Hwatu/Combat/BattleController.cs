@@ -10,6 +10,7 @@ namespace Hwatu.Combat
     {
         [SerializeField] private BattleDeckController battleDeckController;
         [SerializeField] private PlayerHandView playerHandView;
+        [SerializeField] private DeckCountView deckCountView;
 
         private void Start()
         {
@@ -27,6 +28,7 @@ namespace Hwatu.Combat
 
             battleDeckController.Deck.DrawToHand();
             playerHandView.SetCards(battleDeckController.Deck.Hand);
+            deckCountView.Refresh(battleDeckController.Deck);
         }
 
         private void ValidateReferences()
@@ -39,6 +41,11 @@ namespace Hwatu.Combat
             if (playerHandView == null)
             {
                 throw new InvalidOperationException("Player hand view is not assigned.");
+            }
+
+            if (deckCountView == null)
+            {
+                throw new InvalidOperationException("Deck count view is not assigned.");
             }
         }
     }

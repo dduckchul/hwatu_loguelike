@@ -18,6 +18,7 @@ namespace Hwatu.Deck
         public int DrawPileCount => drawPile.Count;
         public int HandCount => hand.Count;
         public int DiscardPileCount => discardPile.Count;
+        public int TotalCardCount => drawPile.Count + hand.Count + discardPile.Count;
 
         public BattleDeck(IEnumerable<CardInstance> cards, IRandomSource randomSource)
         {

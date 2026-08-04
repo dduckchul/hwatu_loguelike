@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8648012239075334544}
   - component: {fileID: 142758650962631112}
+  - component: {fileID: 3464487026426580440}
   m_Layer: 0
   m_Name: EnemySprite
   m_TagString: Untagged
@@ -91,6 +92,31 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &3464487026426580440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2475291455362156396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 466e21fdcc861465eae93d962f3e92ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Hwatu.UI.CharacterBattleView
+  spriteRenderer: {fileID: 142758650962631112}
+  uiImage: {fileID: 0}
+  motionTarget: {fileID: 8573407000041967689}
+  idleSprite: {fileID: -9095717837082945937, guid: bd3cb4af8406d4436a2ae8c2aafe1f8d, type: 3}
+  showdownSprite: {fileID: -9095717837082945937, guid: bd3cb4af8406d4436a2ae8c2aafe1f8d, type: 3}
+  attackSprite: {fileID: -9095717837082945937, guid: bd3cb4af8406d4436a2ae8c2aafe1f8d, type: 3}
+  attackOffset: {x: 0, y: 0, z: 0}
+  attackForwardDuration: 0.15
+  attackReturnDuration: 0.15
+  hitOffset: {x: 0, y: 0, z: 0}
+  shakeDistance: 8
+  hitDuration: 0.25
+  hitFlashColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &2900858194825079511
 GameObject:
   m_ObjectHideFlags: 0
@@ -157,6 +183,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Hwatu.Combat.EnemyController
   enemyPattern: {fileID: 11400000, guid: b1460509a2d0b44cdbdad935645d4f75, type: 2}
   handView: {fileID: 7710751757850933204}
+  battleView: {fileID: 3464487026426580440}
   startingMoney: 50
 --- !u!1 &5642788794977111025
 GameObject:
@@ -446,7 +473,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC0BC\uD314\uAD11\uB599\n\n"
+  m_text: "\uC0BC\uD314 \uAD11\uB599"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ad699e5b2968c4e8abbcf54d30c45325, type: 2}
   m_sharedMaterial: {fileID: 1969922028985049094, guid: ad699e5b2968c4e8abbcf54d30c45325, type: 2}

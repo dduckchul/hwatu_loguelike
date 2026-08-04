@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Hwatu.Hands;
 using TMPro;
 using UnityEngine;
@@ -11,42 +9,36 @@ namespace Hwatu.UI
     public sealed class BattleResultView : MonoBehaviour
     {
         [SerializeField] private TMP_Text resultText;
+        [SerializeField] private GameObject resultRoot;
 
-        public void ShowPlayerResults(IReadOnlyList<HandComparisonResult> results)
+        public void ShowPlayerResult(
+            HandComparisonResult result,
+            int enemyIndex,
+            int enemyCount)
         {
-            if (results == null)
+            if (enemyCount <= 0)
             {
-                throw new ArgumentNullException(nameof(results));
+                throw new ArgumentOutOfRangeException(nameof(enemyCount));
             }
 
-            if (results.Count == 0)
+            if (enemyIndex < 0 || enemyIndex >= enemyCount)
             {
-                throw new ArgumentException("At least one hand comparison result is required.", nameof(results));
+                throw new ArgumentOutOfRangeException(nameof(enemyIndex));
             }
 
             ValidateReferences();
+            string resultName = GetPlayerResultName(result);
 
-            if (results.Count == 1)
-            {
-                resultText.text = GetPlayerResultName(results[0]);
-                return;
-            }
+            resultText.text = enemyCount == 1
+                ? resultName
+                : $"적 {enemyIndex + 1} 상대: {resultName}";
+            resultRoot.SetActive(true);
+        }
 
-            var builder = new StringBuilder();
-            for (int index = 0; index < results.Count; index++)
-            {
-                if (index > 0)
-                {
-                    builder.AppendLine();
-                }
-
-                builder.Append("적 ");
-                builder.Append(index + 1);
-                builder.Append(" 상대: ");
-                builder.Append(GetPlayerResultName(results[index]));
-            }
-
-            resultText.text = builder.ToString();
+        public void Hide()
+        {
+            ValidateReferences();
+            resultRoot.SetActive(false);
         }
 
         private static string GetPlayerResultName(HandComparisonResult result)
@@ -69,6 +61,11 @@ namespace Hwatu.UI
             if (resultText == null)
             {
                 throw new InvalidOperationException("Battle result text is not assigned.");
+            }
+
+            if (resultRoot == null)
+            {
+                throw new InvalidOperationException("Battle result root is not assigned.");
             }
         }
     }

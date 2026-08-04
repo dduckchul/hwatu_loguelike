@@ -22,6 +22,7 @@ namespace Hwatu.UI
 
         public CardInstance Card { get; private set; }
         public bool IsSelected { get; private set; }
+        public bool IsInteractionEnabled { get; private set; } = true;
 
         private void Awake()
         {
@@ -48,6 +49,7 @@ namespace Hwatu.UI
             }
 
             Card = card;
+            SetInteractionEnabled(true);
             SetHovered(false);
             SetSelected(false);
 
@@ -69,7 +71,7 @@ namespace Hwatu.UI
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            if (Card == null)
+            if (Card == null || !IsInteractionEnabled)
             {
                 return;
             }
@@ -79,7 +81,7 @@ namespace Hwatu.UI
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            if (Card == null)
+            if (Card == null || !IsInteractionEnabled)
             {
                 return;
             }
@@ -96,6 +98,15 @@ namespace Hwatu.UI
         {
             IsSelected = isSelected;
             textBorder.enabled = isSelected;
+        }
+
+        public void SetInteractionEnabled(bool isEnabled)
+        {
+            IsInteractionEnabled = isEnabled;
+            if (!isEnabled)
+            {
+                SetHovered(false);
+            }
         }
 
         private void OnDisable()

@@ -105,6 +105,17 @@ namespace Hwatu.UI
                 : HandDisplayName.Get(handResult);
         }
 
+        public void SetInteractionEnabled(bool isEnabled)
+        {
+            foreach (CardView cardView in cardViews)
+            {
+                if (cardView != null)
+                {
+                    cardView.SetInteractionEnabled(isEnabled);
+                }
+            }
+        }
+
         private void HandleCardClicked(CardView cardView)
         {
             if (cardView == null || !cardViews.Contains(cardView))

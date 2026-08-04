@@ -19,10 +19,11 @@ namespace Hwatu.Combat
         [SerializeField] private PlayerHandView playerHandView;
         [SerializeField] private PlayerActionView playerActionView;
         [SerializeField] private DeckCountView deckCountView;
-        [SerializeField] private BattleResultView battleResultView;
+        [SerializeField] private BattleSequenceView battleSequenceView;
         [SerializeField] private List<EnemyController> enemies = new List<EnemyController>();
 
         private readonly HandEvaluator handEvaluator = new HandEvaluator();
+        private bool turnSubmitted;
 
         private void OnEnable()
         {
@@ -95,7 +96,8 @@ namespace Hwatu.Combat
                 : null;
 
             playerHandView.RefreshSelectionDisplay(handResult);
-            playerActionView.SetSubmitInteractable(selectedCards.Count == 2);
+            playerActionView.SetSubmitInteractable(
+                !turnSubmitted && selectedCards.Count == 2);
         }
 
         private void HandleSubmitClicked()
@@ -106,16 +108,26 @@ namespace Hwatu.Combat
                 throw new InvalidOperationException("Exactly two player cards must be selected before submitting.");
             }
 
+            if (turnSubmitted || battleSequenceView.IsPlaying)
+            {
+                return;
+            }
+
+            turnSubmitted = true;
+            playerHandView.SetInteractionEnabled(false);
+            playerActionView.SetSubmitInteractable(false);
+
             HandResult playerHand = handEvaluator.Evaluate(selectedCards[0], selectedCards[1]);
-            var results = new List<HandComparisonResult>(enemies.Count);
+            var sequenceItems = new List<BattleSequenceItem>(enemies.Count);
             foreach (EnemyController enemy in enemies)
             {
                 IReadOnlyList<CardInstance> enemyCards = enemy.GetCurrentCards();
                 HandResult enemyHand = handEvaluator.Evaluate(enemyCards[0], enemyCards[1]);
-                results.Add(HandComparer.Compare(playerHand, enemyHand));
+                HandComparisonResult result = HandComparer.Compare(playerHand, enemyHand);
+                sequenceItems.Add(new BattleSequenceItem(enemy.BattleView, result));
             }
 
-            battleResultView.ShowPlayerResults(results);
+            battleSequenceView.Play(playerController.BattleView, sequenceItems);
         }
 
         private void ValidateReferences()
@@ -135,6 +147,11 @@ namespace Hwatu.Combat
                 throw new InvalidOperationException("Player controller is not assigned.");
             }
 
+            if (playerController.BattleView == null)
+            {
+                throw new InvalidOperationException("Player battle view is not assigned.");
+            }
+
             if (playerActionView == null)
             {
                 throw new InvalidOperationException("Player action view is not assigned.");
@@ -145,9 +162,9 @@ namespace Hwatu.Combat
                 throw new InvalidOperationException("Deck count view is not assigned.");
             }
 
-            if (battleResultView == null)
+            if (battleSequenceView == null)
             {
-                throw new InvalidOperationException("Battle result view is not assigned.");
+                throw new InvalidOperationException("Battle sequence view is not assigned.");
             }
 
             if (enemies == null

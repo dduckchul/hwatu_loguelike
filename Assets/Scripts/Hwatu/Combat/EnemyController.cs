@@ -12,6 +12,7 @@ namespace Hwatu.Combat
     {
         [SerializeField] private EnemyPatternData enemyPattern;
         [SerializeField] private EnemyHandView handView;
+        [SerializeField] private CharacterBattleView battleView;
         [SerializeField, Min(0)] private int startingMoney = 100;
 
         private readonly HandEvaluator handEvaluator = new HandEvaluator();
@@ -19,6 +20,7 @@ namespace Hwatu.Combat
 
         public CharacterState State { get; private set; }
         public int CurrentPatternIndex => currentPatternIndex;
+        public CharacterBattleView BattleView => battleView;
 
         public void InitializeForBattle()
         {
@@ -59,6 +61,11 @@ namespace Hwatu.Combat
             if (handView == null)
             {
                 throw new InvalidOperationException("Enemy hand view is not assigned.");
+            }
+
+            if (battleView == null)
+            {
+                throw new InvalidOperationException("Enemy battle view is not assigned.");
             }
 
             enemyPattern.Validate();

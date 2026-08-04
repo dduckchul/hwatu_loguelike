@@ -8,12 +8,15 @@ namespace Hwatu.UI
     [DisallowMultipleComponent]
     public sealed class PlayerHandView : MonoBehaviour
     {
+        private const int MaximumSelectedCardCount = 2;
+
         [SerializeField] private CardView cardPrefab;
         [SerializeField] private RectTransform cardSlot;
         [SerializeField] private FanCardLayout fanCardLayout;
         [SerializeField] private CardCatalogData cardCatalog;
 
         private readonly List<CardView> cardViews = new List<CardView>();
+        private readonly List<CardView> selectedCardViews = new List<CardView>();
 
         public int CardCount => cardViews.Count;
 
@@ -43,6 +46,7 @@ namespace Hwatu.UI
             {
                 CardView cardView = Instantiate(cardPrefab, cardSlot);
                 cardView.Bind(cards[index], resolvedCardData[index]);
+                cardView.Clicked += HandleCardClicked;
                 cardViews.Add(cardView);
             }
 
@@ -51,6 +55,8 @@ namespace Hwatu.UI
 
         public void Clear()
         {
+            selectedCardViews.Clear();
+
             foreach (CardView cardView in cardViews)
             {
                 if (cardView == null)
@@ -58,6 +64,8 @@ namespace Hwatu.UI
                     continue;
                 }
 
+                cardView.Clicked -= HandleCardClicked;
+                cardView.SetSelected(false);
                 cardView.gameObject.SetActive(false);
                 Destroy(cardView.gameObject);
             }
@@ -68,6 +76,29 @@ namespace Hwatu.UI
             {
                 fanCardLayout.RefreshLayout();
             }
+        }
+
+        private void HandleCardClicked(CardView cardView)
+        {
+            if (cardView == null || !cardViews.Contains(cardView))
+            {
+                return;
+            }
+
+            if (cardView.IsSelected)
+            {
+                selectedCardViews.Remove(cardView);
+                cardView.SetSelected(false);
+                return;
+            }
+
+            if (selectedCardViews.Count >= MaximumSelectedCardCount)
+            {
+                return;
+            }
+
+            selectedCardViews.Add(cardView);
+            cardView.SetSelected(true);
         }
 
         private void ValidateReferences()

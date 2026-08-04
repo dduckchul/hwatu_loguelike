@@ -12,28 +12,28 @@ namespace Hwatu.UI
     {
         [SerializeField] private TMP_Text resultText;
 
-        public void ShowPlayerOutcomes(IReadOnlyList<HandComparisonResult> outcomes)
+        public void ShowPlayerResults(IReadOnlyList<HandComparisonResult> results)
         {
-            if (outcomes == null)
+            if (results == null)
             {
-                throw new ArgumentNullException(nameof(outcomes));
+                throw new ArgumentNullException(nameof(results));
             }
 
-            if (outcomes.Count == 0)
+            if (results.Count == 0)
             {
-                throw new ArgumentException("At least one hand comparison outcome is required.", nameof(outcomes));
+                throw new ArgumentException("At least one hand comparison result is required.", nameof(results));
             }
 
             ValidateReferences();
 
-            if (outcomes.Count == 1)
+            if (results.Count == 1)
             {
-                resultText.text = GetPlayerResultName(outcomes[0]);
+                resultText.text = GetPlayerResultName(results[0]);
                 return;
             }
 
             var builder = new StringBuilder();
-            for (int index = 0; index < outcomes.Count; index++)
+            for (int index = 0; index < results.Count; index++)
             {
                 if (index > 0)
                 {
@@ -43,7 +43,7 @@ namespace Hwatu.UI
                 builder.Append("적 ");
                 builder.Append(index + 1);
                 builder.Append(" 상대: ");
-                builder.Append(GetPlayerResultName(outcomes[index]));
+                builder.Append(GetPlayerResultName(results[index]));
             }
 
             resultText.text = builder.ToString();

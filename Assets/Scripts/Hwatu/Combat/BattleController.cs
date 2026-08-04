@@ -107,15 +107,15 @@ namespace Hwatu.Combat
             }
 
             HandResult playerHand = handEvaluator.Evaluate(selectedCards[0], selectedCards[1]);
-            var outcomes = new List<HandComparisonResult>(enemies.Count);
+            var results = new List<HandComparisonResult>(enemies.Count);
             foreach (EnemyController enemy in enemies)
             {
                 IReadOnlyList<CardInstance> enemyCards = enemy.GetCurrentCards();
                 HandResult enemyHand = handEvaluator.Evaluate(enemyCards[0], enemyCards[1]);
-                outcomes.Add(HandComparer.Compare(playerHand, enemyHand));
+                results.Add(HandComparer.Compare(playerHand, enemyHand));
             }
 
-            battleResultView.ShowPlayerOutcomes(outcomes);
+            battleResultView.ShowPlayerResults(results);
         }
 
         private void ValidateReferences()

@@ -129,7 +129,7 @@ PlayerActionView.SubmitClicked
   → HandEvaluator.Evaluate
   → 각 EnemyController.GetCurrentCards
   → HandComparer.Compare
-  → BattleResultView.ShowPlayerOutcomes
+  → BattleResultView.ShowPlayerResults
 ```
 
 ## 기능 사이의 의존 방향

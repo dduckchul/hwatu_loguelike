@@ -38,9 +38,57 @@ namespace Hwatu.Deck
             cards.Add(card);
         }
 
+        public CardInstance UpgradeCard(
+            CardInstance currentCard,
+            CardDefinition upgradedDefinition)
+        {
+            if (currentCard == null)
+            {
+                throw new ArgumentNullException(nameof(currentCard));
+            }
+
+            if (upgradedDefinition == null)
+            {
+                throw new ArgumentNullException(nameof(upgradedDefinition));
+            }
+
+            int cardIndex = cards.IndexOf(currentCard);
+            if (cardIndex < 0)
+            {
+                throw new InvalidOperationException("The card to upgrade is not in the player deck.");
+            }
+
+            if (currentCard.Definition.CardType != CardType.Normal)
+            {
+                throw new InvalidOperationException("Only Normal cards can be upgraded.");
+            }
+
+            if (currentCard.Definition.Month != upgradedDefinition.Month)
+            {
+                throw new InvalidOperationException("An upgraded card must keep the original month.");
+            }
+
+            if (!IsUpgradeCardType(upgradedDefinition.CardType))
+            {
+                throw new InvalidOperationException(
+                    "An upgraded card must be Bright, Ribbon, or Animal.");
+            }
+
+            var upgradedCard = new CardInstance(upgradedDefinition);
+            cards[cardIndex] = upgradedCard;
+            return upgradedCard;
+        }
+
         public BattleDeck CreateBattleDeck(IRandomSource randomSource)
         {
             return new BattleDeck(cards, randomSource);
+        }
+
+        private static bool IsUpgradeCardType(CardType cardType)
+        {
+            return cardType == CardType.Bright
+                || cardType == CardType.Ribbon
+                || cardType == CardType.Animal;
         }
     }
 }

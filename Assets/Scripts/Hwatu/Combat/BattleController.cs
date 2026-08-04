@@ -19,6 +19,7 @@ namespace Hwatu.Combat
         [SerializeField] private PlayerHandView playerHandView;
         [SerializeField] private PlayerActionView playerActionView;
         [SerializeField] private DeckCountView deckCountView;
+        [SerializeField] private BattleResultView battleResultView;
         [SerializeField] private List<EnemyController> enemies = new List<EnemyController>();
 
         private readonly HandEvaluator handEvaluator = new HandEvaluator();
@@ -29,6 +30,11 @@ namespace Hwatu.Combat
             {
                 playerHandView.SelectionChanged += HandleSelectionChanged;
             }
+
+            if (playerActionView != null)
+            {
+                playerActionView.SubmitClicked += HandleSubmitClicked;
+            }
         }
 
         private void OnDisable()
@@ -36,6 +42,11 @@ namespace Hwatu.Combat
             if (playerHandView != null)
             {
                 playerHandView.SelectionChanged -= HandleSelectionChanged;
+            }
+
+            if (playerActionView != null)
+            {
+                playerActionView.SubmitClicked -= HandleSubmitClicked;
             }
         }
 
@@ -87,6 +98,26 @@ namespace Hwatu.Combat
             playerActionView.SetSubmitInteractable(selectedCards.Count == 2);
         }
 
+        private void HandleSubmitClicked()
+        {
+            IReadOnlyList<CardInstance> selectedCards = playerHandView.SelectedCards;
+            if (selectedCards.Count != 2)
+            {
+                throw new InvalidOperationException("Exactly two player cards must be selected before submitting.");
+            }
+
+            HandResult playerHand = handEvaluator.Evaluate(selectedCards[0], selectedCards[1]);
+            var outcomes = new List<HandComparisonResult>(enemies.Count);
+            foreach (EnemyController enemy in enemies)
+            {
+                IReadOnlyList<CardInstance> enemyCards = enemy.GetCurrentCards();
+                HandResult enemyHand = handEvaluator.Evaluate(enemyCards[0], enemyCards[1]);
+                outcomes.Add(HandComparer.Compare(playerHand, enemyHand));
+            }
+
+            battleResultView.ShowPlayerOutcomes(outcomes);
+        }
+
         private void ValidateReferences()
         {
             if (battleDeckController == null)
@@ -112,6 +143,11 @@ namespace Hwatu.Combat
             if (deckCountView == null)
             {
                 throw new InvalidOperationException("Deck count view is not assigned.");
+            }
+
+            if (battleResultView == null)
+            {
+                throw new InvalidOperationException("Battle result view is not assigned.");
             }
 
             if (enemies == null

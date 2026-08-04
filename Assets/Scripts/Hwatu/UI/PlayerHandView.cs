@@ -23,6 +23,7 @@ namespace Hwatu.UI
         private readonly List<CardInstance> selectedCards = new List<CardInstance>();
 
         public event Action<IReadOnlyList<CardInstance>> SelectionChanged;
+        public IReadOnlyList<CardInstance> SelectedCards => selectedCards;
 
         public void SetCards(IReadOnlyList<CardInstance> cards)
         {

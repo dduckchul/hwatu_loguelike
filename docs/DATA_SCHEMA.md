@@ -153,14 +153,22 @@ ScriptableObject가 아닌 일반 C# 객체가 다음 상태를 관리한다.
 - `PlayerDeck`: 런 동안 보유하는 전체 카드
 - `BattleDeck`: 전투 중 드로우 더미, 손패, 버림 더미
 - `CardInstance`: 카드별 강화 단계
+- `CharacterState`: 플레이어와 적의 현재 `Money`. 화면과 기획에서는 전으로 표시
 
-체력, 턴, 선택 카드, 승패 상태도 추후 일반 C# 전투 객체가 관리한다.
+턴, 선택 카드, 승패 상태도 추후 일반 C# 전투 객체가 관리한다.
+
+## 현재 적 패턴 데이터
+
+- `EnemyPatternData`: 에디터에서 작성하는 ScriptableObject 적 패턴 목록
+- `EnemyTurnPattern`: 한 턴에 제출할 `CardData` 두 장
+- `EnemyController`: 적 한 명의 `CharacterState`, 패턴과 현재 패턴 인덱스를 연결
+- 턴 인덱스가 패턴 수를 넘으면 첫 패턴부터 다시 순환한다.
 
 ## 아직 구현하지 않은 데이터
 
 다음 ScriptableObject는 필요해질 때 현재 코드에 맞춰 정의한다. 지금은 필드 구조를 확정하지 않는다.
 
-- 적 원본 데이터와 고정 패턴
+- 적 원본 데이터
 - 전투 보상 카드 풀
 - 피해 보너스 밸런스 데이터
 - 카드 강화 비용 또는 강화 결과 데이터

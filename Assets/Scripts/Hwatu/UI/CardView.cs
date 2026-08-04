@@ -10,7 +10,7 @@ namespace Hwatu.UI
     [DisallowMultipleComponent]
     public sealed class CardView : MonoBehaviour, IPointerClickHandler
     {
-        public const float SelectedScale = 1.15f;
+        private const float SelectedScale = 1.15f;
 
         [SerializeField] private Image artworkImage;
         [SerializeField] private TMP_Text monthText;
@@ -19,7 +19,6 @@ namespace Hwatu.UI
         public event Action<CardView> Clicked;
 
         public CardInstance Card { get; private set; }
-        public CardData Data { get; private set; }
         public bool IsSelected { get; private set; }
 
         public void Bind(CardInstance card, CardData cardData)
@@ -42,7 +41,6 @@ namespace Hwatu.UI
             }
 
             Card = card;
-            Data = cardData;
             SetSelected(false);
 
             if (artworkImage != null)
@@ -76,28 +74,6 @@ namespace Hwatu.UI
             IsSelected = isSelected;
             transform.localScale = Vector3.one * (isSelected ? SelectedScale : 1f);
             textBorder.enabled = isSelected;
-        }
-
-        public void Clear()
-        {
-            SetSelected(false);
-            Card = null;
-            Data = null;
-
-            if (artworkImage != null)
-            {
-                artworkImage.sprite = null;
-            }
-
-            if (monthText != null)
-            {
-                monthText.text = string.Empty;
-            }
-
-            if (typeText != null)
-            {
-                typeText.text = string.Empty;
-            }
         }
     }
 }

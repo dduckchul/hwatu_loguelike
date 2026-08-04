@@ -797,8 +797,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Hwatu.Combat.BattleController
   battleDeckController: {fileID: 996896955}
-  playerHandView: {fileID: 1892097288}
+  playerHandView: {fileID: 873893410}
   deckCountView: {fileID: 1643427176}
+  submitButton: {fileID: 1129390235}
 --- !u!1 &622296648
 GameObject:
   m_ObjectHideFlags: 0
@@ -1308,6 +1309,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 873893409}
+  - component: {fileID: 873893410}
   m_Layer: 5
   m_Name: CenterBottomUI
   m_TagString: Untagged
@@ -1338,6 +1340,24 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1344, y: 280}
   m_Pivot: {x: 0.5, y: 0}
+--- !u!114 &873893410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 873893408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b966aa165faf4367927683ed9925532, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Hwatu.UI.PlayerHandView
+  cardPrefab: {fileID: 3531806768604769005, guid: 9e34a68de48af4d8493612e7fa0c3ef9, type: 3}
+  cardSlot: {fileID: 1892097284}
+  fanCardLayout: {fileID: 1892097287}
+  cardCatalog: {fileID: 11400000, guid: f9402a04d09c04c41a2eb0235231c3f5, type: 2}
+  selectedHandNameText: {fileID: 1205585867}
+  selectedCardCountText: {fileID: 1110294793}
 --- !u!1 &996896953
 GameObject:
   m_ObjectHideFlags: 0
@@ -1583,7 +1603,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.8352941, g: 0.07450981, b: 0.101960786, a: 1}
     m_PressedColor: {r: 0.6415094, g: 0.23905303, b: 0.23905303, a: 1}
     m_SelectedColor: {r: 0.8352941, g: 0.07450981, b: 0.101960786, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.7058824}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -2504,7 +2524,6 @@ GameObject:
   - component: {fileID: 1892097286}
   - component: {fileID: 1892097285}
   - component: {fileID: 1892097287}
-  - component: {fileID: 1892097288}
   m_Layer: 5
   m_Name: CardSlot
   m_TagString: Untagged
@@ -2584,22 +2603,6 @@ MonoBehaviour:
   cardSpacing: 150
   arcHeight: 20
   maxRotationAngle: 15
---- !u!114 &1892097288
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1892097283}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b966aa165faf4367927683ed9925532, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Hwatu.UI.PlayerHandView
-  cardPrefab: {fileID: 3531806768604769005, guid: 9e34a68de48af4d8493612e7fa0c3ef9, type: 3}
-  cardSlot: {fileID: 1892097284}
-  fanCardLayout: {fileID: 1892097287}
-  cardCatalog: {fileID: 11400000, guid: f9402a04d09c04c41a2eb0235231c3f5, type: 2}
 --- !u!1 &1893465352
 GameObject:
   m_ObjectHideFlags: 0

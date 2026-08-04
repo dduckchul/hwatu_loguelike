@@ -73,14 +73,22 @@ Assets/
 
 ### `Hwatu/Combat`
 
-현재 `BattleController`는 전투 시작 시 다음 흐름만 연결한다.
+현재 구성:
 
-1. 초기화된 `BattleDeck` 확인
-2. 시작 손패 3장 드로우
-3. `PlayerHandView`에 카드 전달
-4. `DeckCountView` 갱신
+- `BattleController`: 전투 덱, 플레이어 손패 UI, Submit 상태와 등록된 적 1~2명을 연결
+- `EnemyController`: 적 한 명의 시작 Money, 패턴과 현재 패턴 순서를 관리
+- `CharacterState`: 플레이어와 적이 공통으로 사용하는 일반 C# Money 상태
+- `EnemyPatternData`: 에디터에서 작성하는 적의 턴별 패턴 원본
 
-카드 선택, 제출, 적 행동, 패 비교, 피해, 승패는 아직 구현하지 않았다.
+`BattleController`는 전투 시작 시 다음 흐름을 연결한다.
+
+1. 등록된 `EnemyController` 1~2명 검증과 초기화
+2. 초기화된 `BattleDeck` 확인
+3. 시작 손패 3장 드로우
+4. `PlayerHandView`에 카드 전달
+5. `DeckCountView` 갱신
+
+카드 선택과 플레이어 족보 미리보기는 연결되어 있다. 제출, 적 행동 순서, 패 비교, 피해, 승패는 아직 구현하지 않았다.
 
 ### `Hwatu/UI`
 

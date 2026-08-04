@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Hwatu.Cards;
+using Hwatu.Hands;
+using TMPro;
 using UnityEngine;
 
 namespace Hwatu.UI
@@ -14,11 +16,13 @@ namespace Hwatu.UI
         [SerializeField] private RectTransform cardSlot;
         [SerializeField] private FanCardLayout fanCardLayout;
         [SerializeField] private CardCatalogData cardCatalog;
+        [SerializeField] private TMP_Text selectedHandNameText;
+        [SerializeField] private TMP_Text selectedCardCountText;
 
         private readonly List<CardView> cardViews = new List<CardView>();
-        private readonly List<CardView> selectedCardViews = new List<CardView>();
+        private readonly List<CardInstance> selectedCards = new List<CardInstance>();
 
-        public int CardCount => cardViews.Count;
+        public event Action<IReadOnlyList<CardInstance>> SelectionChanged;
 
         public void SetCards(IReadOnlyList<CardInstance> cards)
         {
@@ -55,7 +59,7 @@ namespace Hwatu.UI
 
         public void Clear()
         {
-            selectedCardViews.Clear();
+            selectedCards.Clear();
 
             foreach (CardView cardView in cardViews)
             {
@@ -76,6 +80,28 @@ namespace Hwatu.UI
             {
                 fanCardLayout.RefreshLayout();
             }
+
+            SelectionChanged?.Invoke(selectedCards);
+        }
+
+        public void RefreshSelectionDisplay(HandResult handResult)
+        {
+            switch (selectedCards.Count)
+            {
+                case 0:
+                    selectedCardCountText.text = "○○ (0/2)";
+                    break;
+                case 1:
+                    selectedCardCountText.text = "●○ (1/2)";
+                    break;
+                default:
+                    selectedCardCountText.text = "●● (2/2)";
+                    break;
+            }
+
+            selectedHandNameText.text = handResult == null
+                ? "-"
+                : HandDisplayName.Get(handResult);
         }
 
         private void HandleCardClicked(CardView cardView)
@@ -87,18 +113,25 @@ namespace Hwatu.UI
 
             if (cardView.IsSelected)
             {
-                selectedCardViews.Remove(cardView);
+                selectedCards.Remove(cardView.Card);
                 cardView.SetSelected(false);
+                NotifySelectionChanged();
                 return;
             }
 
-            if (selectedCardViews.Count >= MaximumSelectedCardCount)
+            if (selectedCards.Count >= MaximumSelectedCardCount)
             {
                 return;
             }
 
-            selectedCardViews.Add(cardView);
+            selectedCards.Add(cardView.Card);
             cardView.SetSelected(true);
+            NotifySelectionChanged();
+        }
+
+        private void NotifySelectionChanged()
+        {
+            SelectionChanged?.Invoke(selectedCards);
         }
 
         private void ValidateReferences()
@@ -121,6 +154,16 @@ namespace Hwatu.UI
             if (cardCatalog == null)
             {
                 throw new InvalidOperationException("Card catalog is not assigned.");
+            }
+
+            if (selectedHandNameText == null)
+            {
+                throw new InvalidOperationException("Selected hand name text is not assigned.");
+            }
+
+            if (selectedCardCountText == null)
+            {
+                throw new InvalidOperationException("Selected card count text is not assigned.");
             }
         }
     }

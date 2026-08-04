@@ -80,6 +80,7 @@ Assets/
 - `BattleController`: 전투 덱, 플레이어 손패 UI, Submit 상태와 등록된 적 1~2명을 연결
 - `EnemyController`: 적 한 명의 시작 Money, 패턴과 현재 패턴 순서를 관리
 - `CharacterState`: 플레이어와 적이 공통으로 사용하는 일반 C# Money 상태
+- `HandDamageCalculator`: 기본 판돈과 족보에 따른 피해를 계산하는 일반 C# 규칙 객체
 - `EnemyPatternData`: 에디터에서 작성하는 적의 턴별 패턴 원본
 
 `BattleController`는 전투 시작 시 다음 흐름을 연결한다.
@@ -90,7 +91,7 @@ Assets/
 4. `PlayerHandView`에 카드 전달
 5. `DeckCountView` 갱신
 
-카드 선택, 플레이어 족보 미리보기와 Submit 입력은 연결되어 있다. Submit 시 플레이어 패를 등록된 각 적의 패와 개별 비교해 표시하는 코드가 있으며, 씬 연결과 플레이 모드 검증은 남아 있다. 비교 결과를 보관하는 턴 상태, 적 행동 순서, 피해와 전투 승패는 아직 구현하지 않았다.
+카드 선택, 플레이어 족보 미리보기와 Submit 입력은 연결되어 있다. Submit 시 플레이어 패를 살아 있는 각 적의 패와 개별 비교하고, 적 등록 순서대로 연출한 뒤 승자의 패로 피해를 계산해 패자의 Money를 이전한다. 플레이어가 패배하면 남은 비교를 중단한다. 연출 종료 후 전투 중이면 전체 손패를 버리고 살아 있는 적의 패턴을 진행한 뒤 다음 손패를 뽑는다. 전투 종료 전용 UI와 보상 전환은 아직 구현하지 않았다.
 
 ### `Hwatu/UI`
 
@@ -129,7 +130,12 @@ PlayerActionView.SubmitClicked
   → HandEvaluator.Evaluate
   → 각 EnemyController.GetCurrentCards
   → HandComparer.Compare
-  → BattleResultView.ShowPlayerResults
+  → BattleSequenceView.Play
+  → HandDamageCalculator.Calculate
+  → CharacterState.TransferMoneyTo
+  → BattleDeck.DiscardHand
+  → EnemyController.AdvancePattern
+  → BattleDeck.DrawToHand
 ```
 
 ## 기능 사이의 의존 방향

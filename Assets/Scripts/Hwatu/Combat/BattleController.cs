@@ -5,7 +5,6 @@ using Hwatu.Deck;
 using Hwatu.Hands;
 using Hwatu.UI;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Hwatu.Combat
 {
@@ -16,9 +15,10 @@ namespace Hwatu.Combat
         private const int MaximumEnemyCount = 2;
 
         [SerializeField] private BattleDeckController battleDeckController;
+        [SerializeField] private PlayerController playerController;
         [SerializeField] private PlayerHandView playerHandView;
+        [SerializeField] private PlayerActionView playerActionView;
         [SerializeField] private DeckCountView deckCountView;
-        [SerializeField] private Button submitButton;
         [SerializeField] private List<EnemyController> enemies = new List<EnemyController>();
 
         private readonly HandEvaluator handEvaluator = new HandEvaluator();
@@ -84,15 +84,7 @@ namespace Hwatu.Combat
                 : null;
 
             playerHandView.RefreshSelectionDisplay(handResult);
-            SetSubmitButtonInteractable(selectedCards.Count == 2);
-        }
-
-        private void SetSubmitButtonInteractable(bool isInteractable)
-        {
-            if (submitButton != null)
-            {
-                submitButton.interactable = isInteractable;
-            }
+            playerActionView.SetSubmitInteractable(selectedCards.Count == 2);
         }
 
         private void ValidateReferences()
@@ -105,6 +97,16 @@ namespace Hwatu.Combat
             if (playerHandView == null)
             {
                 throw new InvalidOperationException("Player hand view is not assigned.");
+            }
+
+            if (playerController == null)
+            {
+                throw new InvalidOperationException("Player controller is not assigned.");
+            }
+
+            if (playerActionView == null)
+            {
+                throw new InvalidOperationException("Player action view is not assigned.");
             }
 
             if (deckCountView == null)

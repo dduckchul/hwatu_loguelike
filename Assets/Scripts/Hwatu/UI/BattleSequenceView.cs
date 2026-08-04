@@ -30,7 +30,9 @@ namespace Hwatu.UI
         private readonly List<BattleSequenceItem> sequenceItems = new List<BattleSequenceItem>();
         private CharacterBattleView playerView;
         private Coroutine sequence;
+        private bool stopAfterCurrentResult;
 
+        public event Action<int> ResultMotionCompleted;
         public event Action SequenceCompleted;
         public bool IsPlaying => sequence != null;
 
@@ -60,6 +62,7 @@ namespace Hwatu.UI
 
             ValidateReferences();
             playerView = playerBattleView;
+            stopAfterCurrentResult = false;
             sequenceItems.Clear();
 
             for (int index = 0; index < items.Count; index++)
@@ -76,6 +79,14 @@ namespace Hwatu.UI
             }
 
             sequence = StartCoroutine(PlayCore());
+        }
+
+        public void StopAfterCurrentResult()
+        {
+            if (IsPlaying)
+            {
+                stopAfterCurrentResult = true;
+            }
         }
 
         private IEnumerator PlayCore()
@@ -96,15 +107,18 @@ namespace Hwatu.UI
                 BattleSequenceItem item = sequenceItems[index];
                 battleResultView.ShowPlayerResult(item.Result, index, sequenceItems.Count);
                 yield return PlayResultMotion(item);
+                ResultMotionCompleted?.Invoke(index);
 
-                if (index < sequenceItems.Count - 1)
+                if (resultDisplayDuration > 0f)
                 {
-                    if (resultDisplayDuration > 0f)
-                    {
-                        yield return new WaitForSeconds(resultDisplayDuration);
-                    }
+                    yield return new WaitForSeconds(resultDisplayDuration);
+                }
 
-                    battleResultView.Hide();
+                battleResultView.Hide();
+
+                if (stopAfterCurrentResult)
+                {
+                    break;
                 }
             }
 
@@ -161,7 +175,9 @@ namespace Hwatu.UI
 
             StopCoroutine(sequence);
             sequence = null;
+            stopAfterCurrentResult = false;
             ResetCharactersToIdle();
+            battleResultView.Hide();
         }
 
         private void ValidateReferences()

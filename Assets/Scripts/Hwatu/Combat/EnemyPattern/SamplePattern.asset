@@ -14,5 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Hwatu.Combat.EnemyPatternData
   patterns:
   - cards:
-    - {fileID: 11400000, guid: 3a6ebf68764b341379765127babaa177, type: 2}
+    - {fileID: 11400000, guid: 748550a4fb7d24712bcfce4f4c163d56, type: 2}
     - {fileID: 11400000, guid: f03de9f11f3c74192935b1728bd946c0, type: 2}
+  - cards:
+    - {fileID: 11400000, guid: c8506264ab5ef487d85115faafb04603, type: 2}
+    - {fileID: 11400000, guid: 748550a4fb7d24712bcfce4f4c163d56, type: 2}

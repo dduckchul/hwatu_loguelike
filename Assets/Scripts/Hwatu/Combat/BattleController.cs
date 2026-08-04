@@ -23,7 +23,29 @@ namespace Hwatu.Combat
         [SerializeField] private List<EnemyController> enemies = new List<EnemyController>();
 
         private readonly HandEvaluator handEvaluator = new HandEvaluator();
+        private readonly HandDamageCalculator damageCalculator = new HandDamageCalculator();
+        private readonly List<TurnComparison> currentTurnComparisons = new List<TurnComparison>();
         private bool turnSubmitted;
+
+        private sealed class TurnComparison
+        {
+            public EnemyController Enemy { get; }
+            public HandResult PlayerHand { get; }
+            public HandResult EnemyHand { get; }
+            public HandComparisonResult Result { get; }
+
+            public TurnComparison(
+                EnemyController enemy,
+                HandResult playerHand,
+                HandResult enemyHand,
+                HandComparisonResult result)
+            {
+                Enemy = enemy;
+                PlayerHand = playerHand;
+                EnemyHand = enemyHand;
+                Result = result;
+            }
+        }
 
         private void OnEnable()
         {
@@ -35,6 +57,12 @@ namespace Hwatu.Combat
             if (playerActionView != null)
             {
                 playerActionView.SubmitClicked += HandleSubmitClicked;
+            }
+
+            if (battleSequenceView != null)
+            {
+                battleSequenceView.ResultMotionCompleted += HandleResultMotionCompleted;
+                battleSequenceView.SequenceCompleted += HandleSequenceCompleted;
             }
         }
 
@@ -49,11 +77,18 @@ namespace Hwatu.Combat
             {
                 playerActionView.SubmitClicked -= HandleSubmitClicked;
             }
+
+            if (battleSequenceView != null)
+            {
+                battleSequenceView.ResultMotionCompleted -= HandleResultMotionCompleted;
+                battleSequenceView.SequenceCompleted -= HandleSequenceCompleted;
+            }
         }
 
         private void Start()
         {
             ValidateReferences();
+            InitializePlayer();
             InitializeEnemies();
             DrawOpeningHandCore();
         }
@@ -73,7 +108,16 @@ namespace Hwatu.Combat
 
             battleDeckController.Deck.DrawToHand();
             playerHandView.SetCards(battleDeckController.Deck.Hand);
+            playerHandView.SetInteractionEnabled(true);
             deckCountView.Refresh(battleDeckController.Deck);
+        }
+
+        private void InitializePlayer()
+        {
+            if (!playerController.IsInitialized)
+            {
+                playerController.InitializeForRun();
+            }
         }
 
         private void InitializeEnemies()
@@ -119,15 +163,105 @@ namespace Hwatu.Combat
 
             HandResult playerHand = handEvaluator.Evaluate(selectedCards[0], selectedCards[1]);
             var sequenceItems = new List<BattleSequenceItem>(enemies.Count);
+            currentTurnComparisons.Clear();
             foreach (EnemyController enemy in enemies)
             {
+                if (enemy.State.IsDefeated)
+                {
+                    continue;
+                }
+
                 IReadOnlyList<CardInstance> enemyCards = enemy.GetCurrentCards();
                 HandResult enemyHand = handEvaluator.Evaluate(enemyCards[0], enemyCards[1]);
                 HandComparisonResult result = HandComparer.Compare(playerHand, enemyHand);
+                currentTurnComparisons.Add(
+                    new TurnComparison(enemy, playerHand, enemyHand, result));
                 sequenceItems.Add(new BattleSequenceItem(enemy.BattleView, result));
             }
 
+            if (sequenceItems.Count == 0)
+            {
+                throw new InvalidOperationException("Cannot submit a turn without an active enemy.");
+            }
+
             battleSequenceView.Play(playerController.BattleView, sequenceItems);
+        }
+
+        private void HandleResultMotionCompleted(int resultIndex)
+        {
+            if (resultIndex < 0 || resultIndex >= currentTurnComparisons.Count)
+            {
+                throw new ArgumentOutOfRangeException(nameof(resultIndex));
+            }
+
+            TurnComparison comparison = currentTurnComparisons[resultIndex];
+            if (playerController.State.IsDefeated || comparison.Enemy.State.IsDefeated)
+            {
+                return;
+            }
+
+            switch (comparison.Result)
+            {
+                case HandComparisonResult.FirstWins:
+                    comparison.Enemy.State.TransferMoneyTo(
+                        playerController.State,
+                        damageCalculator.Calculate(comparison.PlayerHand));
+                    break;
+                case HandComparisonResult.SecondWins:
+                    playerController.State.TransferMoneyTo(
+                        comparison.Enemy.State,
+                        damageCalculator.Calculate(comparison.EnemyHand));
+                    break;
+                case HandComparisonResult.Draw:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(
+                        nameof(comparison.Result),
+                        comparison.Result,
+                        null);
+            }
+
+            if (playerController.State.IsDefeated)
+            {
+                battleSequenceView.StopAfterCurrentResult();
+            }
+        }
+
+        private void HandleSequenceCompleted()
+        {
+            currentTurnComparisons.Clear();
+
+            if (playerController.State.IsDefeated || AreAllEnemiesDefeated())
+            {
+                playerHandView.SetInteractionEnabled(false);
+                playerActionView.SetSubmitInteractable(false);
+                return;
+            }
+
+            battleDeckController.Deck.DiscardHand();
+            foreach (EnemyController enemy in enemies)
+            {
+                if (!enemy.State.IsDefeated)
+                {
+                    enemy.AdvancePattern();
+                }
+            }
+
+            turnSubmitted = false;
+            DrawOpeningHandCore();
+        }
+
+        private bool AreAllEnemiesDefeated()
+        {
+            foreach (EnemyController enemy in enemies)
+            {
+                if (!enemy.State.IsDefeated)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         private void ValidateReferences()

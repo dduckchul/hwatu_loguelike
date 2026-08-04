@@ -53,17 +53,14 @@ namespace Hwatu.Combat
 
         public int PatternCount => patterns == null ? 0 : patterns.Count;
 
+        public IReadOnlyList<CardData> GetCardsForTurn(int turnIndex)
+        {
+            return GetPatternForTurn(turnIndex).Cards;
+        }
+
         public IReadOnlyList<CardInstance> CreateCardsForTurn(int turnIndex)
         {
-            if (turnIndex < 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(turnIndex));
-            }
-
-            Validate();
-
-            int patternIndex = turnIndex % patterns.Count;
-            return patterns[patternIndex].CreateCardInstances();
+            return GetPatternForTurn(turnIndex).CreateCardInstances();
         }
 
         public void Validate()
@@ -84,6 +81,19 @@ namespace Hwatu.Combat
 
                 pattern.Validate();
             }
+        }
+
+        private EnemyTurnPattern GetPatternForTurn(int turnIndex)
+        {
+            if (turnIndex < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(turnIndex));
+            }
+
+            Validate();
+
+            int patternIndex = turnIndex % patterns.Count;
+            return patterns[patternIndex];
         }
     }
 }

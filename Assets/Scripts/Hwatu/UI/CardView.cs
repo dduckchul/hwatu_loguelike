@@ -8,18 +8,25 @@ using UnityEngine.UI;
 namespace Hwatu.UI
 {
     [DisallowMultipleComponent]
-    public sealed class CardView : MonoBehaviour, IPointerClickHandler
+    public sealed class CardView : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
-        private const float SelectedScale = 1.15f;
+        private float ScaleConstant { get; } = 1.15f;
 
         [SerializeField] private Image artworkImage;
         [SerializeField] private TMP_Text monthText;
         [SerializeField] private TMP_Text typeText;
         [SerializeField] private Image textBorder;
+        private Vector3 defaultScale;
+
         public event Action<CardView> Clicked;
 
         public CardInstance Card { get; private set; }
         public bool IsSelected { get; private set; }
+
+        private void Awake()
+        {
+            defaultScale = transform.localScale;
+        }
 
         public void Bind(CardInstance card, CardData cardData)
         {
@@ -41,6 +48,7 @@ namespace Hwatu.UI
             }
 
             Card = card;
+            SetHovered(false);
             SetSelected(false);
 
             if (artworkImage != null)
@@ -69,11 +77,35 @@ namespace Hwatu.UI
             Clicked?.Invoke(this);
         }
 
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            if (Card == null)
+            {
+                return;
+            }
+
+            SetHovered(true);
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            SetHovered(false);
+        }
+
         public void SetSelected(bool isSelected)
         {
             IsSelected = isSelected;
-            transform.localScale = Vector3.one * (isSelected ? SelectedScale : 1f);
             textBorder.enabled = isSelected;
+        }
+
+        private void OnDisable()
+        {
+            SetHovered(false);
+        }
+
+        private void SetHovered(bool isHovered)
+        {
+            transform.localScale = defaultScale * (isHovered ? ScaleConstant : 1f);
         }
     }
 }

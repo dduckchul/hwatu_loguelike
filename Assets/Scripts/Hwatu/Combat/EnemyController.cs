@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Hwatu.Cards;
+using Hwatu.Hands;
+using Hwatu.UI;
 using UnityEngine;
 
 namespace Hwatu.Combat
@@ -9,8 +11,10 @@ namespace Hwatu.Combat
     public sealed class EnemyController : MonoBehaviour
     {
         [SerializeField] private EnemyPatternData enemyPattern;
+        [SerializeField] private EnemyHandView handView;
         [SerializeField, Min(0)] private int startingMoney = 100;
 
+        private readonly HandEvaluator handEvaluator = new HandEvaluator();
         private int currentPatternIndex;
 
         public CharacterState State { get; private set; }
@@ -21,6 +25,7 @@ namespace Hwatu.Combat
             ValidateReferences();
             State = new CharacterState(startingMoney);
             currentPatternIndex = 0;
+            RefreshHand();
         }
 
         public IReadOnlyList<CardInstance> GetCurrentCards()
@@ -33,6 +38,7 @@ namespace Hwatu.Combat
         {
             EnsureInitialized();
             currentPatternIndex = (currentPatternIndex + 1) % enemyPattern.PatternCount;
+            RefreshHand();
         }
 
         private void EnsureInitialized()
@@ -50,7 +56,21 @@ namespace Hwatu.Combat
                 throw new InvalidOperationException("Enemy pattern is not assigned.");
             }
 
+            if (handView == null)
+            {
+                throw new InvalidOperationException("Enemy hand view is not assigned.");
+            }
+
             enemyPattern.Validate();
+        }
+
+        private void RefreshHand()
+        {
+            IReadOnlyList<CardInstance> cards = GetCurrentCards();
+            HandResult handResult = handEvaluator.Evaluate(cards[0], cards[1]);
+            handView.ShowHand(
+                enemyPattern.GetCardsForTurn(currentPatternIndex),
+                handResult);
         }
     }
 }

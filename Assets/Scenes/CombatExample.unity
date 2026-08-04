@@ -2081,8 +2081,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Hwatu.UI.BattleSequenceView
   battleResultView: {fileID: 650143617}
-  showdownDuration: 0.35
-  resultDisplayDuration: 1
+  showdownDuration: 0.75
+  resultDisplayDuration: 0.75
 --- !u!114 &1370790538 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 569397221219444536, guid: 8bfb9263e378d4e53852364257b41d14, type: 3}
@@ -2147,7 +2147,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1453490060
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2174,7 +2174,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1453490059}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
@@ -2856,7 +2856,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Hwatu.UI.CharacterBattleView
   spriteRenderer: {fileID: 1813180202}
-  uiImage: {fileID: 0}
   motionTarget: {fileID: 347747355}
   idleSprite: {fileID: -9095717837082945937, guid: bd3cb4af8406d4436a2ae8c2aafe1f8d, type: 3}
   showdownSprite: {fileID: -9095717837082945937, guid: bd3cb4af8406d4436a2ae8c2aafe1f8d, type: 3}
@@ -2866,8 +2865,8 @@ MonoBehaviour:
   attackReturnDuration: 0.15
   hitOffset: {x: -0.25, y: 0, z: 0}
   shakeDistance: 0.08
-  shakeCount: 3
-  hitDuration: 0.6
+  shakeCount: 4
+  hitDuration: 1
   hitFlashColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!212 &1813180202
 SpriteRenderer:
@@ -3761,22 +3760,6 @@ PrefabInstance:
     - target: {fileID: 2900858194825079511, guid: 8bfb9263e378d4e53852364257b41d14, type: 3}
       propertyPath: m_Name
       value: EnemySample
-      objectReference: {fileID: 0}
-    - target: {fileID: 3464487026426580440, guid: 8bfb9263e378d4e53852364257b41d14, type: 3}
-      propertyPath: hitDuration
-      value: 0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 3464487026426580440, guid: 8bfb9263e378d4e53852364257b41d14, type: 3}
-      propertyPath: hitOffset.x
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 3464487026426580440, guid: 8bfb9263e378d4e53852364257b41d14, type: 3}
-      propertyPath: shakeDistance
-      value: 0.08
-      objectReference: {fileID: 0}
-    - target: {fileID: 3464487026426580440, guid: 8bfb9263e378d4e53852364257b41d14, type: 3}
-      propertyPath: attackOffset.x
-      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 8573407000041967689, guid: 8bfb9263e378d4e53852364257b41d14, type: 3}
       propertyPath: m_LocalPosition.x

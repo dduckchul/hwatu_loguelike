@@ -94,8 +94,8 @@ namespace Hwatu.UI
             for (int index = 0; index < sequenceItems.Count; index++)
             {
                 BattleSequenceItem item = sequenceItems[index];
-                yield return PlayResultMotion(item);
                 battleResultView.ShowPlayerResult(item.Result, index, sequenceItems.Count);
+                yield return PlayResultMotion(item);
 
                 if (index < sequenceItems.Count - 1)
                 {

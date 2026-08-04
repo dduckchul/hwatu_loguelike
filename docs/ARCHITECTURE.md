@@ -42,7 +42,7 @@ Assets/
 - `CardData`: Inspector에서 작성하는 ScriptableObject 카드 원본
 - `CardCatalogData`: 전체 카드 목록과 ID 조회
 - `CardDefinition`: 덱과 족보 계산에 사용하는 일반 C# 정의
-- `CardInstance`: 덱에 들어가는 카드 한 장과 강화 단계
+- `CardInstance`: 덱에서 같은 정의의 카드 여러 장을 구분하는 런타임 카드 한 장
 - `CardType`: 피, 광, 띠, 열끗 중 하나
 
 `CardData.ToDefinition()`이 Unity 데이터에서 규칙 데이터로 넘어가는 경계다.
@@ -52,6 +52,7 @@ Assets/
 현재 구성:
 
 - `PlayerDeck`: 한 런 동안 보유하는 전체 카드
+- `PlayerDeck.UpgradeCard`: 같은 월의 Normal 카드를 Bright, Ribbon, Animal 카드 정의로 교체
 - `BattleDeck`: 전투용 드로우 더미, 손패, 버림 더미
 - `PlayerDeckInitializer`: 1~10월 Normal 카드로 시작 덱 생성
 - `BattleDeckController`: Unity와 전투 덱 초기화 연결
@@ -68,6 +69,7 @@ Assets/
 - `HandResult`: 족보 타입, 순위, 끗, 태그, 구성 카드
 - `HandType`: 끗, 중간 족보, 땡, 광땡
 - `HandTag`: 일반 족보와 특수 상성에서 사용할 결과 태그
+- `HandComparer`: 두 `HandResult.Rank`의 단순 비교
 
 `HandEvaluator`는 피해량이나 UI 문자열을 계산하지 않는다. UI 표시 이름은 `HandDisplayName`이 담당한다.
 
@@ -88,7 +90,7 @@ Assets/
 4. `PlayerHandView`에 카드 전달
 5. `DeckCountView` 갱신
 
-카드 선택과 플레이어 족보 미리보기는 연결되어 있다. 제출, 적 행동 순서, 패 비교, 피해, 승패는 아직 구현하지 않았다.
+카드 선택, 플레이어 족보 미리보기와 Submit 입력은 연결되어 있다. Submit 시 플레이어 패를 등록된 각 적의 패와 개별 비교해 표시하는 코드가 있으며, 씬 연결과 플레이 모드 검증은 남아 있다. 비교 결과를 보관하는 턴 상태, 적 행동 순서, 피해와 전투 승패는 아직 구현하지 않았다.
 
 ### `Hwatu/UI`
 
@@ -98,6 +100,9 @@ Assets/
 - `PlayerHandView`: 카탈로그 조회와 카드 프리팹 생성
 - `FanCardLayout`: 손패 부채꼴 배치
 - `DeckCountView`: 드로우 더미와 버림 더미 수 표시
+- `PlayerActionView`: Submit과 Reroll 버튼 입력 전달
+- `EnemyHandView`: 적 패턴의 카드 두 장과 족보 이름 표시
+- `BattleResultView`: 등록된 적별 패 비교 결과 표시
 - `CardTypeDisplayName`: 카드 타입의 한국어 표시
 - `HandDisplayName`: 족보 결과의 한국어 표시
 
@@ -118,6 +123,13 @@ BattleController.Start
   → CardCatalogData.GetById
   → CardView.Bind
   → DeckCountView.Refresh
+
+PlayerActionView.SubmitClicked
+  → PlayerHandView.SelectedCards
+  → HandEvaluator.Evaluate
+  → 각 EnemyController.GetCurrentCards
+  → HandComparer.Compare
+  → BattleResultView.ShowPlayerOutcomes
 ```
 
 ## 기능 사이의 의존 방향
@@ -143,7 +155,8 @@ UI     → Hands
 - ScriptableObject는 플레이 중 수정하지 않는다.
 - `CardDefinition`과 `CardInstance`는 Unity 객체에 의존하지 않는다.
 - UI는 카탈로그로 원본 데이터를 다시 조회해 이미지를 표시한다.
-- 적과 보상 데이터는 해당 기능을 구현할 때 ScriptableObject로 추가한다.
+- 적의 턴별 카드 패턴은 `EnemyPatternData` ScriptableObject로 작성한다.
+- 적 캐릭터 원본 데이터와 보상 데이터는 해당 기능을 구현할 때 추가한다.
 
 ## 난수
 

@@ -130,13 +130,15 @@ public sealed class CardDefinition
 public sealed class CardInstance
 {
     public CardDefinition Definition { get; }
-    public int UpgradeLevel { get; private set; }
 }
 ```
 
 - 같은 `CardDefinition`을 가진 카드가 덱에 여러 장 들어갈 수 있다.
-- `UpgradeLevel`은 카드 한 장마다 따로 가진다.
-- 강화 기능을 연결하기 전에는 0으로 사용한다.
+- 강화 레벨이나 변형 상태는 저장하지 않는다.
+- 강화할 때는 `PlayerDeck.UpgradeCard`로 해당 카드를 별도 강화 카드 정의로 교체한다.
+- 원본이 `Normal`이고 강화 카드가 같은 월의 `Bright`, `Ribbon`, `Animal` 중 하나일 때만 교체할 수 있다.
+- 특수 타입 카드는 다시 강화할 수 없으며 카드의 월은 변경할 수 없다.
+- 교체된 카드의 이전 정의와 강화 이력은 보존하지 않는다.
 
 ## 현재 카드 자산
 
@@ -152,17 +154,20 @@ ScriptableObject가 아닌 일반 C# 객체가 다음 상태를 관리한다.
 
 - `PlayerDeck`: 런 동안 보유하는 전체 카드
 - `BattleDeck`: 전투 중 드로우 더미, 손패, 버림 더미
-- `CardInstance`: 카드별 강화 단계
+- `CardInstance`: 같은 카드 정의가 여러 장일 때 각 카드를 구분하는 런타임 객체
 - `CharacterState`: 플레이어와 적의 현재 `Money`. 화면과 기획에서는 전으로 표시
 
-턴, 선택 카드, 승패 상태도 추후 일반 C# 전투 객체가 관리한다.
+현재 선택 카드는 `PlayerHandView`가 입력 중 임시로 관리한다. Submit 시 계산한 비교 결과는 화면에 전달할 뿐 전투 상태로 저장하지 않는다. 턴 진행 상태와 피해 이후의 전투 승패 상태는 추후 일반 C# 전투 객체가 관리한다.
 
 ## 현재 적 패턴 데이터
 
 - `EnemyPatternData`: 에디터에서 작성하는 ScriptableObject 적 패턴 목록
 - `EnemyTurnPattern`: 한 턴에 제출할 `CardData` 두 장
 - `EnemyController`: 적 한 명의 `CharacterState`, 패턴과 현재 패턴 인덱스를 연결
+- `EnemyHandView`: 현재 패턴의 카드 이미지 두 장과 족보 이름을 표시
 - 턴 인덱스가 패턴 수를 넘으면 첫 패턴부터 다시 순환한다.
+
+현재 적 데이터는 턴별 카드 패턴까지만 정의한다. 적 캐릭터의 실제 이미지, 콘셉트와 공통 원본 데이터는 아직 구현하지 않았다.
 
 ## 아직 구현하지 않은 데이터
 
@@ -171,7 +176,7 @@ ScriptableObject가 아닌 일반 C# 객체가 다음 상태를 관리한다.
 - 적 원본 데이터
 - 전투 보상 카드 풀
 - 피해 보너스 밸런스 데이터
-- 카드 강화 비용 또는 강화 결과 데이터
+- 카드별 강화 대상 목록과 강화 비용 데이터
 
 ## 현재 만들지 않는 데이터 구조
 

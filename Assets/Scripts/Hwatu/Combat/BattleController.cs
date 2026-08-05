@@ -221,6 +221,9 @@ namespace Hwatu.Combat
                         null);
             }
 
+            playerController.RefreshMoneyView();
+            comparison.Enemy.RefreshMoneyView();
+
             if (playerController.State.IsDefeated)
             {
                 battleSequenceView.StopAfterCurrentResult();

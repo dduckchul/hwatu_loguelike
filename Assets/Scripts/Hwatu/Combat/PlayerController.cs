@@ -1,3 +1,4 @@
+using System;
 using Hwatu.UI;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ namespace Hwatu.Combat
     {
         [SerializeField, Min(0)] private int startingMoney;
         [SerializeField] private CharacterBattleView battleView;
+        [SerializeField] private CharacterMoneyPileView moneyView;
 
         public CharacterState State { get; private set; }
         public bool IsInitialized => State != null;
@@ -15,7 +17,23 @@ namespace Hwatu.Combat
 
         public void InitializeForRun()
         {
+            if (moneyView == null)
+            {
+                throw new InvalidOperationException("Player money view is not assigned.");
+            }
+
             State = new CharacterState(startingMoney);
+            RefreshMoneyView();
+        }
+
+        public void RefreshMoneyView()
+        {
+            if (State == null)
+            {
+                throw new InvalidOperationException("Player is not initialized for the run.");
+            }
+
+            moneyView.Show(State.Money);
         }
     }
 }

@@ -13,6 +13,7 @@ namespace Hwatu.Combat
         [SerializeField] private EnemyPatternData enemyPattern;
         [SerializeField] private EnemyHandView handView;
         [SerializeField] private CharacterBattleView battleView;
+        [SerializeField] private CharacterMoneyPileView moneyView;
         [SerializeField, Min(0)] private int startingMoney = 100;
 
         private readonly HandEvaluator handEvaluator = new HandEvaluator();
@@ -27,7 +28,14 @@ namespace Hwatu.Combat
             ValidateReferences();
             State = new CharacterState(startingMoney);
             currentPatternIndex = 0;
+            RefreshMoneyView();
             RefreshHand();
+        }
+
+        public void RefreshMoneyView()
+        {
+            EnsureInitialized();
+            moneyView.Show(State.Money);
         }
 
         public IReadOnlyList<CardInstance> GetCurrentCards()
@@ -66,6 +74,11 @@ namespace Hwatu.Combat
             if (battleView == null)
             {
                 throw new InvalidOperationException("Enemy battle view is not assigned.");
+            }
+
+            if (moneyView == null)
+            {
+                throw new InvalidOperationException("Enemy money view is not assigned.");
             }
 
             enemyPattern.Validate();

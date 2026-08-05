@@ -148,6 +148,7 @@ namespace Hwatu.UI
             CharacterBattleView attacker,
             CharacterBattleView defender)
         {
+            yield return attacker.PlayAttackWindup();
             yield return attacker.PlayAttackForward();
             yield return defender.PlayHit();
             yield return attacker.PlayAttackReturn();

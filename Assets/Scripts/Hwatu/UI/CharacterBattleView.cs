@@ -18,6 +18,9 @@ namespace Hwatu.UI
 
         [Header("Attack Motion")]
         [SerializeField] private Vector3 attackOffset;
+        [SerializeField, Min(0f)] private float attackWindupDistance = 0.2f;
+        [SerializeField, Min(0.01f)] private float attackWindupDuration = 0.12f;
+        [SerializeField, Min(0f)] private float attackWindupHoldDuration = 0.5f;
         [SerializeField, Min(0.01f)] private float attackForwardDuration = 0.15f;
         [SerializeField, Min(0.01f)] private float attackReturnDuration = 0.15f;
 
@@ -49,6 +52,22 @@ namespace Hwatu.UI
         public void ShowShowdown()
         {
             SetSprite(showdownSprite);
+        }
+
+        public IEnumerator PlayAttackWindup()
+        {
+            Vector3 windupOffset = attackOffset.sqrMagnitude > 0f
+                ? -attackOffset.normalized * attackWindupDistance
+                : Vector3.zero;
+
+            yield return MoveTo(
+                restingLocalPosition + windupOffset,
+                attackWindupDuration);
+
+            if (attackWindupHoldDuration > 0f)
+            {
+                yield return new WaitForSeconds(attackWindupHoldDuration);
+            }
         }
 
         public IEnumerator PlayAttackForward()

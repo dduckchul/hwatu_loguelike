@@ -159,6 +159,26 @@ ScriptableObject가 아닌 일반 C# 객체가 다음 상태를 관리한다.
 
 현재 선택 카드는 `PlayerHandView`가 입력 중 임시로 관리한다. Submit 시 `BattleController`가 플레이어와 각 적의 비교 결과를 해당 턴 동안 보관하고, 타격 연출 완료 이벤트에 맞춰 `HandDamageCalculator`의 피해를 `CharacterState` 사이의 Money 이전으로 적용한다. 연출이 모두 끝나면 전투 종료 여부를 확인하고 다음 턴의 버림, 적 패턴 진행과 드로우를 연결한다.
 
+## 현재 카드 보상 상태
+
+- `CardRewardGenerator`: `CardCatalogData.Cards`에서 `Normal` 카드만 모아 중복 ID 없는 후보 세 장을 추첨한다.
+- `CardRewardController`: 후보 생성을 요청하고 선택 확정 시 새 `CardInstance`를 `PlayerDeck`에 추가한다.
+- `CardRewardView`: 후보별 표시용 `CardInstance`와 `CardPrefab`을 생성하고 선택·확인·건너뛰기 입력을 전달한다.
+- `RunRandomProvider`: `CardReward` 전용 난수 스트림을 제공해 덱 셔플 난수와 보상 추첨 난수를 분리한다.
+
+보상 후보와 현재 선택은 런타임 상태이며 `CardData`나 `CardCatalogData` ScriptableObject를 변경하지 않는다. 현재는 별도 보상 카드 풀 ScriptableObject 없이 전체 카탈로그를 원본 후보군으로 사용한다.
+
+보상 확정 흐름은 다음과 같다.
+
+```text
+전투 승리
+  → Normal 후보 세 장 추첨
+  → Reward1~3에 CardPrefab 표시
+  → 카드 한 장 선택
+  → 확인: PlayerDeck.AddCard
+  → 건너뛰기: PlayerDeck 변경 없음
+```
+
 ## 현재 적 패턴 데이터
 
 - `EnemyPatternData`: 에디터에서 작성하는 ScriptableObject 적 패턴 목록
@@ -174,7 +194,7 @@ ScriptableObject가 아닌 일반 C# 객체가 다음 상태를 관리한다.
 다음 ScriptableObject는 필요해질 때 현재 코드에 맞춰 정의한다. 지금은 필드 구조를 확정하지 않는다.
 
 - 적 원본 데이터
-- 전투 보상 카드 풀
+- 보상 레벨별 전투 보상 카드 풀 데이터
 - 성장 요소용 피해 보너스 밸런스 데이터
 - 카드별 강화 대상 목록과 강화 비용 데이터
 

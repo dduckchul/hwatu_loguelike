@@ -129,14 +129,18 @@ namespace Hwatu.UI
                 return;
             }
 
+            CardData clickedCard = cardDataByView[clickedCardView];
+            bool shouldClearSelection = selectedCard == clickedCard;
             foreach (CardView cardView in cardViews)
             {
-                cardView.SetSelected(cardView == clickedCardView);
+                cardView.SetSelected(
+                    !shouldClearSelection && cardView == clickedCardView);
             }
 
-            selectedCard = cardDataByView[clickedCardView];
+            selectedCard = shouldClearSelection ? null : clickedCard;
             SetConfirmInteraction(selectedCard != null);
-            PlaySelectionTransition(clickedCardView);
+            PlaySelectionTransition(
+                shouldClearSelection ? null : clickedCardView);
         }
 
         private void HandleConfirmClicked()
@@ -213,7 +217,9 @@ namespace Hwatu.UI
                     bool isSelected = presentation.View == selectedView;
                     Vector2 targetPosition = presentation.RestingPosition
                         + (isSelected ? Vector2.up * selectedLiftDistance : Vector2.zero);
-                    float targetAlpha = isSelected ? 1f : unselectedAlpha;
+                    float targetAlpha = selectedView == null || isSelected
+                        ? 1f
+                        : unselectedAlpha;
 
                     presentation.RectTransform.anchoredPosition = Vector2.Lerp(
                         startPositions[index],

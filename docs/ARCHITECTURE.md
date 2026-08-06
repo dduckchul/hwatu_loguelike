@@ -28,10 +28,12 @@ Assets/
       Combat/
       Deck/
       Hands/
+      Randomness/
+      Rewards/
       UI/
 ```
 
-추후 보상 기능을 구현할 때 `Assets/Scripts/Hwatu/Rewards`를 추가한다. 사용하지 않는 빈 기능 폴더는 미리 만들지 않는다.
+사용하지 않는 빈 기능 폴더는 미리 만들지 않는다.
 
 ## 기능별 책임
 
@@ -56,8 +58,6 @@ Assets/
 - `BattleDeck`: 전투용 드로우 더미, 손패, 버림 더미
 - `PlayerDeckInitializer`: 1~10월 Normal 카드로 시작 덱 생성
 - `BattleDeckController`: Unity와 전투 덱 초기화 연결
-- `IRandomSource`: 셔플에서 사용하는 최소 난수 인터페이스
-- `SeededRandomSource`: 고정 시드 기반 난수 구현
 
 `BattleDeck`은 생성 시 Fisher–Yates 방식으로 셔플한다. 손패를 목표 수량까지 뽑고, 드로우 더미가 비면 버림 더미를 다시 섞어 사용한다.
 
@@ -91,7 +91,27 @@ Assets/
 4. `PlayerHandView`에 카드 전달
 5. `DeckCountView` 갱신
 
-카드 선택, 플레이어 족보 미리보기와 Submit 입력은 연결되어 있다. Submit 시 플레이어 패를 살아 있는 각 적의 패와 개별 비교하고, 적 등록 순서대로 연출한 뒤 승자의 패로 피해를 계산해 패자의 Money를 이전한다. 플레이어가 패배하면 남은 비교를 중단한다. 연출 종료 후 전투 중이면 전체 손패를 버리고 살아 있는 적의 패턴을 진행한 뒤 다음 손패를 뽑는다. 전투 종료 전용 UI와 보상 전환은 아직 구현하지 않았다.
+카드 선택, 플레이어 족보 미리보기와 Submit 입력은 연결되어 있다. Submit 시 플레이어 패를 살아 있는 각 적의 패와 개별 비교하고, 적 등록 순서대로 연출한 뒤 승자의 패로 피해를 계산해 패자의 Money를 이전한다. 플레이어가 패배하면 남은 비교를 중단한다. 연출 종료 후 전투 중이면 전체 손패를 버리고 살아 있는 적의 패턴을 진행한 뒤 다음 손패를 뽑는다. 모든 적이 패배하면 입력을 잠그고 카드 보상 화면을 연다. 다음 전투 생성과 화면 전환은 아직 구현하지 않았다.
+
+### `Hwatu/Randomness`
+
+현재 구성:
+
+- `IRandomSource`: 덱과 보상 규칙에 주입하는 최소 난수 인터페이스
+- `SeededRandomSource`: `System.Random`을 사용하는 고정 시드 난수 공급자
+- `RandomStreamId`: 현재 사용하는 `BattleDeck`, `CardReward` 난수 스트림 구분
+- `RunRandomProvider`: 하나의 `RunSeed`에서 용도별 독립 난수 스트림 제공
+
+같은 `RunSeed`는 같은 스트림별 결과를 재현한다. 한 스트림의 난수 소비량이 달라져도 다른 스트림의 결과에는 영향을 주지 않는다. 적 행동, 상점, 맵처럼 실제 난수 기능이 추가될 때만 새 스트림 ID를 정의한다.
+
+### `Hwatu/Rewards`
+
+현재 구성:
+
+- `CardRewardGenerator`: 카드 카탈로그에서 중복 ID 없는 보상 후보를 추첨
+- `CardRewardController`: 보상 후보 생성, UI 결과 수신과 `PlayerDeck.AddCard` 연결
+
+현재 보상 생성기는 전체 카드 카탈로그에서 `Normal` 카드만 필터링하고 세 장을 제시한다. 선택한 카드의 확정 또는 보상 건너뛰기가 끝나면 보상 UI를 닫는다.
 
 ### `Hwatu/UI`
 
@@ -104,6 +124,8 @@ Assets/
 - `PlayerActionView`: Submit과 Reroll 버튼 입력 전달
 - `EnemyHandView`: 적 패턴의 카드 두 장과 족보 이름 표시
 - `BattleResultView`: 등록된 적별 패 비교 결과 표시
+- `CardRewardView`: 보상 카드 세 장의 생성, 선택 표시와 확인·건너뛰기 입력 전달
+- `RewardButtonView`: 보상 화면 버튼의 호버 표시
 - `CardTypeDisplayName`: 카드 타입의 한국어 표시
 - `HandDisplayName`: 족보 결과의 한국어 표시
 
@@ -136,15 +158,28 @@ PlayerActionView.SubmitClicked
   → BattleDeck.DiscardHand
   → EnemyController.AdvancePattern
   → BattleDeck.DrawToHand
+
+BattleSequenceView.SequenceCompleted
+  → BattleController가 전투 승리 확인
+  → CardRewardController.ShowRewards
+  → CardRewardGenerator가 후보 3장 추첨
+  → CardRewardView가 Reward1~3에 CardPrefab 생성
+  → 확인 시 PlayerDeck.AddCard 또는 건너뛰기
 ```
 
 ## 기능 사이의 의존 방향
 
 ```text
 Combat → Deck
+Combat → Rewards
 Combat → UI
 Deck   → Cards
+Deck   → Randomness
 Hands  → Cards
+Rewards → Cards
+Rewards → Deck
+Rewards → Randomness
+Rewards → UI
 UI     → Cards
 UI     → Deck
 UI     → Hands
@@ -162,13 +197,15 @@ UI     → Hands
 - `CardDefinition`과 `CardInstance`는 Unity 객체에 의존하지 않는다.
 - UI는 카탈로그로 원본 데이터를 다시 조회해 이미지를 표시한다.
 - 적의 턴별 카드 패턴은 `EnemyPatternData` ScriptableObject로 작성한다.
-- 적 캐릭터 원본 데이터와 보상 데이터는 해당 기능을 구현할 때 추가한다.
+- 현재 보상 후보는 별도 보상 풀 ScriptableObject 없이 `CardCatalogData`를 사용한다.
+- 보상 레벨별 풀이 실제 구현될 때 작성용 보상 데이터의 필요 여부를 다시 결정한다.
 
 ## 난수
 
-- 셔플은 `IRandomSource`를 통해 난수를 받는다.
+- 덱 셔플과 보상 추첨은 `IRandomSource`를 통해 난수를 받는다.
+- `RunRandomProvider`는 하나의 `RunSeed`에서 `BattleDeck`, `CardReward` 스트림을 분리한다.
 - 현재 구현은 `SeededRandomSource`와 `System.Random`을 사용한다.
-- 같은 시드는 같은 셔플 결과를 재현할 수 있어야 한다.
+- 같은 `RunSeed`에서 같은 스트림별 결과를 재현할 수 있어야 한다.
 - 전역 Unity 난수와 프레임 시간은 덱 규칙에서 사용하지 않는다.
 
 ## 수동 검증
@@ -193,6 +230,8 @@ Unity 에디터에서 다음을 직접 확인한다.
 - `Hwatu.Deck`
 - `Hwatu.Hands`
 - `Hwatu.Combat`
+- `Hwatu.Randomness`
+- `Hwatu.Rewards`
 - `Hwatu.UI`
 
 이번 프로토타입을 위해 별도 asmdef를 만들지 않는다.

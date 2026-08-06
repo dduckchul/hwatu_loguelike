@@ -124,12 +124,16 @@ Assets/
 - `PlayerActionView`: Submit과 Reroll 버튼 입력 전달
 - `EnemyHandView`: 적 패턴의 카드 두 장과 족보 이름 표시
 - `BattleResultView`: 등록된 적별 패 비교 결과 표시
+- `CharacterBattleView`: 대치 스프라이트와 공격 준비·돌진·피격·복귀 연출
+- `CharacterMoneyPileView`: 현재 전을 텍스트와 단위별 동전 Sprite 더미로 표시
 - `CardRewardView`: 보상 카드 세 장의 생성, 선택 표시와 확인·건너뛰기 입력 전달
-- `RewardButtonView`: 보상 화면 버튼의 호버 표시
+- `RewardButtonView`: `Button.interactable`을 기준으로 보상 화면 버튼의 호버 표시
 - `CardTypeDisplayName`: 카드 타입의 한국어 표시
 - `HandDisplayName`: 족보 결과의 한국어 표시
 
 UI는 `CardInstance` ID를 `CardCatalogData`에서 조회해 Sprite를 연결한다. 족보와 덱 규칙은 UI에 다시 구현하지 않는다.
+
+`CardRewardView`는 각 보상 카드의 `CardView`, `CardData`, 위치와 투명도 상태를 하나의 런타임 항목으로 관리한다. 보상 후보 수는 Controller의 별도 상수가 아니라 씬에 연결된 보상 슬롯 수를 단일 기준으로 사용한다.
 
 ## 현재 실행 흐름
 
@@ -153,8 +157,11 @@ PlayerActionView.SubmitClicked
   → 각 EnemyController.GetCurrentCards
   → HandComparer.Compare
   → BattleSequenceView.Play
+  → 공격자 후퇴와 준비
+  → 전진 공격과 피격 연출
   → HandDamageCalculator.Calculate
   → CharacterState.TransferMoneyTo
+  → CharacterMoneyPileView 갱신
   → BattleDeck.DiscardHand
   → EnemyController.AdvancePattern
   → BattleDeck.DrawToHand
@@ -207,20 +214,6 @@ UI     → Hands
 - 현재 구현은 `SeededRandomSource`와 `System.Random`을 사용한다.
 - 같은 `RunSeed`에서 같은 스트림별 결과를 재현할 수 있어야 한다.
 - 전역 Unity 난수와 프레임 시간은 덱 규칙에서 사용하지 않는다.
-
-## 수동 검증
-
-Unity 에디터에서 다음을 직접 확인한다.
-
-- 시작 덱이 1~10월 Normal 카드 한 장씩으로 생성되는지
-- 같은 시드에서 같은 카드 순서가 나오는지
-- 시작 손패가 3장 표시되는지
-- 카드 이미지, 월, 타입이 올바르게 표시되는지
-- 덱 수량과 버림 더미 수량이 맞는지
-- 끗, 중간 족보, 땡, 13·18·38광땡 판정이 맞는지
-- 드로우 더미가 비면 버림 더미가 다시 섞이는지
-
-자동화된 EditMode·PlayMode 테스트는 이번 제출 범위에서 제외한다.
 
 ## 네임스페이스
 

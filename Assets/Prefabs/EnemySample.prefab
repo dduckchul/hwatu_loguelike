@@ -176,7 +176,10 @@ MonoBehaviour:
   showdownSprite: {fileID: -9095717837082945937, guid: bd3cb4af8406d4436a2ae8c2aafe1f8d, type: 3}
   attackSprite: {fileID: -9095717837082945937, guid: bd3cb4af8406d4436a2ae8c2aafe1f8d, type: 3}
   attackOffset: {x: -1, y: 0, z: 0}
-  attackForwardDuration: 0.15
+  attackWindupDistance: 0.2
+  attackWindupDuration: 0.2
+  attackWindupHoldDuration: 0.5
+  attackForwardDuration: 0.11
   attackReturnDuration: 0.15
   hitOffset: {x: 0.25, y: 0, z: 0}
   shakeDistance: 0.08
@@ -378,7 +381,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0.35}
+  m_AnchoredPosition: {x: 0, y: -0.5}
   m_SizeDelta: {x: 2, y: 0.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &4136843303219811005

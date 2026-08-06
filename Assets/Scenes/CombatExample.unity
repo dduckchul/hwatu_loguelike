@@ -3932,9 +3932,9 @@ MonoBehaviour:
   attackSprite: {fileID: -9095717837082945937, guid: bd3cb4af8406d4436a2ae8c2aafe1f8d, type: 3}
   attackOffset: {x: 1, y: 0, z: 0}
   attackWindupDistance: 0.2
-  attackWindupDuration: 0.12
+  attackWindupDuration: 0.2
   attackWindupHoldDuration: 0.5
-  attackForwardDuration: 0.15
+  attackForwardDuration: 0.1
   attackReturnDuration: 0.15
   hitOffset: {x: -0.25, y: 0, z: 0}
   shakeDistance: 0.08
@@ -5056,25 +5056,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 569397221219444536, guid: 8bfb9263e378d4e53852364257b41d14, type: 3}
-      propertyPath: startingMoney
-      value: 50
-      objectReference: {fileID: 0}
     - target: {fileID: 2900858194825079511, guid: 8bfb9263e378d4e53852364257b41d14, type: 3}
       propertyPath: m_Name
       value: EnemySample
-      objectReference: {fileID: 0}
-    - target: {fileID: 3464487026426580440, guid: 8bfb9263e378d4e53852364257b41d14, type: 3}
-      propertyPath: attackWindupDistance
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3464487026426580440, guid: 8bfb9263e378d4e53852364257b41d14, type: 3}
-      propertyPath: attackWindupHoldDuration
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3898339647971557696, guid: 8bfb9263e378d4e53852364257b41d14, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8573407000041967689, guid: 8bfb9263e378d4e53852364257b41d14, type: 3}
       propertyPath: m_LocalPosition.x

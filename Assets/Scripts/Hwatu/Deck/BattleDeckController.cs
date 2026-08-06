@@ -1,4 +1,5 @@
 using System;
+using Hwatu.Randomness;
 using UnityEngine;
 
 namespace Hwatu.Deck
@@ -9,14 +10,19 @@ namespace Hwatu.Deck
         public BattleDeck Deck { get; private set; }
         public bool IsInitialized => Deck != null;
 
-        public void Initialize(PlayerDeck playerDeck, int shuffleSeed)
+        public void Initialize(PlayerDeck playerDeck, IRandomSource randomSource)
         {
             if (playerDeck == null)
             {
                 throw new ArgumentNullException(nameof(playerDeck));
             }
 
-            Deck = playerDeck.CreateBattleDeck(new SeededRandomSource(shuffleSeed));
+            if (randomSource == null)
+            {
+                throw new ArgumentNullException(nameof(randomSource));
+            }
+
+            Deck = playerDeck.CreateBattleDeck(randomSource);
         }
     }
 }

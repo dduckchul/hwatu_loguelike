@@ -1,6 +1,6 @@
 using System;
 
-namespace Hwatu.Deck
+namespace Hwatu.Randomness
 {
     public sealed class SeededRandomSource : IRandomSource
     {

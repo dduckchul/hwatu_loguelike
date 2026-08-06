@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Hwatu.Cards;
+using Hwatu.Randomness;
 using UnityEngine;
 
 namespace Hwatu.Deck
@@ -15,7 +16,7 @@ namespace Hwatu.Deck
         private CardData[] startingCards = new CardData[StartingCardCount];
 
         [SerializeField] private BattleDeckController battleDeckController;
-        [SerializeField] private int battleDeckSeed;
+        [SerializeField] private RunRandomProvider runRandomProvider;
 
         public PlayerDeck Deck { get; private set; }
 
@@ -28,7 +29,14 @@ namespace Hwatu.Deck
                 throw new InvalidOperationException("Battle deck controller is not assigned.");
             }
 
-            battleDeckController.Initialize(Deck, battleDeckSeed);
+            if (runRandomProvider == null)
+            {
+                throw new InvalidOperationException("Run random provider is not assigned.");
+            }
+
+            battleDeckController.Initialize(
+                Deck,
+                runRandomProvider.GetStream(RandomStreamId.BattleDeck));
         }
 
         private PlayerDeck CreateStartingDeck()

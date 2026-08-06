@@ -1,0 +1,20 @@
+# Allow this trusted project to use its configured Unity MCP launcher.
+prefix_rule(
+    pattern = ["/opt/homebrew/bin/unity"],
+    decision = "allow",
+    justification = "Allow Unity MCP commands for this project without repeated approval prompts",
+)
+
+# Allow direct Unity Editor CLI validation, tests, and builds for the pinned editor version.
+prefix_rule(
+    pattern = ["/Applications/Unity/Hub/Editor/6000.3.21f1/Unity.app/Contents/MacOS/Unity"],
+    decision = "allow",
+    justification = "Allow Unity 6000.3.21f1 CLI commands for this project without repeated approval prompts",
+)
+
+# Allow read-only inspection of the configured Unity MCP server.
+prefix_rule(
+    pattern = ["codex", "mcp", "get", "unity"],
+    decision = "allow",
+    justification = "Allow inspection of this project's Unity MCP configuration",
+)

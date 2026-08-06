@@ -1,4 +1,4 @@
-namespace Hwatu.Deck
+namespace Hwatu.Randomness
 {
     public interface IRandomSource
     {

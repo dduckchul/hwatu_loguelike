@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Hwatu.Cards;
 using Hwatu.Deck;
 using Hwatu.Hands;
+using Hwatu.Rewards;
 using Hwatu.UI;
 using UnityEngine;
 
@@ -20,6 +21,7 @@ namespace Hwatu.Combat
         [SerializeField] private PlayerActionView playerActionView;
         [SerializeField] private DeckCountView deckCountView;
         [SerializeField] private BattleSequenceView battleSequenceView;
+        [SerializeField] private CardRewardController cardRewardController;
         [SerializeField] private List<EnemyController> enemies = new List<EnemyController>();
 
         private readonly HandEvaluator handEvaluator = new HandEvaluator();
@@ -234,10 +236,18 @@ namespace Hwatu.Combat
         {
             currentTurnComparisons.Clear();
 
-            if (playerController.State.IsDefeated || AreAllEnemiesDefeated())
+            if (playerController.State.IsDefeated)
             {
                 playerHandView.SetInteractionEnabled(false);
                 playerActionView.SetSubmitInteractable(false);
+                return;
+            }
+
+            if (AreAllEnemiesDefeated())
+            {
+                playerHandView.SetInteractionEnabled(false);
+                playerActionView.SetSubmitInteractable(false);
+                cardRewardController.ShowRewards();
                 return;
             }
 
@@ -302,6 +312,11 @@ namespace Hwatu.Combat
             if (battleSequenceView == null)
             {
                 throw new InvalidOperationException("Battle sequence view is not assigned.");
+            }
+
+            if (cardRewardController == null)
+            {
+                throw new InvalidOperationException("Card reward controller is not assigned.");
             }
 
             if (enemies == null

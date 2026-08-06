@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Hwatu.Cards;
+using Hwatu.Randomness;
 
 namespace Hwatu.Deck
 {

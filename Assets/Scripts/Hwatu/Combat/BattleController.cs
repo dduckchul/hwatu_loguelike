@@ -21,7 +21,7 @@ namespace Hwatu.Combat
         [SerializeField] private PlayerActionView playerActionView;
         [SerializeField] private DeckCountView deckCountView;
         [SerializeField] private BattleSequenceView battleSequenceView;
-        [SerializeField] private CardRewardController cardRewardController;
+        [SerializeField] private StoreController storeController;
         [SerializeField] private List<EnemyController> enemies = new List<EnemyController>();
 
         private readonly HandEvaluator handEvaluator = new HandEvaluator();
@@ -247,7 +247,7 @@ namespace Hwatu.Combat
             {
                 playerHandView.SetInteractionEnabled(false);
                 playerActionView.SetSubmitInteractable(false);
-                cardRewardController.ShowRewards();
+                storeController.EnterStore();
                 return;
             }
 
@@ -314,9 +314,9 @@ namespace Hwatu.Combat
                 throw new InvalidOperationException("Battle sequence view is not assigned.");
             }
 
-            if (cardRewardController == null)
+            if (storeController == null)
             {
-                throw new InvalidOperationException("Card reward controller is not assigned.");
+                throw new InvalidOperationException("Store controller is not assigned.");
             }
 
             if (enemies == null

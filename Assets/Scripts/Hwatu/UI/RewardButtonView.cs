@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -5,61 +6,76 @@ using UnityEngine.UI;
 
 namespace Hwatu.UI
 {
-    public class RewardButtonView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+    [DisallowMultipleComponent]
+    [RequireComponent(typeof(Button), typeof(Image))]
+    public sealed class RewardButtonView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
-        private Button _targetButton;
-        private Image _image;
-        private TMP_Text _button_text;
-        private bool _isInteractionEnabled;
-        
-        private Color32 colorBlueBlack = new (40, 40, 65, 255);
-        private Color colorWhite = Color.white;
+        [SerializeField] private TMP_Text labelText;
+        [SerializeField] private Color normalTextColor = new Color32(40, 40, 65, 255);
+        [SerializeField] private Color hoveredTextColor = Color.white;
 
-        void Awake()
+        private Button targetButton;
+        private Image hoverImage;
+
+        private void Awake()
         {
-            _targetButton = GetComponent<Button>();
-            _image = GetComponent<Image>();
-            _button_text = transform.GetChild(0).GetComponent<TMP_Text>();
+            targetButton = GetComponent<Button>();
+            hoverImage = GetComponent<Image>();
+            ValidateReferences();
+            SetHovered(false);
         }
 
-        void Start()
+        private void OnEnable()
         {
-            SetInteractionEnabled(_targetButton.IsActive());
+            if (targetButton != null && hoverImage != null && labelText != null)
+            {
+                SetHovered(false);
+            }
         }
-        
+
         public void OnPointerEnter(PointerEventData eventData)
         {
-            if (_targetButton == null || !_isInteractionEnabled)
+            if (targetButton == null || !targetButton.interactable)
             {
                 return;
             }
-            
+
             SetHovered(true);
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            if (_targetButton == null || !_isInteractionEnabled)
-            {
-                return;
-            }
-            
             SetHovered(false);
         }
-        
+
         public void SetInteractionEnabled(bool isEnabled)
         {
-            _isInteractionEnabled = isEnabled;
-            
+            targetButton.interactable = isEnabled;
+
             if (!isEnabled)
             {
                 SetHovered(false);
             }
         }
-        public void SetHovered(bool isHovered)
+
+        private void SetHovered(bool isHovered)
         {
-            _image.enabled = isHovered;
-            _button_text.color = isHovered ? colorWhite : colorBlueBlack;
+            hoverImage.enabled = isHovered;
+            labelText.color = isHovered ? hoveredTextColor : normalTextColor;
+        }
+
+        private void ValidateReferences()
+        {
+            if (targetButton == null || hoverImage == null)
+            {
+                throw new InvalidOperationException(
+                    "Reward button requires Button and Image components.");
+            }
+
+            if (labelText == null)
+            {
+                throw new InvalidOperationException("Reward button label text is not assigned.");
+            }
         }
     }
 }

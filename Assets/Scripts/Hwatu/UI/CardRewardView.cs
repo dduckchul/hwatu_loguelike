@@ -10,10 +10,8 @@ namespace Hwatu.UI
     [DisallowMultipleComponent]
     public sealed class CardRewardView : MonoBehaviour
     {
-        private const int RewardSlotCount = 3;
-
         [SerializeField] private CardView cardPrefab;
-        [SerializeField] private RectTransform[] rewardSlots = new RectTransform[RewardSlotCount];
+        [SerializeField] private RectTransform[] rewardSlots = new RectTransform[3];
         [SerializeField] private Button confirmButton;
         [SerializeField] private Button skipButton;
 
@@ -22,26 +20,26 @@ namespace Hwatu.UI
         [SerializeField, Range(0f, 1f)] private float unselectedAlpha = 0.65f;
         [SerializeField, Min(0f)] private float selectionTransitionDuration = 0.12f;
 
-        private readonly List<CardView> cardViews = new List<CardView>();
         private readonly List<CardPresentation> cardPresentations = new List<CardPresentation>();
-        private readonly Dictionary<CardView, CardData> cardDataByView =
-            new Dictionary<CardView, CardData>();
         private CardData selectedCard;
         private Coroutine selectionTransition;
 
         private sealed class CardPresentation
         {
             public CardView View { get; }
+            public CardData CardData { get; }
             public RectTransform RectTransform { get; }
             public CanvasGroup CanvasGroup { get; }
             public Vector2 RestingPosition { get; }
 
             public CardPresentation(
                 CardView view,
+                CardData cardData,
                 RectTransform rectTransform,
                 CanvasGroup canvasGroup)
             {
                 View = view;
+                CardData = cardData;
                 RectTransform = rectTransform;
                 CanvasGroup = canvasGroup;
                 RestingPosition = rectTransform.anchoredPosition;
@@ -51,6 +49,7 @@ namespace Hwatu.UI
         public event Action<CardData> RewardConfirmed;
         public event Action RewardSkipped;
         public bool IsOpen => gameObject.activeSelf;
+        public int RewardCount => rewardSlots == null ? 0 : rewardSlots.Length;
 
         public void Show(IReadOnlyList<CardData> rewards)
         {
@@ -59,14 +58,15 @@ namespace Hwatu.UI
                 throw new ArgumentNullException(nameof(rewards));
             }
 
-            if (rewards.Count != RewardSlotCount)
+            ValidateReferences();
+
+            if (rewards.Count != RewardCount)
             {
                 throw new ArgumentException(
-                    $"Card reward view requires exactly {RewardSlotCount} cards.",
+                    $"Card reward view requires exactly {RewardCount} cards.",
                     nameof(rewards));
             }
 
-            ValidateReferences();
             ClearCards();
             selectedCard = null;
             gameObject.SetActive(true);
@@ -89,8 +89,6 @@ namespace Hwatu.UI
                 CardView cardView = Instantiate(cardPrefab, rewardSlots[index]);
                 cardView.Bind(card, cardData);
                 cardView.Clicked += HandleCardClicked;
-                cardViews.Add(cardView);
-                cardDataByView.Add(cardView, cardData);
 
                 RectTransform cardRectTransform = (RectTransform)cardView.transform;
                 CanvasGroup canvasGroup = cardView.GetComponent<CanvasGroup>();
@@ -100,7 +98,7 @@ namespace Hwatu.UI
                 }
 
                 cardPresentations.Add(
-                    new CardPresentation(cardView, cardRectTransform, canvasGroup));
+                    new CardPresentation(cardView, cardData, cardRectTransform, canvasGroup));
             }
         }
 
@@ -124,23 +122,23 @@ namespace Hwatu.UI
 
         private void HandleCardClicked(CardView clickedCardView)
         {
-            if (clickedCardView == null || !cardViews.Contains(clickedCardView))
+            CardPresentation clickedCard = FindPresentation(clickedCardView);
+            if (clickedCard == null)
             {
                 return;
             }
 
-            CardData clickedCard = cardDataByView[clickedCardView];
-            bool shouldClearSelection = selectedCard == clickedCard;
-            foreach (CardView cardView in cardViews)
+            bool shouldClearSelection = selectedCard == clickedCard.CardData;
+            foreach (CardPresentation presentation in cardPresentations)
             {
-                cardView.SetSelected(
-                    !shouldClearSelection && cardView == clickedCardView);
+                presentation.View.SetSelected(
+                    !shouldClearSelection && presentation == clickedCard);
             }
 
-            selectedCard = shouldClearSelection ? null : clickedCard;
+            selectedCard = shouldClearSelection ? null : clickedCard.CardData;
             SetConfirmInteraction(selectedCard != null);
             PlaySelectionTransition(
-                shouldClearSelection ? null : clickedCardView);
+                shouldClearSelection ? null : clickedCard.View);
         }
 
         private void HandleConfirmClicked()
@@ -164,8 +162,9 @@ namespace Hwatu.UI
                 selectionTransition = null;
             }
 
-            foreach (CardView cardView in cardViews)
+            foreach (CardPresentation presentation in cardPresentations)
             {
+                CardView cardView = presentation.View;
                 if (cardView == null)
                 {
                     continue;
@@ -176,9 +175,25 @@ namespace Hwatu.UI
                 Destroy(cardView.gameObject);
             }
 
-            cardViews.Clear();
             cardPresentations.Clear();
-            cardDataByView.Clear();
+        }
+
+        private CardPresentation FindPresentation(CardView cardView)
+        {
+            if (cardView == null)
+            {
+                return null;
+            }
+
+            foreach (CardPresentation presentation in cardPresentations)
+            {
+                if (presentation.View == cardView)
+                {
+                    return presentation;
+                }
+            }
+
+            return null;
         }
 
         private void PlaySelectionTransition(CardView selectedView)
@@ -245,12 +260,14 @@ namespace Hwatu.UI
 
         private void SetConfirmInteraction(bool isEnabled)
         {
-            confirmButton.interactable = isEnabled;
             RewardButtonView buttonView = confirmButton.GetComponent<RewardButtonView>();
             if (buttonView != null)
             {
                 buttonView.SetInteractionEnabled(isEnabled);
+                return;
             }
+
+            confirmButton.interactable = isEnabled;
         }
 
         private void ValidateReferences()
@@ -260,10 +277,9 @@ namespace Hwatu.UI
                 throw new InvalidOperationException("Reward card prefab is not assigned.");
             }
 
-            if (rewardSlots == null || rewardSlots.Length != RewardSlotCount)
+            if (rewardSlots == null || rewardSlots.Length == 0)
             {
-                throw new InvalidOperationException(
-                    $"Exactly {RewardSlotCount} reward slots must be assigned.");
+                throw new InvalidOperationException("At least one reward slot must be assigned.");
             }
 
             for (int index = 0; index < rewardSlots.Length; index++)

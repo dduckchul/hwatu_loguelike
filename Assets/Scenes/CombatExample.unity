@@ -2011,6 +2011,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fc87b134b0a46ea88d3020402fd0e0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Hwatu.UI.RewardButtonView
+  labelText: {fileID: 262718856}
+  normalTextColor: {r: 0.15686275, g: 0.15686275, b: 0.25490198, a: 1}
+  hoveredTextColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &789595610
 GameObject:
   m_ObjectHideFlags: 0
@@ -5005,6 +5008,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fc87b134b0a46ea88d3020402fd0e0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Hwatu.UI.RewardButtonView
+  labelText: {fileID: 96872495}
+  normalTextColor: {r: 0.15686275, g: 0.15686275, b: 0.25490198, a: 1}
+  hoveredTextColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &2132686307
 GameObject:
   m_ObjectHideFlags: 0
@@ -5052,7 +5058,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 569397221219444536, guid: 8bfb9263e378d4e53852364257b41d14, type: 3}
       propertyPath: startingMoney
-      value: 20
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 2900858194825079511, guid: 8bfb9263e378d4e53852364257b41d14, type: 3}
       propertyPath: m_Name

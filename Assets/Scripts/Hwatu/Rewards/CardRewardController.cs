@@ -10,8 +10,6 @@ namespace Hwatu.Rewards
     [DisallowMultipleComponent]
     public sealed class CardRewardController : MonoBehaviour
     {
-        private const int RewardCount = 3;
-
         [SerializeField] private PlayerDeckInitializer playerDeckInitializer;
         [SerializeField] private CardCatalogData cardCatalog;
         [SerializeField] private CardRewardView rewardView;
@@ -67,7 +65,7 @@ namespace Hwatu.Rewards
             rewardView.Show(
                 rewardGenerator.GenerateNormalRewards(
                     cardCatalog.Cards,
-                    RewardCount,
+                    rewardView.RewardCount,
                     runRandomProvider.GetStream(RandomStreamId.CardReward)));
         }
 

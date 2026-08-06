@@ -16,7 +16,8 @@ namespace Hwatu.UI
         [SerializeField] private TMP_Text monthText;
         [SerializeField] private TMP_Text typeText;
         [SerializeField] private Image textBorder;
-        private Vector3 defaultScale;
+        [SerializeField] private RectTransform hoverVisualRoot;
+        private Vector3 defaultVisualScale;
 
         public event Action<CardView> Clicked;
 
@@ -26,7 +27,12 @@ namespace Hwatu.UI
 
         private void Awake()
         {
-            defaultScale = transform.localScale;
+            if (hoverVisualRoot == null)
+            {
+                throw new InvalidOperationException("Card hover visual root is not assigned.");
+            }
+
+            defaultVisualScale = hoverVisualRoot.localScale;
         }
 
         public void Bind(CardInstance card, CardData cardData)
@@ -116,7 +122,7 @@ namespace Hwatu.UI
 
         private void SetHovered(bool isHovered)
         {
-            transform.localScale = defaultScale * (isHovered ? ScaleConstant : 1f);
+            hoverVisualRoot.localScale = defaultVisualScale * (isHovered ? ScaleConstant : 1f);
         }
     }
 }

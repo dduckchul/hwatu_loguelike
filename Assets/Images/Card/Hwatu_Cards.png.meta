@@ -650,7 +650,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Hwatu_Cards_18
+      name: Hwatu_Cards_25
       rect:
         serializedVersion: 2
         x: 126
@@ -672,7 +672,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Hwatu_Cards_19
+      name: Hwatu_Cards_18
       rect:
         serializedVersion: 2
         x: 253
@@ -694,11 +694,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Hwatu_Cards_20
+      name: Hwatu_Cards_19
       rect:
         serializedVersion: 2
         x: 379
-        y: 565
+        y: 567
         width: 119
         height: 186
       alignment: 1
@@ -716,7 +716,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Hwatu_Cards_21
+      name: Hwatu_Cards_20
       rect:
         serializedVersion: 2
         x: 500
@@ -738,7 +738,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Hwatu_Cards_22
+      name: Hwatu_Cards_21
       rect:
         serializedVersion: 2
         x: 628
@@ -760,7 +760,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Hwatu_Cards_23
+      name: Hwatu_Cards_22
       rect:
         serializedVersion: 2
         x: 754
@@ -782,11 +782,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Hwatu_Cards_24
+      name: Hwatu_Cards_23
       rect:
         serializedVersion: 2
         x: 881
-        y: 562
+        y: 560
         width: 119
         height: 186
       alignment: 1
@@ -804,7 +804,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Hwatu_Cards_25
+      name: Hwatu_Cards_24
       rect:
         serializedVersion: 2
         x: 0
@@ -1005,7 +1005,7 @@ TextureImporter:
       name: Hwatu_Cards_34
       rect:
         serializedVersion: 2
-        x: 252
+        x: 250
         y: 189
         width: 121
         height: 186
@@ -1225,7 +1225,7 @@ TextureImporter:
       name: Hwatu_Cards_44
       rect:
         serializedVersion: 2
-        x: 502
+        x: 504
         y: 0
         width: 121
         height: 185
@@ -1335,15 +1335,15 @@ TextureImporter:
       Hwatu_Cards_15: 2035110966
       Hwatu_Cards_16: -644961115
       Hwatu_Cards_17: -1841075598
-      Hwatu_Cards_18: 1019208079
-      Hwatu_Cards_19: -539445292
+      Hwatu_Cards_18: -539445292
+      Hwatu_Cards_19: 473200399
       Hwatu_Cards_2: 1139684387
-      Hwatu_Cards_20: 473200399
-      Hwatu_Cards_21: -949807755
-      Hwatu_Cards_22: -1649586104
-      Hwatu_Cards_23: -550982145
-      Hwatu_Cards_24: 1784778237
-      Hwatu_Cards_25: 1465495461
+      Hwatu_Cards_20: -949807755
+      Hwatu_Cards_21: -1649586104
+      Hwatu_Cards_22: -550982145
+      Hwatu_Cards_23: 1784778237
+      Hwatu_Cards_24: 1465495461
+      Hwatu_Cards_25: 1019208079
       Hwatu_Cards_26: -1014536836
       Hwatu_Cards_27: -1115946516
       Hwatu_Cards_28: 1959255310

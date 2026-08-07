@@ -9,7 +9,8 @@ namespace Hwatu.UI
     public sealed class CardStoreView : MonoBehaviour
     {
         [SerializeField] private CardView cardPrefab;
-        [SerializeField] private RectTransform[] rewardSlots = new RectTransform[3];
+        [SerializeField] private CardStoreSlotView[] rewardSlots =
+            new CardStoreSlotView[3];
         [SerializeField, Range(0f, 1f)] private float purchasedAlpha = 0.35f;
 
         private readonly List<CardPresentation> cardPresentations = new List<CardPresentation>();
@@ -19,16 +20,19 @@ namespace Hwatu.UI
             public CardView View { get; }
             public CardData CardData { get; }
             public CanvasGroup CanvasGroup { get; }
+            public CardStoreSlotView SlotView { get; }
             public bool IsPurchased { get; set; }
 
             public CardPresentation(
                 CardView view,
                 CardData cardData,
-                CanvasGroup canvasGroup)
+                CanvasGroup canvasGroup,
+                CardStoreSlotView slotView)
             {
                 View = view;
                 CardData = cardData;
                 CanvasGroup = canvasGroup;
+                SlotView = slotView;
             }
         }
 
@@ -36,7 +40,7 @@ namespace Hwatu.UI
         public bool IsOpen => gameObject.activeSelf;
         public int CardSlotCount => rewardSlots == null ? 0 : rewardSlots.Length;
 
-        public void Show(IReadOnlyList<CardData> rewards)
+        public void Show(IReadOnlyList<CardData> rewards, int cardCost)
         {
             if (rewards == null)
             {
@@ -63,8 +67,11 @@ namespace Hwatu.UI
                     throw new ArgumentException("Card rewards cannot contain a null card.", nameof(rewards));
                 }
 
+                CardStoreSlotView rewardSlot = rewardSlots[index];
+                rewardSlot.ResetSlot(cardCost);
+
                 var card = new CardInstance(cardData.ToDefinition());
-                CardView cardView = Instantiate(cardPrefab, rewardSlots[index]);
+                CardView cardView = Instantiate(cardPrefab, rewardSlot.CardRoot);
                 cardView.Bind(card, cardData);
                 cardView.Clicked += HandleCardClicked;
 
@@ -75,7 +82,22 @@ namespace Hwatu.UI
                 }
 
                 cardPresentations.Add(
-                    new CardPresentation(cardView, cardData, canvasGroup));
+                    new CardPresentation(
+                        cardView,
+                        cardData,
+                        canvasGroup,
+                        rewardSlot));
+            }
+        }
+
+        public void RefreshCardCost(int cardCost)
+        {
+            foreach (CardPresentation presentation in cardPresentations)
+            {
+                if (!presentation.IsPurchased)
+                {
+                    presentation.SlotView.SetCost(cardCost);
+                }
             }
         }
 
@@ -109,6 +131,7 @@ namespace Hwatu.UI
             presentation.View.SetSelected(false);
             presentation.View.SetInteractionEnabled(false);
             presentation.CanvasGroup.alpha = purchasedAlpha;
+            presentation.SlotView.MarkSoldOut();
         }
 
         private void HandleCardClicked(CardView clickedCardView)

@@ -70,7 +70,8 @@ namespace Hwatu.Rewards
                 rewardGenerator.GenerateNormalRewards(
                     cardCatalog.Cards,
                     cardStoreView.CardSlotCount,
-                    runRandomProvider.GetStream(RandomStreamId.CardReward)));
+                    runRandomProvider.GetStream(RandomStreamId.CardReward)),
+                NextCardPrice);
         }
 
         public void Close()
@@ -105,6 +106,7 @@ namespace Hwatu.Rewards
                 new CardInstance(cardData.ToDefinition()));
             cardStoreView.MarkPurchased(cardData);
             purchasedCardCount = checked(purchasedCardCount + 1);
+            cardStoreView.RefreshCardCost(NextCardPrice);
         }
 
         private void ValidateReferences()

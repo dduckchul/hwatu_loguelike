@@ -12,11 +12,9 @@ namespace Hwatu.Combat
     [DisallowMultipleComponent]
     public sealed class BattleController : MonoBehaviour
     {
-        private const int MinimumEnemyCount = 1;
-        private const int MaximumEnemyCount = 2;
-
         [SerializeField] private BattleDeckController battleDeckController;
         [SerializeField] private PlayerDeckInitializer playerDeckInitializer;
+        [SerializeField] private EnemyEncounterController enemyEncounterController;
         [SerializeField] private PlayerController playerController;
         [SerializeField] private PlayerHandView playerHandView;
         [SerializeField] private PlayerActionView playerActionView;
@@ -25,7 +23,6 @@ namespace Hwatu.Combat
         [SerializeField] private StoreController storeController;
         [SerializeField] private UpperUIView upperUIView;
         [SerializeField, Min(1)] private int currentBattleNumber = 1;
-        [SerializeField] private List<EnemyController> enemies = new List<EnemyController>();
 
         private readonly HandEvaluator handEvaluator = new HandEvaluator();
         private readonly HandDamageCalculator damageCalculator = new HandDamageCalculator();
@@ -34,6 +31,8 @@ namespace Hwatu.Combat
         private bool turnSubmitted;
 
         private int CurrentStake => stakeCalculator.Calculate(currentBattleNumber);
+        private IReadOnlyList<EnemyController> Enemies =>
+            enemyEncounterController.CurrentEnemies;
 
         private sealed class TurnComparison
         {
@@ -121,6 +120,7 @@ namespace Hwatu.Combat
         {
             ValidateReferences();
             InitializePlayer();
+            enemyEncounterController.LoadInitialEncounter();
             InitializeEnemies();
             RefreshUpperUiForBattle();
             DrawOpeningHandCore();
@@ -163,7 +163,8 @@ namespace Hwatu.Combat
 
         private void InitializeEnemies()
         {
-            foreach (EnemyController enemy in enemies)
+            ValidateActiveEnemies();
+            foreach (EnemyController enemy in Enemies)
             {
                 enemy.InitializeForBattle();
             }
@@ -203,9 +204,9 @@ namespace Hwatu.Combat
             playerActionView.SetSubmitInteractable(false);
 
             HandResult playerHand = handEvaluator.Evaluate(selectedCards[0], selectedCards[1]);
-            var sequenceItems = new List<BattleSequenceItem>(enemies.Count);
+            var sequenceItems = new List<BattleSequenceItem>(Enemies.Count);
             currentTurnComparisons.Clear();
-            foreach (EnemyController enemy in enemies)
+            foreach (EnemyController enemy in Enemies)
             {
                 if (enemy.State.IsDefeated)
                 {
@@ -293,7 +294,7 @@ namespace Hwatu.Combat
             }
 
             battleDeckController.Deck.DiscardHand();
-            foreach (EnemyController enemy in enemies)
+            foreach (EnemyController enemy in Enemies)
             {
                 if (!enemy.State.IsDefeated)
                 {
@@ -308,6 +309,7 @@ namespace Hwatu.Combat
         private void HandleNextBattlePreparationRequested()
         {
             ValidateReferences();
+            enemyEncounterController.LoadNextEncounter();
             currentBattleNumber = checked(currentBattleNumber + 1);
             currentTurnComparisons.Clear();
             turnSubmitted = false;
@@ -335,7 +337,7 @@ namespace Hwatu.Combat
 
         private bool AreAllEnemiesDefeated()
         {
-            foreach (EnemyController enemy in enemies)
+            foreach (EnemyController enemy in Enemies)
             {
                 if (!enemy.State.IsDefeated)
                 {
@@ -399,12 +401,20 @@ namespace Hwatu.Combat
                 throw new InvalidOperationException("Upper UI view is not assigned.");
             }
 
-            if (enemies == null
-                || enemies.Count < MinimumEnemyCount
-                || enemies.Count > MaximumEnemyCount)
+            if (enemyEncounterController == null)
             {
                 throw new InvalidOperationException(
-                    $"Battle must contain between {MinimumEnemyCount} and {MaximumEnemyCount} enemies.");
+                    "Enemy encounter controller is not assigned.");
+            }
+        }
+
+        private void ValidateActiveEnemies()
+        {
+            IReadOnlyList<EnemyController> enemies = Enemies;
+            if (enemies == null || enemies.Count == 0 || enemies.Count > 2)
+            {
+                throw new InvalidOperationException(
+                    "Battle must contain between 1 and 2 active enemies.");
             }
 
             var registeredEnemies = new HashSet<EnemyController>();

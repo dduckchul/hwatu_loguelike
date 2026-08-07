@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Hwatu.Combat;
 using Hwatu.UI;
 using TMPro;
 using UnityEngine;
@@ -14,7 +15,7 @@ namespace Hwatu.Rewards
         [SerializeField] private BackgroundTransitionView backgroundTransitionView;
         [SerializeField] private CanvasGroup battleUiCanvasGroup;
         [SerializeField] private Transform playerRoot;
-        [SerializeField] private List<GameObject> enemyRoots = new List<GameObject>();
+        [SerializeField] private EnemyEncounterController enemyEncounterController;
 
         [Header("Store")]
         [SerializeField] private StoreView storeView;
@@ -107,6 +108,7 @@ namespace Hwatu.Rewards
 
             ValidateReferences();
             NextBattlePreparationRequested?.Invoke();
+            CaptureEnemyVisuals();
             SetEnemyVisibility(0f);
             cardStoreController.Close();
             storeView.Hide();
@@ -202,8 +204,9 @@ namespace Hwatu.Rewards
             enemySpriteTargets.Clear();
             enemyTextTargets.Clear();
 
-            foreach (GameObject enemyRoot in enemyRoots)
+            foreach (EnemyController enemy in enemyEncounterController.CurrentEnemies)
             {
+                GameObject enemyRoot = enemy.gameObject;
                 SpriteRenderer[] spriteRenderers =
                     enemyRoot.GetComponentsInChildren<SpriteRenderer>(includeInactive: true);
                 foreach (SpriteRenderer spriteRenderer in spriteRenderers)
@@ -347,27 +350,10 @@ namespace Hwatu.Rewards
                     "Card store controller is not assigned.");
             }
 
-            if (enemyRoots == null || enemyRoots.Count == 0)
+            if (enemyEncounterController == null)
             {
                 throw new InvalidOperationException(
-                    "At least one enemy root must be assigned.");
-            }
-
-            var uniqueEnemyRoots = new HashSet<GameObject>();
-            for (int index = 0; index < enemyRoots.Count; index++)
-            {
-                GameObject enemyRoot = enemyRoots[index];
-                if (enemyRoot == null)
-                {
-                    throw new InvalidOperationException(
-                        $"Enemy root at index {index} is not assigned.");
-                }
-
-                if (!uniqueEnemyRoots.Add(enemyRoot))
-                {
-                    throw new InvalidOperationException(
-                        "The same enemy root cannot be assigned more than once.");
-                }
+                    "Enemy encounter controller is not assigned.");
             }
         }
     }

@@ -13,10 +13,15 @@ namespace Hwatu.Rewards
         [Header("Transition Views")]
         [SerializeField] private BackgroundTransitionView backgroundTransitionView;
         [SerializeField] private CanvasGroup battleUiCanvasGroup;
+        [SerializeField] private Transform playerRoot;
         [SerializeField] private List<GameObject> enemyRoots = new List<GameObject>();
 
         [Header("Fade")]
         [SerializeField, Min(0f)] private float presentationFadeDuration = 0.5f;
+
+        [Header("Player Position")]
+        [SerializeField] private Vector3 storePlayerLocalPosition =
+            new Vector3(0f, 0.5f, 0f);
 
         private readonly List<SpriteFadeTarget> enemySpriteTargets =
             new List<SpriteFadeTarget>();
@@ -25,6 +30,7 @@ namespace Hwatu.Rewards
 
         private Coroutine transitionCoroutine;
         private float battleUiVisibleAlpha;
+        private Vector3 battlePlayerLocalPosition;
         private bool targetStoreOpen;
 
         public event Action StoreOpened;
@@ -61,6 +67,7 @@ namespace Hwatu.Rewards
         {
             ValidateReferences();
             battleUiVisibleAlpha = battleUiCanvasGroup.alpha;
+            battlePlayerLocalPosition = playerRoot.localPosition;
             SetBattleUiInteractionEnabled(true);
         }
 
@@ -123,11 +130,16 @@ namespace Hwatu.Rewards
                 : 0f;
             float startVisibility = GetEnemyVisibility();
             float targetVisibility = showBattlePresentation ? 1f : 0f;
+            Vector3 startPlayerPosition = playerRoot.localPosition;
+            Vector3 targetPlayerPosition = showBattlePresentation
+                ? battlePlayerLocalPosition
+                : storePlayerLocalPosition;
 
             if (presentationFadeDuration <= 0f)
             {
                 battleUiCanvasGroup.alpha = targetBattleUiAlpha;
                 SetEnemyVisibility(targetVisibility);
+                playerRoot.localPosition = targetPlayerPosition;
                 yield break;
             }
 
@@ -144,12 +156,17 @@ namespace Hwatu.Rewards
                     easedProgress);
                 SetEnemyVisibility(
                     Mathf.Lerp(startVisibility, targetVisibility, easedProgress));
+                playerRoot.localPosition = Vector3.Lerp(
+                    startPlayerPosition,
+                    targetPlayerPosition,
+                    easedProgress);
 
                 yield return null;
             }
 
             battleUiCanvasGroup.alpha = targetBattleUiAlpha;
             SetEnemyVisibility(targetVisibility);
+            playerRoot.localPosition = targetPlayerPosition;
         }
 
         private IEnumerator WaitForBackgroundTransition()
@@ -256,6 +273,13 @@ namespace Hwatu.Rewards
                 ? battleUiVisibleAlpha
                 : 0f;
             SetEnemyVisibility(showBattlePresentation ? 1f : 0f);
+            if (playerRoot != null)
+            {
+                playerRoot.localPosition = showBattlePresentation
+                    ? battlePlayerLocalPosition
+                    : storePlayerLocalPosition;
+            }
+
             SetBattleUiInteractionEnabled(showBattlePresentation);
             IsStoreOpen = targetStoreOpen;
         }
@@ -272,6 +296,12 @@ namespace Hwatu.Rewards
             {
                 throw new InvalidOperationException(
                     "Battle UI canvas group is not assigned.");
+            }
+
+            if (playerRoot == null)
+            {
+                throw new InvalidOperationException(
+                    "Player root is not assigned.");
             }
 
             if (enemyRoots == null || enemyRoots.Count == 0)

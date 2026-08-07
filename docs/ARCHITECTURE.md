@@ -56,7 +56,7 @@ Assets/
 - `PlayerDeck`: 한 런 동안 보유하는 전체 카드
 - `PlayerDeck.UpgradeCard`: 같은 월의 Normal 카드를 Bright, Ribbon, Animal 카드 정의로 교체
 - `BattleDeck`: 전투용 드로우 더미, 손패, 버림 더미
-- `PlayerDeckInitializer`: 1~10월 Normal 카드로 시작 덱 생성
+- `PlayerDeckInitializer`: 1~10월 Normal 카드로 시작 덱을 만들고 현재 `PlayerDeck`으로 새 `BattleDeck` 재생성
 - `BattleDeckController`: Unity와 전투 덱 초기화 연결
 
 `BattleDeck`은 생성 시 Fisher–Yates 방식으로 셔플한다. 손패를 목표 수량까지 뽑고, 드로우 더미가 비면 버림 더미를 다시 섞어 사용한다.
@@ -83,7 +83,7 @@ Assets/
 - `HandDamageCalculator`: 기본 판돈과 족보에 따른 피해를 계산하는 일반 C# 규칙 객체
 - `EnemyPatternData`: 에디터에서 작성하는 적의 턴별 패턴 원본
 
-`BattleController`는 전투 시작 시 다음 흐름을 연결한다.
+`BattleController`는 첫 전투 시작 시 다음 흐름을 연결한다.
 
 1. 등록된 `EnemyController` 1~2명 검증과 초기화
 2. 초기화된 `BattleDeck` 확인
@@ -91,9 +91,43 @@ Assets/
 4. `PlayerHandView`에 카드 전달
 5. `DeckCountView` 갱신
 
-카드 선택, 플레이어 족보 미리보기와 Submit 입력은 연결되어 있다. Submit 시 플레이어 패를 살아 있는 각 적의 패와 개별 비교하고, 적 등록 순서대로 연출한 뒤 승자의 패로 피해를 계산해 패자의 Money를 이전한다. 플레이어가 패배하면 남은 비교를 중단한다. 연출 종료 후 전투 중이면 전체 손패를 버리고 살아 있는 적의 패턴을 진행한 뒤 다음 손패를 뽑는다. 모든 적이 패배하면 입력을 잠그고 `StoreController`가 같은 씬에서 귀시장 배경 전환, 전투 UI와 적 퇴장, 플레이어 중앙 이동 및 상점 카드 목록 표시를 처리한다. 다음 전투 초기화는 아직 연결하지 않았다.
+카드 선택, 플레이어 족보 미리보기와 Submit 입력은 연결되어 있다. Submit 시 플레이어 패를 살아 있는 각 적의 패와 개별 비교하고, 적 등록 순서대로 연출한 뒤 승자의 패로 피해를 계산해 패자의 Money를 이전한다. 플레이어가 패배하면 남은 비교를 중단한다. 연출 종료 후 전투 중이면 전체 손패를 버리고 살아 있는 적의 패턴을 진행한 뒤 다음 손패를 뽑는다. 모든 적이 패배하면 입력을 잠그고 `StoreController`가 같은 씬에서 귀시장 배경 전환, 전투 UI와 적 퇴장 및 플레이어 이동을 처리한다.
+
+귀시장에서 넘어가면 `StoreController.NextBattlePreparationRequested`를 받은 `BattleController`가 현재 `PlayerDeck`으로 새 `BattleDeck`을 만들고 씬에 등록된 `EnemySample`을 초기화한다. `StoreController.BattlePresentationRestored`는 Fade-In 완료 후 발생하며, 이때 새 손패 세 장을 드로우한다. 이 흐름은 현재 한 적을 재사용하는 임시 구현이고 확정된 프리팹 로딩 구조는 아직 구현하지 않았다.
 
 첫 번째 플레이어블은 별도 맵 씬을 만들지 않는다. 전투와 상점은 `CombatExample` 안의 화면 상태로 전환하고, 다음 전투에서도 같은 런의 `PlayerDeck`, 플레이어 Money와 `RunSeed`를 유지한다. 다음 전투를 시작할 때 전투용 `BattleDeck`, 적 상태, 손패와 전투 UI만 다시 초기화한다.
+
+#### 확정된 스테이지 적 로딩 구조
+
+현재 씬에 직접 연결된 `EnemySample`은 임시 구현이다. 스테이지별 적 구성은 다음 구조로 교체한다.
+
+- `StageEncounterData`: 한 스테이지에 등장할 적 프리팹 1~2개를 순서대로 참조하는 작성용 ScriptableObject
+- `EnemyEncounterController`: 현재 적 인스턴스의 제거, 다음 적 프리팹 생성, 스폰 포인트 배치와 활성 적 목록 제공을 담당하는 MonoBehaviour
+- `EnemyBase.prefab`: `EnemyController`, 손패·전·전투 연출 View와 공통 계층을 가진 기준 프리팹
+- 몬스터별 프리팹 Variant: 패턴, 시작 전, Sprite와 연출 설정만 기준 프리팹에서 변경
+- `EnemySpawnPoint1`, `EnemySpawnPoint2`: 씬이 소유하며 `StageEncounterData`의 적 배열 순서에 대응하는 배치 지점
+
+책임은 다음처럼 나눈다.
+
+- `EnemyEncounterController`만 `StageEncounterData`를 읽고 적 프리팹을 생성하거나 제거한다.
+- `BattleController`는 적 프리팹을 선택하거나 생성하지 않고 `EnemyEncounterController.CurrentEnemies`의 현재 적 1~2명으로 전투를 진행한다.
+- `StoreController`는 적 선택 규칙을 소유하지 않고 현재 생성된 적들의 화면 Fade만 처리한다.
+- `StageEncounterData`와 적 프리팹은 작성용 원본이며 현재 Money, 패턴 인덱스와 피격 상태 같은 런타임 값을 저장하지 않는다.
+
+귀시장에서 다음 전투로 넘어갈 때 적 교체 순서는 아래로 확정한다.
+
+```text
+이전 적 FadeOut
+  → 귀시장 진입
+  → 넘어가기 입력
+  → 이전 적 인스턴스 제거
+  → 다음 StageEncounterData의 적 프리팹 생성과 초기화
+  → StoreController가 새 적 표시 대상을 다시 수집하고 투명 상태로 준비
+  → 전투 화면과 새 적 FadeIn
+  → FadeIn 완료 후 손패 3장 드로우
+```
+
+이 구조는 확정됐지만 `StageEncounterData`와 `EnemyEncounterController`, 적 프리팹 Variant는 아직 구현하지 않았다. 구현 전까지는 씬의 `EnemySample` 한 명을 재초기화해 다음 전투에 사용한다.
 
 ### `Hwatu/Randomness`
 
@@ -112,11 +146,12 @@ Assets/
 
 - `CardRewardGenerator`: 카드 카탈로그에서 중복 ID 없는 보상 후보를 추첨
 - `StoreCardPriceCalculator`: 방문 중 구매한 카드 수에 따라 다음 카드 가격 계산
-- `StoreController`: 같은 씬의 전투·귀시장 전환, 카드 후보 생성, 즉시 구매와 `PlayerDeck.AddCard` 연결
+- `StoreController`: 같은 씬의 전투·귀시장 전환, `StoreView` 열기·닫기와 다음 전투 준비 이벤트 연결
+- `CardStoreController`: 카드 후보 생성, 구매 순서별 가격 확인, 전 차감과 `PlayerDeck.AddCard` 연결
 
-기존 `CardRewardController`의 연결 책임은 `StoreController`로 병합했다. 보상 생성기는 전체 카드 카탈로그에서 `Normal` 카드만 필터링하고 세 장을 제시하며 일반 C# 객체로 유지한다. 각 후보를 클릭하면 현재 구매 순서의 가격을 확인하고 전이 충분한 경우 즉시 덱에 추가한다.
+기존 일회성 카드 보상 흐름은 카드 상점으로 통합했다. `StoreController`는 상점 전체 화면 전환만 소유하고 카드 구매 규칙을 알지 않는다. `CardStoreController`는 전체 카드 카탈로그의 `Normal` 카드 중 세 장을 생성하고 각 후보의 즉시 구매를 처리한다.
 
-상점은 방문별 카드 구매 횟수, 강화 사용 여부와 영구 제거 사용 여부를 런타임 상태로 관리한다. 카드 가격은 한 방문에서 구매 순서대로 `0전`, `20전`, `40전`이며 플레이어 Money에서 지불한다. 강화와 제거는 한 방문에 각각 한 번씩 사용할 수 있고 같은 방문에서 둘 다 사용할 수 있다. 상점 하단 메뉴는 전투 규칙을 소유하지 않으며 `PlayerDeck`의 공개 메서드를 통해서만 런 덱을 변경한다. 유물과 아이템 효과 시스템은 만들지 않는다.
+`CardStoreController`는 방문별 구매 횟수를 런타임 상태로 관리한다. 가격은 구매 순서대로 `0전`, `20전`, `40전`이며 구매 성공 후 남은 후보의 표시 가격을 갱신한다. 강화와 영구 제거 규칙은 확정됐지만 각각의 Controller와 대상 선택 패널은 아직 구현하지 않았다.
 
 ### `Hwatu/UI`
 
@@ -131,14 +166,16 @@ Assets/
 - `BattleResultView`: 등록된 적별 패 비교 결과 표시
 - `CharacterBattleView`: 대치 스프라이트와 공격 준비·돌진·피격·복귀 연출
 - `CharacterMoneyPileView`: 현재 전을 텍스트와 단위별 동전 Sprite 더미로 표시
-- `CardRewardView`: 상점 카드 후보 세 장을 생성하고 개별 카드 클릭 구매 요청과 구매 완료 표시를 전달
+- `StoreView`: 귀시장 전체 UI 표시와 강화·제거·넘어가기 메뉴 입력 전달
+- `CardStoreView`: 카드 상점 후보 생성 위치와 개별 카드 클릭 구매 요청 관리
+- `CardStoreSlotView`: 슬롯 하나의 카드 생성 위치, 가격 텍스트와 매진 표시 관리
 - `RewardButtonView`: `Button.interactable`을 기준으로 보상 화면 버튼의 호버 표시
 - `CardTypeDisplayName`: 카드 타입의 한국어 표시
 - `HandDisplayName`: 족보 결과의 한국어 표시
 
 UI는 `CardInstance` ID를 `CardCatalogData`에서 조회해 Sprite를 연결한다. 족보와 덱 규칙은 UI에 다시 구현하지 않는다.
 
-`CardRewardView`는 각 보상 카드의 `CardView`, `CardData`, 위치와 투명도 상태를 하나의 런타임 항목으로 관리한다. 보상 후보 수는 Controller의 별도 상수가 아니라 씬에 연결된 보상 슬롯 수를 단일 기준으로 사용한다.
+`CardStoreView`는 각 후보의 `CardView`, `CardData`, 구매 여부와 슬롯을 하나의 런타임 항목으로 관리한다. 후보 수는 Controller의 별도 상수가 아니라 연결된 `CardStoreSlotView` 수를 단일 기준으로 사용한다. 각 슬롯은 자신의 가격을 `숫자 + 공백 + 전` 형식으로 표시하고 구매 완료 시 카드 흐림과 매진 표시를 적용한다.
 
 ## 현재 실행 흐름
 
@@ -176,13 +213,19 @@ BattleSequenceView.SequenceCompleted
   → StoreController.EnterStore
   → 귀시장 배경 전환과 플레이어 중앙 이동
   → 전투 UI와 적 표시 FadeOut
-  → StoreController가 상점 방문 상태 초기화
+  → StoreView 표시
+  → CardStoreController가 상점 방문 상태 초기화
   → CardRewardGenerator가 후보 3장 추첨
-  → CardRewardView가 상단 카드 목록에 CardPrefab 생성
+  → CardStoreView가 CardStoreSlotView 3개에 CardPrefab 생성
   → 카드 클릭 시 구매 순서에 따라 0전, 20전, 40전 확인
-  → 전이 충분하면 PlayerDeck.AddCard 후 해당 후보 비활성화
-  → 하단 강화 또는 영구 제거 메뉴 이용
-  → 상점 닫기 후 다음 전투 초기화
+  → 전이 충분하면 PlayerDeck.AddCard 후 해당 슬롯 매진 표시
+  → 넘어가기 입력
+  → StoreController.NextBattlePreparationRequested
+  → 현재 PlayerDeck으로 BattleDeck 재생성
+  → 현재 EnemySample 초기화
+  → 전투 화면 FadeIn
+  → StoreController.BattlePresentationRestored
+  → 새 손패 3장 드로우
 ```
 
 ## 기능 사이의 의존 방향
@@ -215,6 +258,8 @@ UI     → Hands
 - `CardDefinition`과 `CardInstance`는 Unity 객체에 의존하지 않는다.
 - UI는 카탈로그로 원본 데이터를 다시 조회해 이미지를 표시한다.
 - 적의 턴별 카드 패턴은 `EnemyPatternData` ScriptableObject로 작성한다.
+- 스테이지별 적 프리팹 구성은 `StageEncounterData` ScriptableObject로 작성한다.
+- `StageEncounterData`는 프리팹 참조만 보유하며 생성된 적 인스턴스와 전투 중 상태는 `EnemyEncounterController`와 각 `EnemyController`가 관리한다.
 - 현재 보상 후보는 별도 보상 풀 ScriptableObject 없이 `CardCatalogData`를 사용한다.
 - 보상 레벨별 풀이 실제 구현될 때 작성용 보상 데이터의 필요 여부를 다시 결정한다.
 

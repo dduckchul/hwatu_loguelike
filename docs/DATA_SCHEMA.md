@@ -161,12 +161,12 @@ ScriptableObject가 아닌 일반 C# 객체가 다음 상태를 관리한다.
 
 - 후보, 방문 중 구매 횟수와 후보별 구매 여부는 런타임 상태이며 `CardData`나 `CardCatalogData`를 변경하지 않는다.
 - 후보 원본은 현재 `CardCatalogData`의 `Normal` 카드이며, 별도 보상 풀 ScriptableObject는 사용하지 않는다.
-- 후보 수는 보상 슬롯 배열 길이를 기준으로 하고 현재 씬은 세 슬롯을 사용한다.
-- 확정된 후보는 새 `CardInstance`가 되어 `PlayerDeck`에 추가된다.
+- 후보 수는 `CardStoreView`에 연결된 `CardStoreSlotView` 배열 길이를 기준으로 하고 현재 씬은 세 슬롯을 사용한다.
+- 구매한 후보는 새 `CardInstance`가 되어 `PlayerDeck`에 추가된다.
 
-기존 일회성 카드 보상 기능은 상점 상단의 카드 구매 목록으로 병합했다. `StoreController`가 후보 생성, 가격 확인, 전 차감과 덱 추가를 연결하고 `CardRewardGenerator`와 카드 UI는 각자의 규칙·표시 책임을 유지한다. 상점 방문마다 구매 횟수를 런타임 상태로 관리하며 구매 비용은 순서대로 `0전`, `20전`, `40전`이다. 후보 카드를 클릭하면 즉시 구매하며 `CardData`에는 런타임 가격이나 구매 상태를 저장하지 않는다.
+기존 일회성 카드 보상 기능은 상점 상단의 카드 구매 목록으로 병합했다. `CardStoreController`가 후보 생성, 가격 확인, 전 차감과 덱 추가를 연결하고 `StoreController`는 귀시장 전체 화면 전환만 담당한다. 상점 방문마다 구매 횟수를 런타임 상태로 관리하며 구매 비용은 순서대로 `0전`, `20전`, `40전`이다. 후보 카드를 클릭하면 즉시 구매하며 `CardData`에는 런타임 가격이나 구매 상태를 저장하지 않는다.
 
-같은 상점 방문에서 강화 사용 여부와 영구 제거 사용 여부를 각각 관리한다. 두 값은 상점을 열 때 `false`로 초기화하고 해당 기능을 사용하면 `true`가 된다. 강화와 제거는 서로를 막지 않으며 다음 상점 방문에서 모두 다시 초기화한다.
+강화와 영구 제거는 같은 방문에서 각각 한 번 사용할 수 있다는 게임 규칙만 확정됐다. 방문별 사용 여부를 소유할 Controller와 런타임 필드는 아직 구현하지 않았으며, 실제 구현 전에는 데이터 스키마로 간주하지 않는다.
 
 ## 현재 전 표시 데이터
 
@@ -181,18 +181,54 @@ ScriptableObject가 아닌 일반 C# 객체가 다음 상태를 관리한다.
 
 표시할 동전은 큰 단위부터 현재 전을 분해해 만들고, 최대 표시 개수를 넘으면 나머지를 생략한다. 정확한 현재 전은 항상 텍스트로 함께 표시한다. 이 동전 목록은 UI 표현 상태이며 `CharacterState`나 실제 Money 계산을 변경하지 않는다.
 
-## 현재 적 패턴 데이터
+## 적과 스테이지 조우 데이터
+
+### 현재 적 패턴 데이터
 
 - `EnemyPatternData`: 에디터에서 작성하는 적의 순환 패턴 목록
 - `EnemyTurnPattern`: 한 턴에 제출할 `CardData` 두 장
 
-현재 적 데이터는 턴별 카드 패턴까지만 정의한다. 적 캐릭터의 실제 이미지, 콘셉트와 공통 원본 데이터는 아직 구현하지 않았다.
+현재 구현된 적 데이터는 턴별 카드 패턴까지이며 씬의 `EnemySample`에 직접 연결되어 있다.
+
+### `StageEncounterData`
+
+**확정, 미구현**
+
+한 스테이지에서 생성할 적 프리팹 구성을 작성하는 ScriptableObject다.
+
+```csharp
+[CreateAssetMenu(fileName = "StageEncounterData", menuName = "Hwatu/Combat/Stage Encounter")]
+public sealed class StageEncounterData : ScriptableObject
+{
+    [SerializeField] private string stageId;
+    [SerializeField] private EnemyController[] enemyPrefabs;
+}
+```
+
+- `stageId`: 스테이지 구성을 식별하는 안정적인 고유 ID
+- `enemyPrefabs`: 등장 순서대로 등록하는 적 프리팹 1~2개
+- 배열 인덱스는 씬의 `EnemySpawnPoint1`, `EnemySpawnPoint2`에 대응한다.
+- 프리팹은 프로젝트 에셋 직접 참조를 사용하며 문자열 경로나 Resources 로딩을 사용하지 않는다.
+- 현재 Money, 패턴 인덱스와 피격 상태 같은 런타임 값은 저장하지 않는다.
+
+### 적 프리팹
+
+**확정, 미구현**
+
+`EnemyBase.prefab`에 공통 `EnemyController`, `EnemyHandView`, `CharacterBattleView`, `CharacterMoneyPileView`와 이펙트 계층을 둔다. 몬스터별 프리팹은 기준 프리팹의 Variant로 작성하고 다음 콘텐츠 참조와 표시 설정만 변경한다.
+
+- `EnemyPatternData`
+- 시작 전
+- 대치·승부·공격 Sprite
+- 공격·피격 연출 설정
+- 크기와 위치 보정
+
+프리팹 인스턴스의 `CharacterState`와 현재 패턴 인덱스는 매 전투 초기화되는 런타임 상태다. 스테이지 데이터나 프리팹 원본을 플레이 중 수정하지 않는다.
 
 ## 아직 구현하지 않은 데이터
 
 다음 ScriptableObject는 필요해질 때 현재 코드에 맞춰 정의한다. 지금은 필드 구조를 확정하지 않는다.
 
-- 적 원본 데이터
 - 보상 레벨별 전투 보상 카드 풀 데이터
 - 성장 요소용 피해 보너스 밸런스 데이터
 - 카드별 강화 대상 목록과 강화 비용 데이터

@@ -9,6 +9,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 142758650962631112, guid: 8bfb9263e378d4e53852364257b41d14, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 142758650962631112, guid: 8bfb9263e378d4e53852364257b41d14, type: 3}
+      propertyPath: m_FlipY
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 142758650962631112, guid: 8bfb9263e378d4e53852364257b41d14, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 8331331848547009515, guid: e4748aa01723b427a943da37439cdace, type: 3}
@@ -24,22 +32,34 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 569397221219444536, guid: 8bfb9263e378d4e53852364257b41d14, type: 3}
+      propertyPath: startingMoney
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 2900858194825079511, guid: 8bfb9263e378d4e53852364257b41d14, type: 3}
       propertyPath: m_Name
-      value: SampleEnemy
+      value: Rorni
       objectReference: {fileID: 0}
     - target: {fileID: 3464487026426580440, guid: 8bfb9263e378d4e53852364257b41d14, type: 3}
       propertyPath: hitEffect
       value: 
       objectReference: {fileID: 7450959353568308949}
     - target: {fileID: 3464487026426580440, guid: 8bfb9263e378d4e53852364257b41d14, type: 3}
-      propertyPath: idleSprite
+      propertyPath: hitSprite
       value: 
       objectReference: {fileID: -3503564549822311607, guid: e4748aa01723b427a943da37439cdace, type: 3}
     - target: {fileID: 3464487026426580440, guid: 8bfb9263e378d4e53852364257b41d14, type: 3}
-      propertyPath: attackSprite
+      propertyPath: idleSprite
       value: 
       objectReference: {fileID: -8546275598249707510, guid: ac6edfb0c740947e4a324ec8e567f255, type: 3}
+    - target: {fileID: 3464487026426580440, guid: 8bfb9263e378d4e53852364257b41d14, type: 3}
+      propertyPath: idleSprite2
+      value: 
+      objectReference: {fileID: -6154710126228468680, guid: ac6edfb0c740947e4a324ec8e567f255, type: 3}
+    - target: {fileID: 3464487026426580440, guid: 8bfb9263e378d4e53852364257b41d14, type: 3}
+      propertyPath: attackSprite
+      value: 
+      objectReference: {fileID: -3503564549822311607, guid: e4748aa01723b427a943da37439cdace, type: 3}
     - target: {fileID: 3464487026426580440, guid: 8bfb9263e378d4e53852364257b41d14, type: 3}
       propertyPath: showdownSprite
       value: 

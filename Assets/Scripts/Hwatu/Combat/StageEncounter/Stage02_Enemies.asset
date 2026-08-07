@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 94191036ea7594df982b9570a0088fd0, type: 3}
-  m_Name: Stage02Placeholder
+  m_Name: Stage02_Enemies
   m_EditorClassIdentifier: Assembly-CSharp::Hwatu.Combat.StageEncounterData
-  stageId: stage_02_placeholder
+  stageId: stage_02
   enemyPrefabs:
   - {fileID: 1956921876191128877, guid: 506d30e15e9014ac09cdc4c4a5f96538, type: 3}

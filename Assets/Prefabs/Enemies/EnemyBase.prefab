@@ -173,14 +173,16 @@ MonoBehaviour:
   spriteRenderer: {fileID: 142758650962631112}
   motionTarget: {fileID: 8573407000041967689}
   idleSprite: {fileID: -9095717837082945937, guid: bd3cb4af8406d4436a2ae8c2aafe1f8d, type: 3}
-  showdownSprite: {fileID: -9095717837082945937, guid: bd3cb4af8406d4436a2ae8c2aafe1f8d, type: 3}
-  attackSprite: {fileID: -9095717837082945937, guid: bd3cb4af8406d4436a2ae8c2aafe1f8d, type: 3}
+  idleSprite2: {fileID: 0}
+  hitSprite: {fileID: 0}
+  idleFrameDuration: 0.125
   attackOffset: {x: -1, y: 0, z: 0}
   attackWindupDistance: 0.2
   attackWindupDuration: 0.2
   attackWindupHoldDuration: 0.5
   attackForwardDuration: 0.11
   attackReturnDuration: 0.15
+  hitEffect: {fileID: 0}
   hitOffset: {x: 0.25, y: 0, z: 0}
   shakeDistance: 0.08
   shakeCount: 4
@@ -213,7 +215,7 @@ Transform:
   m_GameObject: {fileID: 2900858194825079511}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.5, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

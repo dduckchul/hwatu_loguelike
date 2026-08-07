@@ -13,8 +13,9 @@ namespace Hwatu.UI
 
         [Header("Sprites")]
         [SerializeField] private Sprite idleSprite;
-        [SerializeField] private Sprite showdownSprite;
-        [SerializeField] private Sprite attackSprite;
+        [SerializeField] private Sprite idleSprite2;
+        [SerializeField] private Sprite hitSprite;
+        [SerializeField, Min(0.01f)] private float idleFrameDuration = 0.5f;
 
         [Header("Attack Motion")]
         [SerializeField] private Vector3 attackOffset;
@@ -34,6 +35,7 @@ namespace Hwatu.UI
 
         private Vector3 restingLocalPosition;
         private Color restingColor;
+        private Coroutine idleAnimation;
         private bool isInitialized;
 
         private void Awake()
@@ -52,12 +54,19 @@ namespace Hwatu.UI
 
         public void ShowIdle()
         {
+            StopIdleAnimation();
             SetSprite(idleSprite);
+
+            if (isActiveAndEnabled)
+            {
+                idleAnimation = StartCoroutine(PlayIdleAnimation());
+            }
         }
 
         public void ShowShowdown()
         {
-            SetSprite(showdownSprite);
+            StopIdleAnimation();
+            SetSprite(idleSprite2);
         }
 
         public IEnumerator PlayAttackWindup()
@@ -78,7 +87,6 @@ namespace Hwatu.UI
 
         public IEnumerator PlayAttackForward()
         {
-            SetSprite(attackSprite);
             yield return MoveTo(
                 restingLocalPosition + attackOffset,
                 attackForwardDuration);
@@ -93,6 +101,8 @@ namespace Hwatu.UI
         public IEnumerator PlayHit()
         {
             Vector3 startPosition = restingLocalPosition;
+            StopIdleAnimation();
+            SetSprite(hitSprite);
             PlayHitEffect();
             SetColor(hitFlashColor);
 
@@ -133,8 +143,34 @@ namespace Hwatu.UI
             motionTarget.localPosition = targetPosition;
         }
 
+        private IEnumerator PlayIdleAnimation()
+        {
+            var frameWait = new WaitForSeconds(idleFrameDuration);
+
+            while (true)
+            {
+                yield return frameWait;
+                SetSprite(idleSprite2);
+                yield return frameWait;
+                SetSprite(idleSprite);
+            }
+        }
+
+        private void StopIdleAnimation()
+        {
+            if (idleAnimation == null)
+            {
+                return;
+            }
+
+            StopCoroutine(idleAnimation);
+            idleAnimation = null;
+        }
+
         private void OnDisable()
         {
+            StopIdleAnimation();
+
             if (!isInitialized)
             {
                 return;
@@ -206,9 +242,15 @@ namespace Hwatu.UI
                 throw new InvalidOperationException("Character motion target is not assigned.");
             }
 
-            if (idleSprite == null || showdownSprite == null || attackSprite == null)
+            if (idleSprite == null || idleSprite2 == null || hitSprite == null)
             {
-                throw new InvalidOperationException("Idle, Showdown, and Attack sprites must all be assigned.");
+                throw new InvalidOperationException("Idle, Idle2, and Attack sprites must all be assigned.");
+            }
+
+            if (idleFrameDuration <= 0f)
+            {
+                throw new InvalidOperationException(
+                    "Idle frame duration must be greater than zero.");
             }
         }
     }

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2562fd0259f3e44c09acc1e59d7c37b7, type: 3}
-  m_Name: SamplePattern
+  m_Name: Stage01_Pattern
   m_EditorClassIdentifier: Assembly-CSharp::Hwatu.Combat.EnemyPatternData
   patterns:
   - cards:

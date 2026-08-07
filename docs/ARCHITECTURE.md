@@ -91,7 +91,7 @@ Assets/
 4. `PlayerHandView`에 카드 전달
 5. `DeckCountView` 갱신
 
-카드 선택, 플레이어 족보 미리보기와 Submit 입력은 연결되어 있다. Submit 시 플레이어 패를 살아 있는 각 적의 패와 개별 비교하고, 적 등록 순서대로 연출한 뒤 승자의 패로 피해를 계산해 패자의 Money를 이전한다. 플레이어가 패배하면 남은 비교를 중단한다. 연출 종료 후 전투 중이면 전체 손패를 버리고 살아 있는 적의 패턴을 진행한 뒤 다음 손패를 뽑는다. 모든 적이 패배하면 입력을 잠그고 `StoreController`가 같은 씬에서 귀시장 배경 전환, 전투 UI와 적 퇴장, 플레이어 중앙 이동을 처리한다. 상점 카드 목록과 다음 전투 초기화는 아직 연결하지 않았다.
+카드 선택, 플레이어 족보 미리보기와 Submit 입력은 연결되어 있다. Submit 시 플레이어 패를 살아 있는 각 적의 패와 개별 비교하고, 적 등록 순서대로 연출한 뒤 승자의 패로 피해를 계산해 패자의 Money를 이전한다. 플레이어가 패배하면 남은 비교를 중단한다. 연출 종료 후 전투 중이면 전체 손패를 버리고 살아 있는 적의 패턴을 진행한 뒤 다음 손패를 뽑는다. 모든 적이 패배하면 입력을 잠그고 `StoreController`가 같은 씬에서 귀시장 배경 전환, 전투 UI와 적 퇴장, 플레이어 중앙 이동 및 상점 카드 목록 표시를 처리한다. 다음 전투 초기화는 아직 연결하지 않았다.
 
 첫 번째 플레이어블은 별도 맵 씬을 만들지 않는다. 전투와 상점은 `CombatExample` 안의 화면 상태로 전환하고, 다음 전투에서도 같은 런의 `PlayerDeck`, 플레이어 Money와 `RunSeed`를 유지한다. 다음 전투를 시작할 때 전투용 `BattleDeck`, 적 상태, 손패와 전투 UI만 다시 초기화한다.
 
@@ -111,10 +111,10 @@ Assets/
 현재 구성:
 
 - `CardRewardGenerator`: 카드 카탈로그에서 중복 ID 없는 보상 후보를 추첨
-- `CardRewardController`: 기존 일회성 카드 보상의 후보 생성, UI 결과 수신과 `PlayerDeck.AddCard` 연결
-- `StoreController`: 같은 씬의 전투·귀시장 전환과 상점 방문 상태를 연결
+- `StoreCardPriceCalculator`: 방문 중 구매한 카드 수에 따라 다음 카드 가격 계산
+- `StoreController`: 같은 씬의 전투·귀시장 전환, 카드 후보 생성, 즉시 구매와 `PlayerDeck.AddCard` 연결
 
-현재 보상 생성기는 전체 카드 카탈로그에서 `Normal` 카드만 필터링하고 세 장을 제시한다. 다음 구현에서 `CardRewardController`의 연결 책임을 `StoreController`로 옮기고 기존 보상 UI와 생성 규칙을 상점 상단의 카드 구매 목록으로 확장한다. 후보 생성 규칙인 `CardRewardGenerator`는 일반 C# 객체로 유지한다.
+기존 `CardRewardController`의 연결 책임은 `StoreController`로 병합했다. 보상 생성기는 전체 카드 카탈로그에서 `Normal` 카드만 필터링하고 세 장을 제시하며 일반 C# 객체로 유지한다. 각 후보를 클릭하면 현재 구매 순서의 가격을 확인하고 전이 충분한 경우 즉시 덱에 추가한다.
 
 상점은 방문별 카드 구매 횟수, 강화 사용 여부와 영구 제거 사용 여부를 런타임 상태로 관리한다. 카드 가격은 한 방문에서 구매 순서대로 `0전`, `20전`, `40전`이며 플레이어 Money에서 지불한다. 강화와 제거는 한 방문에 각각 한 번씩 사용할 수 있고 같은 방문에서 둘 다 사용할 수 있다. 상점 하단 메뉴는 전투 규칙을 소유하지 않으며 `PlayerDeck`의 공개 메서드를 통해서만 런 덱을 변경한다. 유물과 아이템 효과 시스템은 만들지 않는다.
 
@@ -131,7 +131,7 @@ Assets/
 - `BattleResultView`: 등록된 적별 패 비교 결과 표시
 - `CharacterBattleView`: 대치 스프라이트와 공격 준비·돌진·피격·복귀 연출
 - `CharacterMoneyPileView`: 현재 전을 텍스트와 단위별 동전 Sprite 더미로 표시
-- `CardRewardView`: 현재는 보상 카드 세 장의 생성, 선택 표시와 확인·건너뛰기 입력을 전달하며, 상점 병합 시 구매와 다음 전투 입력을 전달하도록 확장
+- `CardRewardView`: 상점 카드 후보 세 장을 생성하고 개별 카드 클릭 구매 요청과 구매 완료 표시를 전달
 - `RewardButtonView`: `Button.interactable`을 기준으로 보상 화면 버튼의 호버 표시
 - `CardTypeDisplayName`: 카드 타입의 한국어 표시
 - `HandDisplayName`: 족보 결과의 한국어 표시
@@ -176,13 +176,11 @@ BattleSequenceView.SequenceCompleted
   → StoreController.EnterStore
   → 귀시장 배경 전환과 플레이어 중앙 이동
   → 전투 UI와 적 표시 FadeOut
-
-다음 구현 목표
   → StoreController가 상점 방문 상태 초기화
   → CardRewardGenerator가 후보 3장 추첨
   → CardRewardView가 상단 카드 목록에 CardPrefab 생성
-  → 구매 순서에 따라 0전, 20전, 40전 확인
-  → 구매 확정 시 PlayerDeck.AddCard
+  → 카드 클릭 시 구매 순서에 따라 0전, 20전, 40전 확인
+  → 전이 충분하면 PlayerDeck.AddCard 후 해당 후보 비활성화
   → 하단 강화 또는 영구 제거 메뉴 이용
   → 상점 닫기 후 다음 전투 초기화
 ```

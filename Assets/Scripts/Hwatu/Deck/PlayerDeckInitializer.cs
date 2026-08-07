@@ -24,6 +24,17 @@ namespace Hwatu.Deck
         {
             Deck = CreateStartingDeck();
 
+            RebuildBattleDeck();
+        }
+
+        public void RebuildBattleDeck()
+        {
+            if (Deck == null)
+            {
+                throw new InvalidOperationException(
+                    "Player deck is not initialized.");
+            }
+
             if (battleDeckController == null)
             {
                 throw new InvalidOperationException("Battle deck controller is not assigned.");

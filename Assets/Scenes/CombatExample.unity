@@ -2194,6 +2194,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Hwatu.Combat.BattleController
   battleDeckController: {fileID: 996896955}
+  playerDeckInitializer: {fileID: 441365901}
   playerController: {fileID: 347747353}
   playerHandView: {fileID: 873893410}
   playerActionView: {fileID: 1894984582}

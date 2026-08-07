@@ -28,6 +28,7 @@ namespace Hwatu.Combat
             ValidateReferences();
             State = new CharacterState(startingMoney);
             currentPatternIndex = 0;
+            battleView.ShowIdle();
             RefreshMoneyView();
             RefreshHand();
         }

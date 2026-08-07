@@ -37,6 +37,7 @@ namespace Hwatu.Rewards
         private bool targetStoreOpen;
 
         public event Action StoreOpened;
+        public event Action NextBattlePreparationRequested;
         public event Action BattlePresentationRestored;
 
         public bool IsStoreOpen { get; private set; }
@@ -105,6 +106,8 @@ namespace Hwatu.Rewards
             }
 
             ValidateReferences();
+            NextBattlePreparationRequested?.Invoke();
+            SetEnemyVisibility(0f);
             cardStoreController.Close();
             storeView.Hide();
             targetStoreOpen = false;

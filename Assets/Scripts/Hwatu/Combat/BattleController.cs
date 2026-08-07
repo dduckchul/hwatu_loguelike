@@ -16,6 +16,7 @@ namespace Hwatu.Combat
         private const int MaximumEnemyCount = 2;
 
         [SerializeField] private BattleDeckController battleDeckController;
+        [SerializeField] private PlayerDeckInitializer playerDeckInitializer;
         [SerializeField] private PlayerController playerController;
         [SerializeField] private PlayerHandView playerHandView;
         [SerializeField] private PlayerActionView playerActionView;
@@ -79,6 +80,8 @@ namespace Hwatu.Combat
 
             if (storeController != null)
             {
+                storeController.NextBattlePreparationRequested +=
+                    HandleNextBattlePreparationRequested;
                 storeController.BattlePresentationRestored += HandleBattlePresentationRestored;
             }
         }
@@ -108,6 +111,8 @@ namespace Hwatu.Combat
 
             if (storeController != null)
             {
+                storeController.NextBattlePreparationRequested -=
+                    HandleNextBattlePreparationRequested;
                 storeController.BattlePresentationRestored -= HandleBattlePresentationRestored;
             }
         }
@@ -300,10 +305,26 @@ namespace Hwatu.Combat
             DrawOpeningHandCore();
         }
 
+        private void HandleNextBattlePreparationRequested()
+        {
+            ValidateReferences();
+            currentBattleNumber = checked(currentBattleNumber + 1);
+            currentTurnComparisons.Clear();
+            turnSubmitted = false;
+
+            playerHandView.Clear();
+            playerActionView.SetSubmitInteractable(false);
+            playerActionView.SetRerollInteractable(false);
+
+            playerDeckInitializer.RebuildBattleDeck();
+            InitializeEnemies();
+            RefreshUpperUiForBattle();
+            deckCountView.Refresh(battleDeckController.Deck);
+        }
+
         private void HandleBattlePresentationRestored()
         {
-            currentBattleNumber = checked(currentBattleNumber + 1);
-            RefreshUpperUiForBattle();
+            DrawOpeningHandCore();
         }
 
         private void RefreshUpperUiForBattle()
@@ -330,6 +351,12 @@ namespace Hwatu.Combat
             if (battleDeckController == null)
             {
                 throw new InvalidOperationException("Battle deck controller is not assigned.");
+            }
+
+            if (playerDeckInitializer == null)
+            {
+                throw new InvalidOperationException(
+                    "Player deck initializer is not assigned.");
             }
 
             if (playerHandView == null)

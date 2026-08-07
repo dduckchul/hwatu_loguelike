@@ -45,5 +45,24 @@ namespace Hwatu.Combat
             target.Money = checked(target.Money + transferredAmount);
             return transferredAmount;
         }
+
+        public bool TrySpendMoney(int amount)
+        {
+            if (amount < 0)
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(amount),
+                    amount,
+                    "Spent money cannot be negative.");
+            }
+
+            if (Money < amount)
+            {
+                return false;
+            }
+
+            Money -= amount;
+            return true;
+        }
     }
 }

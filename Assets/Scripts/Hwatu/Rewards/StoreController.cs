@@ -16,6 +16,10 @@ namespace Hwatu.Rewards
         [SerializeField] private Transform playerRoot;
         [SerializeField] private List<GameObject> enemyRoots = new List<GameObject>();
 
+        [Header("Store")]
+        [SerializeField] private StoreView storeView;
+        [SerializeField] private CardStoreController cardStoreController;
+
         [Header("Fade")]
         [SerializeField, Min(0f)] private float presentationFadeDuration = 0.5f;
 
@@ -27,7 +31,6 @@ namespace Hwatu.Rewards
             new List<SpriteFadeTarget>();
         private readonly List<TextFadeTarget> enemyTextTargets =
             new List<TextFadeTarget>();
-
         private Coroutine transitionCoroutine;
         private float battleUiVisibleAlpha;
         private Vector3 battlePlayerLocalPosition;
@@ -69,6 +72,16 @@ namespace Hwatu.Rewards
             battleUiVisibleAlpha = battleUiCanvasGroup.alpha;
             battlePlayerLocalPosition = playerRoot.localPosition;
             SetBattleUiInteractionEnabled(true);
+            cardStoreController.Close();
+            storeView.Hide();
+        }
+
+        private void OnEnable()
+        {
+            if (storeView != null)
+            {
+                storeView.SkipRequested += ExitStore;
+            }
         }
 
         public void EnterStore()
@@ -92,6 +105,8 @@ namespace Hwatu.Rewards
             }
 
             ValidateReferences();
+            cardStoreController.Close();
+            storeView.Hide();
             targetStoreOpen = false;
             transitionCoroutine = StartCoroutine(ExitStoreCore());
         }
@@ -106,6 +121,8 @@ namespace Hwatu.Rewards
 
             IsStoreOpen = true;
             transitionCoroutine = null;
+            storeView.Show();
+            cardStoreController.Open();
             StoreOpened?.Invoke();
         }
 
@@ -257,6 +274,17 @@ namespace Hwatu.Rewards
 
         private void OnDisable()
         {
+            if (storeView != null)
+            {
+                storeView.SkipRequested -= ExitStore;
+                storeView.Hide();
+            }
+
+            if (cardStoreController != null)
+            {
+                cardStoreController.Close();
+            }
+
             if (transitionCoroutine != null)
             {
                 StopCoroutine(transitionCoroutine);
@@ -302,6 +330,18 @@ namespace Hwatu.Rewards
             {
                 throw new InvalidOperationException(
                     "Player root is not assigned.");
+            }
+
+            if (storeView == null)
+            {
+                throw new InvalidOperationException(
+                    "Store view is not assigned.");
+            }
+
+            if (cardStoreController == null)
+            {
+                throw new InvalidOperationException(
+                    "Card store controller is not assigned.");
             }
 
             if (enemyRoots == null || enemyRoots.Count == 0)

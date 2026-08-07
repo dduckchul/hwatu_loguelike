@@ -66,6 +66,11 @@ namespace Hwatu.Combat
                 playerActionView.SubmitClicked += HandleSubmitClicked;
             }
 
+            if (playerController != null)
+            {
+                playerController.MoneyChanged += HandlePlayerMoneyChanged;
+            }
+
             if (battleSequenceView != null)
             {
                 battleSequenceView.ResultMotionCompleted += HandleResultMotionCompleted;
@@ -90,6 +95,11 @@ namespace Hwatu.Combat
                 playerActionView.SubmitClicked -= HandleSubmitClicked;
             }
 
+            if (playerController != null)
+            {
+                playerController.MoneyChanged -= HandlePlayerMoneyChanged;
+            }
+
             if (battleSequenceView != null)
             {
                 battleSequenceView.ResultMotionCompleted -= HandleResultMotionCompleted;
@@ -109,6 +119,14 @@ namespace Hwatu.Combat
             InitializeEnemies();
             RefreshUpperUiForBattle();
             DrawOpeningHandCore();
+        }
+
+        private void HandlePlayerMoneyChanged(int money)
+        {
+            if (upperUIView != null)
+            {
+                upperUIView.ShowMoney(money);
+            }
         }
 
         public void DrawOpeningHand()

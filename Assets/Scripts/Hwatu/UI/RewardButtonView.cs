@@ -1,4 +1,5 @@
 using System;
+using Microsoft.CodeAnalysis.Operations;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -8,10 +9,12 @@ namespace Hwatu.UI
 {
     [DisallowMultipleComponent]
     [RequireComponent(typeof(Button), typeof(Image))]
-    public sealed class RewardButtonView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+    public sealed class HoverButtonView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         [SerializeField] private TMP_Text labelText;
-        [SerializeField] private Color normalTextColor = new Color32(40, 40, 65, 255);
+        [SerializeField] private Color normalButtonColor = new Color32(40, 40, 65, 255);
+        [SerializeField] private Color hoveredButtonColor = Color.softRed;
+        [SerializeField] private Color normalTextColor = Color.white;
         [SerializeField] private Color hoveredTextColor = Color.white;
 
         private Button targetButton;
@@ -60,7 +63,7 @@ namespace Hwatu.UI
 
         private void SetHovered(bool isHovered)
         {
-            hoverImage.enabled = isHovered;
+            hoverImage.color = isHovered ? hoveredButtonColor : normalButtonColor;
             labelText.color = isHovered ? hoveredTextColor : normalTextColor;
         }
 

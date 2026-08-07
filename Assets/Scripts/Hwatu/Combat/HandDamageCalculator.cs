@@ -6,33 +6,40 @@ namespace Hwatu.Combat
     // To-do 세륙, 장사 등 특수족보 더 넣기?
     public sealed class HandDamageCalculator
     {
-        public const int BaseStake = 5;
         public const int NamedHandBonus = 5;
         public const int DdangBonus = 10;
         public const int BrightDdangBonus = 20;
 
-        public int Calculate(HandResult hand)
+        public int Calculate(HandResult hand, int baseStake)
         {
             if (hand == null)
             {
                 throw new ArgumentNullException(nameof(hand));
             }
 
+            if (baseStake < 0)
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(baseStake),
+                    baseStake,
+                    "Base stake cannot be negative.");
+            }
+
             switch (hand.Type)
             {
                 case HandType.Ggeut:
-                    return BaseStake + hand.Ggeut;
+                    return baseStake + hand.Ggeut;
                 case HandType.SeRyuk:
                 case HandType.JangSa:
                 case HandType.JangBbing:
                 case HandType.GuBbing:
                 case HandType.DokSa:
                 case HandType.Ali:
-                    return BaseStake + GetMonthSum(hand) + NamedHandBonus;
+                    return baseStake + GetMonthSum(hand) + NamedHandBonus;
                 case HandType.Ddang:
-                    return BaseStake + GetMonthSum(hand) + DdangBonus;
+                    return baseStake + GetMonthSum(hand) + DdangBonus;
                 case HandType.BrightDdang:
-                    return BaseStake + GetMonthSum(hand) + BrightDdangBonus;
+                    return baseStake + GetMonthSum(hand) + BrightDdangBonus;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(hand), hand.Type, null);
             }

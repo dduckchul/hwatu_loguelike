@@ -21,13 +21,18 @@ namespace Hwatu.Combat
         [SerializeField] private PlayerActionView playerActionView;
         [SerializeField] private DeckCountView deckCountView;
         [SerializeField] private BattleSequenceView battleSequenceView;
-        [SerializeField] private CardRewardController cardRewardController;
+        [SerializeField] private StoreController storeController;
+        [SerializeField] private UpperUIView upperUIView;
+        [SerializeField, Min(1)] private int currentBattleNumber = 1;
         [SerializeField] private List<EnemyController> enemies = new List<EnemyController>();
 
         private readonly HandEvaluator handEvaluator = new HandEvaluator();
         private readonly HandDamageCalculator damageCalculator = new HandDamageCalculator();
+        private readonly BattleStakeCalculator stakeCalculator = new BattleStakeCalculator();
         private readonly List<TurnComparison> currentTurnComparisons = new List<TurnComparison>();
         private bool turnSubmitted;
+
+        private int CurrentStake => stakeCalculator.Calculate(currentBattleNumber);
 
         private sealed class TurnComparison
         {
@@ -61,10 +66,20 @@ namespace Hwatu.Combat
                 playerActionView.SubmitClicked += HandleSubmitClicked;
             }
 
+            if (playerController != null)
+            {
+                playerController.MoneyChanged += HandlePlayerMoneyChanged;
+            }
+
             if (battleSequenceView != null)
             {
                 battleSequenceView.ResultMotionCompleted += HandleResultMotionCompleted;
                 battleSequenceView.SequenceCompleted += HandleSequenceCompleted;
+            }
+
+            if (storeController != null)
+            {
+                storeController.BattlePresentationRestored += HandleBattlePresentationRestored;
             }
         }
 
@@ -80,10 +95,20 @@ namespace Hwatu.Combat
                 playerActionView.SubmitClicked -= HandleSubmitClicked;
             }
 
+            if (playerController != null)
+            {
+                playerController.MoneyChanged -= HandlePlayerMoneyChanged;
+            }
+
             if (battleSequenceView != null)
             {
                 battleSequenceView.ResultMotionCompleted -= HandleResultMotionCompleted;
                 battleSequenceView.SequenceCompleted -= HandleSequenceCompleted;
+            }
+
+            if (storeController != null)
+            {
+                storeController.BattlePresentationRestored -= HandleBattlePresentationRestored;
             }
         }
 
@@ -92,7 +117,16 @@ namespace Hwatu.Combat
             ValidateReferences();
             InitializePlayer();
             InitializeEnemies();
+            RefreshUpperUiForBattle();
             DrawOpeningHandCore();
+        }
+
+        private void HandlePlayerMoneyChanged(int money)
+        {
+            if (upperUIView != null)
+            {
+                upperUIView.ShowMoney(money);
+            }
         }
 
         public void DrawOpeningHand()
@@ -207,12 +241,12 @@ namespace Hwatu.Combat
                 case HandComparisonResult.FirstWins:
                     comparison.Enemy.State.TransferMoneyTo(
                         playerController.State,
-                        damageCalculator.Calculate(comparison.PlayerHand));
+                        damageCalculator.Calculate(comparison.PlayerHand, CurrentStake));
                     break;
                 case HandComparisonResult.SecondWins:
                     playerController.State.TransferMoneyTo(
                         comparison.Enemy.State,
-                        damageCalculator.Calculate(comparison.EnemyHand));
+                        damageCalculator.Calculate(comparison.EnemyHand, CurrentStake));
                     break;
                 case HandComparisonResult.Draw:
                     break;
@@ -224,6 +258,7 @@ namespace Hwatu.Combat
             }
 
             playerController.RefreshMoneyView();
+            upperUIView.ShowMoney(playerController.State.Money);
             comparison.Enemy.RefreshMoneyView();
 
             if (playerController.State.IsDefeated)
@@ -247,7 +282,8 @@ namespace Hwatu.Combat
             {
                 playerHandView.SetInteractionEnabled(false);
                 playerActionView.SetSubmitInteractable(false);
-                cardRewardController.ShowRewards();
+                upperUIView.ShowStore();
+                storeController.EnterStore();
                 return;
             }
 
@@ -262,6 +298,18 @@ namespace Hwatu.Combat
 
             turnSubmitted = false;
             DrawOpeningHandCore();
+        }
+
+        private void HandleBattlePresentationRestored()
+        {
+            currentBattleNumber = checked(currentBattleNumber + 1);
+            RefreshUpperUiForBattle();
+        }
+
+        private void RefreshUpperUiForBattle()
+        {
+            upperUIView.ShowBattle(currentBattleNumber, CurrentStake);
+            upperUIView.ShowMoney(playerController.State.Money);
         }
 
         private bool AreAllEnemiesDefeated()
@@ -314,9 +362,14 @@ namespace Hwatu.Combat
                 throw new InvalidOperationException("Battle sequence view is not assigned.");
             }
 
-            if (cardRewardController == null)
+            if (storeController == null)
             {
-                throw new InvalidOperationException("Card reward controller is not assigned.");
+                throw new InvalidOperationException("Store controller is not assigned.");
+            }
+
+            if (upperUIView == null)
+            {
+                throw new InvalidOperationException("Upper UI view is not assigned.");
             }
 
             if (enemies == null

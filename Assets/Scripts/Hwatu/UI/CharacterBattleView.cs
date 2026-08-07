@@ -25,6 +25,7 @@ namespace Hwatu.UI
         [SerializeField, Min(0.01f)] private float attackReturnDuration = 0.15f;
 
         [Header("Hit Motion")]
+        [SerializeField] private ParticleSystem hitEffect;
         [SerializeField] private Vector3 hitOffset;
         [SerializeField, Min(0f)] private float shakeDistance = 0.08f;
         [SerializeField, Range(1, 6)] private int shakeCount = 3;
@@ -41,6 +42,11 @@ namespace Hwatu.UI
             restingLocalPosition = motionTarget.localPosition;
             restingColor = GetColor();
             isInitialized = true;
+            if (hitEffect != null)
+            {
+                StopHitEffect();
+            }
+
             ShowIdle();
         }
 
@@ -87,6 +93,7 @@ namespace Hwatu.UI
         public IEnumerator PlayHit()
         {
             Vector3 startPosition = restingLocalPosition;
+            PlayHitEffect();
             SetColor(hitFlashColor);
 
             float elapsed = 0f;
@@ -142,6 +149,29 @@ namespace Hwatu.UI
             {
                 SetColor(restingColor);
             }
+
+            if (hitEffect != null)
+            {
+                StopHitEffect();
+            }
+        }
+
+        private void PlayHitEffect()
+        {
+            if (hitEffect == null)
+            {
+                return;
+            }
+
+            StopHitEffect();
+            hitEffect.Play(withChildren: true);
+        }
+
+        private void StopHitEffect()
+        {
+            hitEffect.Stop(
+                withChildren: true,
+                stopBehavior: ParticleSystemStopBehavior.StopEmittingAndClear);
         }
 
         private void SetSprite(Sprite sprite)

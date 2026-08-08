@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Hwatu.Combat.StageEncounterData
   stageId: stage_02
   enemyPrefabs:
-  - {fileID: 1956921876191128877, guid: 506d30e15e9014ac09cdc4c4a5f96538, type: 3}
+  - {fileID: 1832923665518338420, guid: e48a607a3e445475497ea635d577288e, type: 3}

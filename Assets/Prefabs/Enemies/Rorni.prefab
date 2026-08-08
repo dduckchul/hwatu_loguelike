@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: showdownSprite
       value: 
       objectReference: {fileID: 8331331848547009515, guid: e4748aa01723b427a943da37439cdace, type: 3}
+    - target: {fileID: 3464487026426580440, guid: 8bfb9263e378d4e53852364257b41d14, type: 3}
+      propertyPath: attackForwardDuration
+      value: 0.12
+      objectReference: {fileID: 0}
     - target: {fileID: 8573407000041967689, guid: 8bfb9263e378d4e53852364257b41d14, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -8,9 +8,49 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 142758650962631112, guid: 8bfb9263e378d4e53852364257b41d14, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 3235841739364131248, guid: c8e1bd304c683471ba64c64fcfe2a6d9, type: 3}
+    - target: {fileID: 142758650962631112, guid: 8bfb9263e378d4e53852364257b41d14, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 142758650962631112, guid: 8bfb9263e378d4e53852364257b41d14, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 142758650962631112, guid: 8bfb9263e378d4e53852364257b41d14, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 569397221219444536, guid: 8bfb9263e378d4e53852364257b41d14, type: 3}
+      propertyPath: enemyPattern
+      value: 
+      objectReference: {fileID: 11400000, guid: 504981c702bfd438c94c1c4b0d410949, type: 2}
+    - target: {fileID: 569397221219444536, guid: 8bfb9263e378d4e53852364257b41d14, type: 3}
+      propertyPath: startingMoney
+      value: 80
+      objectReference: {fileID: 0}
     - target: {fileID: 2900858194825079511, guid: 8bfb9263e378d4e53852364257b41d14, type: 3}
       propertyPath: m_Name
-      value: EnemyBase
+      value: Goni
+      objectReference: {fileID: 0}
+    - target: {fileID: 3464487026426580440, guid: 8bfb9263e378d4e53852364257b41d14, type: 3}
+      propertyPath: hitSprite
+      value: 
+      objectReference: {fileID: 4027511241232185417, guid: c8e1bd304c683471ba64c64fcfe2a6d9, type: 3}
+    - target: {fileID: 3464487026426580440, guid: 8bfb9263e378d4e53852364257b41d14, type: 3}
+      propertyPath: idleSprite
+      value: 
+      objectReference: {fileID: -5530621143617914182, guid: 70e14521b342d4b8eab0f3940cfc5093, type: 3}
+    - target: {fileID: 3464487026426580440, guid: 8bfb9263e378d4e53852364257b41d14, type: 3}
+      propertyPath: idleSprite2
+      value: 
+      objectReference: {fileID: -3859101850012369537, guid: 70e14521b342d4b8eab0f3940cfc5093, type: 3}
+    - target: {fileID: 3464487026426580440, guid: 8bfb9263e378d4e53852364257b41d14, type: 3}
+      propertyPath: attackForwardDuration
+      value: 0.12
       objectReference: {fileID: 0}
     - target: {fileID: 8573407000041967689, guid: 8bfb9263e378d4e53852364257b41d14, type: 3}
       propertyPath: m_LocalPosition.x

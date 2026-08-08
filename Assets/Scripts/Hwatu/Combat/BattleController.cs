@@ -23,6 +23,7 @@ namespace Hwatu.Combat
         [SerializeField] private BattleSequenceView battleSequenceView;
         [SerializeField] private StoreController storeController;
         [SerializeField] private UpperUIView upperUIView;
+        [SerializeField] private EnemyOpeningDialogueView openingDialogueView;
         [SerializeField, Min(1)] private int currentBattleNumber = 1;
         [SerializeField] private List<EnemyController> enemies = new List<EnemyController>();
 
@@ -119,6 +120,7 @@ namespace Hwatu.Combat
             InitializeEnemies();
             RefreshUpperUiForBattle();
             DrawOpeningHandCore();
+            openingDialogueView?.Show();
         }
 
         private void HandlePlayerMoneyChanged(int money)

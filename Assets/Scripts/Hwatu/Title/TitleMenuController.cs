@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -10,15 +11,16 @@ namespace Hwatu.Title
         [SerializeField] private Button startButton;
         [SerializeField] private Button quitButton;
         [SerializeField] private RectTransform selectionFlame;
-        [SerializeField] private string gameplaySceneName = "CombatExample";
         [SerializeField] private float flameGap = 5f;
+        [SerializeField, Min(0.01f)] private float musicFadeOutDuration = 1f;
 
         private GameObject lastSelection;
+        private bool isStartingGame;
 
         private void OnEnable()
         {
             PrepareInput();
-            startButton.onClick.AddListener(StartGame);
+            startButton.onClick.AddListener(BeginStartGame);
             quitButton.onClick.AddListener(QuitGame);
         }
 
@@ -79,7 +81,7 @@ namespace Hwatu.Title
 
         private void OnDisable()
         {
-            startButton.onClick.RemoveListener(StartGame);
+            startButton.onClick.RemoveListener(BeginStartGame);
             quitButton.onClick.RemoveListener(QuitGame);
         }
 
@@ -115,9 +117,42 @@ namespace Hwatu.Title
             selectionFlame.gameObject.SetActive(true);
         }
 
-        private void StartGame()
+        private void BeginStartGame()
         {
-            SceneManager.LoadScene(gameplaySceneName);
+            if (isStartingGame)
+            {
+                return;
+            }
+
+            StartCoroutine(FadeOutMusicAndLoadIntro());
+        }
+
+        private IEnumerator FadeOutMusicAndLoadIntro()
+        {
+            isStartingGame = true;
+            startButton.interactable = false;
+            quitButton.interactable = false;
+
+            GameObject musicObject = GameObject.Find("TitleMusic");
+            AudioSource music = musicObject != null ? musicObject.GetComponent<AudioSource>() : null;
+            if (music != null && music.isPlaying)
+            {
+                float startVolume = music.volume;
+                float elapsed = 0f;
+                while (elapsed < musicFadeOutDuration)
+                {
+                    elapsed += Time.unscaledDeltaTime;
+                    music.volume = Mathf.Lerp(
+                        startVolume,
+                        0f,
+                        Mathf.Clamp01(elapsed / musicFadeOutDuration));
+                    yield return null;
+                }
+
+                music.Stop();
+            }
+
+            SceneManager.LoadScene("Intro");
         }
 
         private static void QuitGame()

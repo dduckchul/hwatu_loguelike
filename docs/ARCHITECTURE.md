@@ -31,8 +31,8 @@
 - `CardInstance`는 같은 정의의 카드 여러 장을 런타임에서 구분한다.
 - `PlayerDeck`은 런 전체 카드, `BattleDeck`은 한 전투의 드로우·손패·버림 상태를 가진다.
 - `BattleDeck.TryExchangeCard()`가 선택 카드 폐기, 재순환과 새 카드 1장 드로우를 처리한다.
-- `HandEvaluator`와 `HandComparer`는 피해나 UI 문자열을 계산하지 않는다.
-- `HandDamageCalculator`와 `BattleStakeCalculator`가 피해와 회차별 판돈을 계산한다.
+- `HandEvaluator`는 기본 족보와 `쌍띠`·`쌍열끗` 태그를 판정하고 `HandComparer`는 족보 순위만 비교한다.
+- `HandDamageCalculator`는 족보 피해에 타입 조합 태그의 `5전`을 더하고, `BattleStakeCalculator`는 회차별 판돈을 계산한다.
 
 ### 전투
 

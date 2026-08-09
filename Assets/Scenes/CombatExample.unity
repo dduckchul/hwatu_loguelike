@@ -5675,6 +5675,63 @@ MonoBehaviour:
   cardRoot: {fileID: 1781745353}
   cardCostText: {fileID: 1988923964}
   soldOutView: {fileID: 1908574555}
+--- !u!1 &1608650365
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1608650366}
+  - component: {fileID: 1608650367}
+  m_Layer: 0
+  m_Name: PlayerDeck_Test
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1608650366
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1608650365}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2058751368}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1608650367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1608650365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 557b10b3797f842f2878068955d5d75d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Hwatu.Deck.PlayerDeckInitializer
+  startingCards:
+  - {fileID: 11400000, guid: 79a70429e6c664e85a4d2c80b6e8fbf3, type: 2}
+  - {fileID: 11400000, guid: d27a40c8a329c48f0906537210915bf5, type: 2}
+  - {fileID: 11400000, guid: 5b3a12e582f044af3951f21b23deadf8, type: 2}
+  - {fileID: 11400000, guid: f0f107a3fa89045849f3ff4018453812, type: 2}
+  - {fileID: 11400000, guid: c8506264ab5ef487d85115faafb04603, type: 2}
+  - {fileID: 11400000, guid: b3a43d51eaaab478ebea417e8263049a, type: 2}
+  - {fileID: 11400000, guid: 79a70429e6c664e85a4d2c80b6e8fbf3, type: 2}
+  - {fileID: 11400000, guid: d27a40c8a329c48f0906537210915bf5, type: 2}
+  - {fileID: 11400000, guid: f03de9f11f3c74192935b1728bd946c0, type: 2}
+  - {fileID: 11400000, guid: c8506264ab5ef487d85115faafb04603, type: 2}
+  battleDeckController: {fileID: 996896955}
+  runRandomProvider: {fileID: 2058751369}
 --- !u!1 &1617955318
 GameObject:
   m_ObjectHideFlags: 0
@@ -8357,6 +8414,7 @@ Transform:
   m_Children:
   - {fileID: 996896954}
   - {fileID: 441365900}
+  - {fileID: 1608650366}
   - {fileID: 515754916}
   - {fileID: 1271747415}
   - {fileID: 347007510}

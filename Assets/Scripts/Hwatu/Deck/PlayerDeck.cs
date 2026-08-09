@@ -72,7 +72,7 @@ namespace Hwatu.Deck
             if (!IsUpgradeCardType(upgradedDefinition.CardType))
             {
                 throw new InvalidOperationException(
-                    "An upgraded card must be Bright, Ribbon, or Animal.");
+                    "An upgraded card must be Ribbon or Animal.");
             }
 
             var upgradedCard = new CardInstance(upgradedDefinition);
@@ -87,8 +87,7 @@ namespace Hwatu.Deck
 
         private static bool IsUpgradeCardType(CardType cardType)
         {
-            return cardType == CardType.Bright
-                || cardType == CardType.Ribbon
+            return cardType == CardType.Ribbon
                 || cardType == CardType.Animal;
         }
     }

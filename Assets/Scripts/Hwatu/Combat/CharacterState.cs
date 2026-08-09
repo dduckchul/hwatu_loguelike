@@ -56,7 +56,7 @@ namespace Hwatu.Combat
                     "Spent money cannot be negative.");
             }
 
-            if (Money < amount)
+            if (Money <= amount)
             {
                 return false;
             }

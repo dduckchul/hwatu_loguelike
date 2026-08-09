@@ -19,6 +19,8 @@ namespace Hwatu.Combat
 
         public IReadOnlyList<EnemyController> CurrentEnemies => currentEnemies;
         public int CurrentEncounterIndex => currentEncounterIndex;
+        public bool IsLastEncounter => currentEncounterIndex >= 0
+            && currentEncounterIndex == encounterSequence.Length - 1;
 
         public void LoadInitialEncounter()
         {

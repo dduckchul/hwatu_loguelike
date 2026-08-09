@@ -22,6 +22,7 @@ namespace Hwatu.Combat
         [SerializeField] private BattleSequenceView battleSequenceView;
         [SerializeField] private StoreController storeController;
         [SerializeField] private UpperUIView upperUIView;
+        [SerializeField] private DefeatView defeatView;
 
         private readonly HandEvaluator handEvaluator = new HandEvaluator();
         private readonly HandDamageCalculator damageCalculator = new HandDamageCalculator();
@@ -320,6 +321,7 @@ namespace Hwatu.Combat
             {
                 playerHandView.SetInteractionEnabled(false);
                 DisableActionButtons();
+                defeatView.Play();
                 return;
             }
 
@@ -327,6 +329,13 @@ namespace Hwatu.Combat
             {
                 playerHandView.SetInteractionEnabled(false);
                 DisableActionButtons();
+
+                if (enemyEncounterController.IsLastEncounter)
+                {
+                    storeController.EnterRunComplete();
+                    return;
+                }
+
                 upperUIView.ShowStore();
                 storeController.EnterStore();
                 return;
@@ -445,6 +454,11 @@ namespace Hwatu.Combat
             if (upperUIView == null)
             {
                 throw new InvalidOperationException("Upper UI view is not assigned.");
+            }
+
+            if (defeatView == null)
+            {
+                throw new InvalidOperationException("Defeat view is not assigned.");
             }
 
             if (enemyEncounterController == null)

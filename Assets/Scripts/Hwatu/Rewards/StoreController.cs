@@ -22,6 +22,7 @@ namespace Hwatu.Rewards
         [SerializeField] private CardStoreController cardStoreController;
         [SerializeField] private CardUpgradeController cardUpgradeController;
         [SerializeField] private CardRemovalController cardRemovalController;
+        [SerializeField] private RunCompleteView runCompleteView;
 
         [Header("Fade")]
         [SerializeField, Min(0f)] private float presentationFadeDuration = 0.5f;
@@ -38,6 +39,7 @@ namespace Hwatu.Rewards
         private float battleUiVisibleAlpha;
         private Vector3 battlePlayerLocalPosition;
         private bool targetStoreOpen;
+        private bool targetRunComplete;
 
         public event Action StoreOpened;
         public event Action NextBattlePreparationRequested;
@@ -92,7 +94,7 @@ namespace Hwatu.Rewards
 
         public void EnterStore()
         {
-            if (IsTransitioning || IsStoreOpen)
+            if (IsTransitioning || IsStoreOpen || targetRunComplete)
             {
                 return;
             }
@@ -101,6 +103,20 @@ namespace Hwatu.Rewards
             CaptureEnemyVisuals();
             targetStoreOpen = true;
             transitionCoroutine = StartCoroutine(EnterStoreCore());
+        }
+
+        public void EnterRunComplete()
+        {
+            if (IsTransitioning || IsStoreOpen || targetRunComplete)
+            {
+                return;
+            }
+
+            ValidateReferences();
+            CaptureEnemyVisuals();
+            targetStoreOpen = false;
+            targetRunComplete = true;
+            transitionCoroutine = StartCoroutine(EnterRunCompleteCore());
         }
 
         public void ExitStore()
@@ -119,6 +135,7 @@ namespace Hwatu.Rewards
             cardRemovalController.Close();
             storeView.Hide();
             targetStoreOpen = false;
+            targetRunComplete = false;
             transitionCoroutine = StartCoroutine(ExitStoreCore());
         }
 
@@ -137,6 +154,18 @@ namespace Hwatu.Rewards
             cardRemovalController.BeginVisit();
             cardStoreController.Open();
             StoreOpened?.Invoke();
+        }
+
+        private IEnumerator EnterRunCompleteCore()
+        {
+            SetBattleUiInteractionEnabled(false);
+            backgroundTransitionView.ShowStoreBackground();
+
+            yield return FadePresentation(showBattlePresentation: false);
+            yield return WaitForBackgroundTransition();
+
+            transitionCoroutine = null;
+            runCompleteView.Show();
         }
 
         private IEnumerator ExitStoreCore()
@@ -248,7 +277,7 @@ namespace Hwatu.Rewards
                 }
             }
 
-            return targetStoreOpen ? 0f : 1f;
+            return targetStoreOpen || targetRunComplete ? 0f : 1f;
         }
 
         private void SetEnemyVisibility(float visibility)
@@ -320,7 +349,7 @@ namespace Hwatu.Rewards
                 return;
             }
 
-            bool showBattlePresentation = !targetStoreOpen;
+            bool showBattlePresentation = !targetStoreOpen && !targetRunComplete;
             battleUiCanvasGroup.alpha = showBattlePresentation
                 ? battleUiVisibleAlpha
                 : 0f;
@@ -378,6 +407,12 @@ namespace Hwatu.Rewards
             {
                 throw new InvalidOperationException(
                     "Card removal controller is not assigned.");
+            }
+
+            if (runCompleteView == null)
+            {
+                throw new InvalidOperationException(
+                    "Run complete view is not assigned.");
             }
 
             if (enemyEncounterController == null)

@@ -8,6 +8,8 @@ namespace Hwatu.UI
     [DisallowMultipleComponent]
     public sealed class StoreView : MonoBehaviour
     {
+        private const int DetailFontSizePercent = 50;
+
         [SerializeField] private Button upgradeButton;
         [SerializeField] private TMP_Text upgradeButtonText;
         [SerializeField] private Button removalButton;
@@ -65,8 +67,8 @@ namespace Hwatu.UI
             ValidateUpgradeReferences();
             upgradeButton.interactable = interactable;
             upgradeButtonText.text = used
-                ? "강화\n(사용 완료)"
-                : $"강화\n({cost}전)";
+                ? CreateTwoLineLabel("강화", "사용 완료")
+                : CreateTwoLineLabel("강화", $"{cost}전");
         }
 
         public void SetRemovalState(int cost, bool interactable, bool used)
@@ -79,8 +81,8 @@ namespace Hwatu.UI
             ValidateRemovalReferences();
             removalButton.interactable = interactable;
             removalButtonText.text = used
-                ? "버리기\n(사용 완료)"
-                : $"버리기\n({cost}전)";
+                ? CreateTwoLineLabel("버리기", "사용 완료")
+                : CreateTwoLineLabel("버리기", $"{cost}전");
         }
 
         public void RequestUpgrade()
@@ -97,6 +99,11 @@ namespace Hwatu.UI
         {
             SkipRequested?.Invoke();
         }
+
+    private static string CreateTwoLineLabel(string title, string detail)
+    {
+        return $"{title}\n<size={DetailFontSizePercent}%>({detail})</size>";
+    }
 
         private void Reset()
         {

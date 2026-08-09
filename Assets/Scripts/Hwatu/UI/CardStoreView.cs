@@ -56,23 +56,32 @@ namespace Hwatu.UI
                     nameof(rewards));
             }
 
+            if (cardCost < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(cardCost));
+            }
+
+            for (int index = 0; index < rewards.Count; index++)
+            {
+                if (rewards[index] == null)
+                {
+                    throw new ArgumentException(
+                        "Card rewards cannot contain a null card.",
+                        nameof(rewards));
+                }
+            }
+
             ClearCards();
             gameObject.SetActive(true);
 
             for (int index = 0; index < rewards.Count; index++)
             {
                 CardData cardData = rewards[index];
-                if (cardData == null)
-                {
-                    throw new ArgumentException("Card rewards cannot contain a null card.", nameof(rewards));
-                }
-
                 CardStoreSlotView rewardSlot = rewardSlots[index];
                 rewardSlot.ResetSlot(cardCost);
 
-                var card = new CardInstance(cardData.ToDefinition());
                 CardView cardView = Instantiate(cardPrefab, rewardSlot.CardRoot);
-                cardView.Bind(card, cardData);
+                cardView.BindPreview(cardData);
                 cardView.Clicked += HandleCardClicked;
 
                 CanvasGroup canvasGroup = cardView.GetComponent<CanvasGroup>();

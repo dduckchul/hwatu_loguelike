@@ -72,12 +72,29 @@ namespace Hwatu.Deck
             if (!IsUpgradeCardType(upgradedDefinition.CardType))
             {
                 throw new InvalidOperationException(
-                    "An upgraded card must be Bright, Ribbon, or Animal.");
+                    "An upgraded card must be Ribbon or Animal.");
             }
 
             var upgradedCard = new CardInstance(upgradedDefinition);
             cards[cardIndex] = upgradedCard;
             return upgradedCard;
+        }
+
+        public void RemoveCard(CardInstance card)
+        {
+            if (card == null)
+            {
+                throw new ArgumentNullException(nameof(card));
+            }
+
+            int cardIndex = cards.IndexOf(card);
+            if (cardIndex < 0)
+            {
+                throw new InvalidOperationException(
+                    "The card to remove is not in the player deck.");
+            }
+
+            cards.RemoveAt(cardIndex);
         }
 
         public BattleDeck CreateBattleDeck(IRandomSource randomSource)
@@ -87,8 +104,7 @@ namespace Hwatu.Deck
 
         private static bool IsUpgradeCardType(CardType cardType)
         {
-            return cardType == CardType.Bright
-                || cardType == CardType.Ribbon
+            return cardType == CardType.Ribbon
                 || cardType == CardType.Animal;
         }
     }

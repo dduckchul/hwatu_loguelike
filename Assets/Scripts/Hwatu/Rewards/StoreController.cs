@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Hwatu.Combat;
 using Hwatu.UI;
 using TMPro;
 using UnityEngine;
@@ -14,11 +15,14 @@ namespace Hwatu.Rewards
         [SerializeField] private BackgroundTransitionView backgroundTransitionView;
         [SerializeField] private CanvasGroup battleUiCanvasGroup;
         [SerializeField] private Transform playerRoot;
-        [SerializeField] private List<GameObject> enemyRoots = new List<GameObject>();
+        [SerializeField] private EnemyEncounterController enemyEncounterController;
 
         [Header("Store")]
         [SerializeField] private StoreView storeView;
         [SerializeField] private CardStoreController cardStoreController;
+        [SerializeField] private CardUpgradeController cardUpgradeController;
+        [SerializeField] private CardRemovalController cardRemovalController;
+        [SerializeField] private RunCompleteView runCompleteView;
 
         [Header("Fade")]
         [SerializeField, Min(0f)] private float presentationFadeDuration = 0.5f;
@@ -35,8 +39,10 @@ namespace Hwatu.Rewards
         private float battleUiVisibleAlpha;
         private Vector3 battlePlayerLocalPosition;
         private bool targetStoreOpen;
+        private bool targetRunComplete;
 
         public event Action StoreOpened;
+        public event Action NextBattlePreparationRequested;
         public event Action BattlePresentationRestored;
 
         public bool IsStoreOpen { get; private set; }
@@ -73,6 +79,8 @@ namespace Hwatu.Rewards
             battlePlayerLocalPosition = playerRoot.localPosition;
             SetBattleUiInteractionEnabled(true);
             cardStoreController.Close();
+            cardUpgradeController.Close();
+            cardRemovalController.Close();
             storeView.Hide();
         }
 
@@ -86,7 +94,7 @@ namespace Hwatu.Rewards
 
         public void EnterStore()
         {
-            if (IsTransitioning || IsStoreOpen)
+            if (IsTransitioning || IsStoreOpen || targetRunComplete)
             {
                 return;
             }
@@ -97,6 +105,20 @@ namespace Hwatu.Rewards
             transitionCoroutine = StartCoroutine(EnterStoreCore());
         }
 
+        public void EnterRunComplete()
+        {
+            if (IsTransitioning || IsStoreOpen || targetRunComplete)
+            {
+                return;
+            }
+
+            ValidateReferences();
+            CaptureEnemyVisuals();
+            targetStoreOpen = false;
+            targetRunComplete = true;
+            transitionCoroutine = StartCoroutine(EnterRunCompleteCore());
+        }
+
         public void ExitStore()
         {
             if (IsTransitioning || !IsStoreOpen)
@@ -105,9 +127,15 @@ namespace Hwatu.Rewards
             }
 
             ValidateReferences();
+            NextBattlePreparationRequested?.Invoke();
+            CaptureEnemyVisuals();
+            SetEnemyVisibility(0f);
             cardStoreController.Close();
+            cardUpgradeController.Close();
+            cardRemovalController.Close();
             storeView.Hide();
             targetStoreOpen = false;
+            targetRunComplete = false;
             transitionCoroutine = StartCoroutine(ExitStoreCore());
         }
 
@@ -122,8 +150,22 @@ namespace Hwatu.Rewards
             IsStoreOpen = true;
             transitionCoroutine = null;
             storeView.Show();
+            cardUpgradeController.BeginVisit();
+            cardRemovalController.BeginVisit();
             cardStoreController.Open();
             StoreOpened?.Invoke();
+        }
+
+        private IEnumerator EnterRunCompleteCore()
+        {
+            SetBattleUiInteractionEnabled(false);
+            backgroundTransitionView.ShowStoreBackground();
+
+            yield return FadePresentation(showBattlePresentation: false);
+            yield return WaitForBackgroundTransition();
+
+            transitionCoroutine = null;
+            runCompleteView.Show();
         }
 
         private IEnumerator ExitStoreCore()
@@ -199,8 +241,9 @@ namespace Hwatu.Rewards
             enemySpriteTargets.Clear();
             enemyTextTargets.Clear();
 
-            foreach (GameObject enemyRoot in enemyRoots)
+            foreach (EnemyController enemy in enemyEncounterController.CurrentEnemies)
             {
+                GameObject enemyRoot = enemy.gameObject;
                 SpriteRenderer[] spriteRenderers =
                     enemyRoot.GetComponentsInChildren<SpriteRenderer>(includeInactive: true);
                 foreach (SpriteRenderer spriteRenderer in spriteRenderers)
@@ -234,7 +277,7 @@ namespace Hwatu.Rewards
                 }
             }
 
-            return targetStoreOpen ? 0f : 1f;
+            return targetStoreOpen || targetRunComplete ? 0f : 1f;
         }
 
         private void SetEnemyVisibility(float visibility)
@@ -285,6 +328,16 @@ namespace Hwatu.Rewards
                 cardStoreController.Close();
             }
 
+            if (cardUpgradeController != null)
+            {
+                cardUpgradeController.Close();
+            }
+
+            if (cardRemovalController != null)
+            {
+                cardRemovalController.Close();
+            }
+
             if (transitionCoroutine != null)
             {
                 StopCoroutine(transitionCoroutine);
@@ -296,7 +349,7 @@ namespace Hwatu.Rewards
                 return;
             }
 
-            bool showBattlePresentation = !targetStoreOpen;
+            bool showBattlePresentation = !targetStoreOpen && !targetRunComplete;
             battleUiCanvasGroup.alpha = showBattlePresentation
                 ? battleUiVisibleAlpha
                 : 0f;
@@ -344,27 +397,28 @@ namespace Hwatu.Rewards
                     "Card store controller is not assigned.");
             }
 
-            if (enemyRoots == null || enemyRoots.Count == 0)
+            if (cardUpgradeController == null)
             {
                 throw new InvalidOperationException(
-                    "At least one enemy root must be assigned.");
+                    "Card upgrade controller is not assigned.");
             }
 
-            var uniqueEnemyRoots = new HashSet<GameObject>();
-            for (int index = 0; index < enemyRoots.Count; index++)
+            if (cardRemovalController == null)
             {
-                GameObject enemyRoot = enemyRoots[index];
-                if (enemyRoot == null)
-                {
-                    throw new InvalidOperationException(
-                        $"Enemy root at index {index} is not assigned.");
-                }
+                throw new InvalidOperationException(
+                    "Card removal controller is not assigned.");
+            }
 
-                if (!uniqueEnemyRoots.Add(enemyRoot))
-                {
-                    throw new InvalidOperationException(
-                        "The same enemy root cannot be assigned more than once.");
-                }
+            if (runCompleteView == null)
+            {
+                throw new InvalidOperationException(
+                    "Run complete view is not assigned.");
+            }
+
+            if (enemyEncounterController == null)
+            {
+                throw new InvalidOperationException(
+                    "Enemy encounter controller is not assigned.");
             }
         }
     }

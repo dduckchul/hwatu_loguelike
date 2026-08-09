@@ -26,6 +26,7 @@ namespace Hwatu.Hands
             int lowMonth = Math.Min(firstMonth, secondMonth);
             int highMonth = Math.Max(firstMonth, secondMonth);
             int ggeut = (firstMonth + secondMonth) % 10;
+            HandTag typeSetTag = GetTypeSetTag(firstCard, secondCard);
 
             int brightDdangOrder = GetBrightDdangOrder(firstCard, secondCard, lowMonth, highMonth);
             if (brightDdangOrder > 0)
@@ -34,7 +35,7 @@ namespace Hwatu.Hands
                     HandType.BrightDdang,
                     BrightDdangRankBase + brightDdangOrder,
                     ggeut,
-                    HandTag.Pair | HandTag.Bright,
+                    HandTag.Pair | HandTag.Bright | typeSetTag,
                     firstCard,
                     secondCard);
             }
@@ -45,7 +46,7 @@ namespace Hwatu.Hands
                     HandType.Ddang,
                     DdangRankBase + firstMonth,
                     ggeut,
-                    HandTag.Pair,
+                    HandTag.Pair | typeSetTag,
                     firstCard,
                     secondCard);
             }
@@ -58,7 +59,7 @@ namespace Hwatu.Hands
                     namedType,
                     NamedRankBase + namedOrder,
                     ggeut,
-                    HandTag.Named,
+                    HandTag.Named | typeSetTag,
                     firstCard,
                     secondCard);
             }
@@ -67,9 +68,30 @@ namespace Hwatu.Hands
                 HandType.Ggeut,
                 ggeut,
                 ggeut,
-                HandTag.None,
+                typeSetTag,
                 firstCard,
                 secondCard);
+        }
+
+        private static HandTag GetTypeSetTag(
+            CardInstance firstCard,
+            CardInstance secondCard)
+        {
+            CardType firstType = firstCard.Definition.CardType;
+            if (firstType != secondCard.Definition.CardType)
+            {
+                return HandTag.None;
+            }
+
+            switch (firstType)
+            {
+                case CardType.Ribbon:
+                    return HandTag.RibbonSet;
+                case CardType.Animal:
+                    return HandTag.AnimalSet;
+                default:
+                    return HandTag.None;
+            }
         }
 
         private static int GetBrightDdangOrder(

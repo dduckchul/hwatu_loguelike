@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf744561222b4d4a81266ffa9857efbb, type: 3}
   m_Name: 10_Animal_1
   m_EditorClassIdentifier: Assembly-CSharp::Hwatu.Cards.CardData
-  cardId: 10_Bright_1
+  cardId: 10_Animal_1
   month: 10
   cardType: 3
   artwork: {fileID: 1702528914, guid: a3d8d51729b1b472ab1f2130b0f3e80f, type: 3}

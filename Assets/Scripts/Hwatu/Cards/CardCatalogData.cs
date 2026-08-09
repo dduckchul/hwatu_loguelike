@@ -48,7 +48,7 @@ namespace Hwatu.Cards
                 return;
             }
 
-            cardsById = new Dictionary<string, CardData>(StringComparer.Ordinal);
+            var lookup = new Dictionary<string, CardData>(StringComparer.Ordinal);
 
             foreach (CardData cardData in cards)
             {
@@ -62,14 +62,16 @@ namespace Hwatu.Cards
                     throw new InvalidOperationException("Card catalog contains a card with an empty ID.");
                 }
 
-                if (cardsById.ContainsKey(cardData.CardId))
+                if (lookup.ContainsKey(cardData.CardId))
                 {
                     throw new InvalidOperationException(
                         $"Card catalog contains duplicate ID '{cardData.CardId}'.");
                 }
 
-                cardsById.Add(cardData.CardId, cardData);
+                lookup.Add(cardData.CardId, cardData);
             }
+
+            cardsById = lookup;
         }
     }
 }

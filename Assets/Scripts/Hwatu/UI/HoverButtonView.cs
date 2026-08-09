@@ -1,5 +1,4 @@
 using System;
-using Microsoft.CodeAnalysis.Operations;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -72,12 +71,12 @@ namespace Hwatu.UI
             if (targetButton == null || hoverImage == null)
             {
                 throw new InvalidOperationException(
-                    "Reward button requires Button and Image components.");
+                    "Hover button requires Button and Image components.");
             }
 
             if (labelText == null)
             {
-                throw new InvalidOperationException("Reward button label text is not assigned.");
+                throw new InvalidOperationException("Hover button label text is not assigned.");
             }
         }
     }

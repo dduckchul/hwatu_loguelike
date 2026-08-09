@@ -14,6 +14,12 @@ namespace Hwatu.Randomness
 
         public int RunSeed => runSeed;
 
+        public void BeginRun(int seed)
+        {
+            runSeed = seed;
+            streams.Clear();
+        }
+
         public IRandomSource GetStream(RandomStreamId streamId)
         {
             if (!Enum.IsDefined(typeof(RandomStreamId), streamId))

@@ -14,19 +14,6 @@ namespace Hwatu.Combat
 
         public IReadOnlyList<CardData> Cards => cards;
 
-        public IReadOnlyList<CardInstance> CreateCardInstances()
-        {
-            Validate();
-
-            var cardInstances = new List<CardInstance>(RequiredCardCount);
-            foreach (CardData cardData in cards)
-            {
-                cardInstances.Add(new CardInstance(cardData.ToDefinition()));
-            }
-
-            return cardInstances.AsReadOnly();
-        }
-
         public void Validate()
         {
             if (cards == null || cards.Count != RequiredCardCount)
@@ -56,11 +43,6 @@ namespace Hwatu.Combat
         public IReadOnlyList<CardData> GetCardsForTurn(int turnIndex)
         {
             return GetPatternForTurn(turnIndex).Cards;
-        }
-
-        public IReadOnlyList<CardInstance> CreateCardsForTurn(int turnIndex)
-        {
-            return GetPatternForTurn(turnIndex).CreateCardInstances();
         }
 
         public void Validate()

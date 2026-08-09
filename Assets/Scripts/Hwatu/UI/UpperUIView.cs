@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,9 +11,25 @@ namespace Hwatu.UI
     {
         [SerializeField] private Image moneyIcon;
         [SerializeField] private TMP_Text moneyText;
+        [SerializeField] private TMP_Text moneyDeltaText;
         [SerializeField] private TMP_Text titleText;
         [SerializeField] private TMP_Text subText;
         [SerializeField] private Image handRankIcon;
+
+        [Header("Money Delta")]
+        [SerializeField, Min(0f)] private float moneyDeltaDisplayDuration = 1f;
+        [SerializeField] private Color moneyGainColor = new Color32(47, 128, 237, 255);
+        [SerializeField] private Color moneyLossColor = new Color32(235, 87, 87, 255);
+
+        private Coroutine hideMoneyDeltaCoroutine;
+        private int displayedMoney;
+        private bool hasDisplayedMoney;
+
+        private void Awake()
+        {
+            ValidateReferences();
+            moneyDeltaText.gameObject.SetActive(false);
+        }
 
         public void ShowBattle(int battleNumber, int stake)
         {
@@ -56,6 +73,61 @@ namespace Hwatu.UI
 
             ValidateReferences();
             moneyText.text = $"{money} 전";
+
+            if (!hasDisplayedMoney)
+            {
+                displayedMoney = money;
+                hasDisplayedMoney = true;
+                return;
+            }
+
+            int delta = money - displayedMoney;
+            displayedMoney = money;
+            if (delta != 0)
+            {
+                ShowMoneyDelta(delta);
+            }
+        }
+
+        private void ShowMoneyDelta(int delta)
+        {
+            if (hideMoneyDeltaCoroutine != null)
+            {
+                StopCoroutine(hideMoneyDeltaCoroutine);
+            }
+
+            moneyDeltaText.color = delta > 0 ? moneyGainColor : moneyLossColor;
+            moneyDeltaText.text = delta > 0
+                ? $"+ {delta} 전"
+                : $"- {Math.Abs(delta)} 전";
+            moneyDeltaText.gameObject.SetActive(true);
+
+            hideMoneyDeltaCoroutine = StartCoroutine(HideMoneyDeltaAfterDelay());
+        }
+
+        private IEnumerator HideMoneyDeltaAfterDelay()
+        {
+            if (moneyDeltaDisplayDuration > 0f)
+            {
+                yield return new WaitForSecondsRealtime(moneyDeltaDisplayDuration);
+            }
+
+            moneyDeltaText.gameObject.SetActive(false);
+            hideMoneyDeltaCoroutine = null;
+        }
+
+        private void OnDisable()
+        {
+            if (hideMoneyDeltaCoroutine != null)
+            {
+                StopCoroutine(hideMoneyDeltaCoroutine);
+                hideMoneyDeltaCoroutine = null;
+            }
+
+            if (moneyDeltaText != null)
+            {
+                moneyDeltaText.gameObject.SetActive(false);
+            }
         }
 
         private void ValidateReferences()
@@ -68,6 +140,12 @@ namespace Hwatu.UI
             if (moneyText == null)
             {
                 throw new InvalidOperationException("Upper UI money text is not assigned.");
+            }
+
+            if (moneyDeltaText == null)
+            {
+                throw new InvalidOperationException(
+                    "Upper UI money delta text is not assigned.");
             }
 
             if (subText == null)

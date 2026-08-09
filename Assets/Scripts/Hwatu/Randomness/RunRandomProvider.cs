@@ -8,9 +8,11 @@ namespace Hwatu.Randomness
     public sealed class RunRandomProvider : MonoBehaviour
     {
         [SerializeField] private int runSeed;
+        [SerializeField] private bool useRandomSeed;
 
         private readonly Dictionary<RandomStreamId, IRandomSource> streams =
             new Dictionary<RandomStreamId, IRandomSource>();
+        private bool isSeedInitialized;
 
         public int RunSeed => runSeed;
 
@@ -18,6 +20,7 @@ namespace Hwatu.Randomness
         {
             runSeed = seed;
             streams.Clear();
+            isSeedInitialized = true;
         }
 
         public IRandomSource GetStream(RandomStreamId streamId)
@@ -26,6 +29,8 @@ namespace Hwatu.Randomness
             {
                 throw new ArgumentOutOfRangeException(nameof(streamId));
             }
+
+            EnsureSeedInitialized();
 
             IRandomSource randomSource;
             if (!streams.TryGetValue(streamId, out randomSource))
@@ -36,6 +41,21 @@ namespace Hwatu.Randomness
             }
 
             return randomSource;
+        }
+
+        private void EnsureSeedInitialized()
+        {
+            if (isSeedInitialized)
+            {
+                return;
+            }
+
+            if (useRandomSeed)
+            {
+                runSeed = Guid.NewGuid().GetHashCode();
+            }
+
+            isSeedInitialized = true;
         }
 
         private static int DeriveStreamSeed(int seed, RandomStreamId streamId)

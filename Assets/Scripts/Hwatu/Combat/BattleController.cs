@@ -307,6 +307,11 @@ namespace Hwatu.Combat
             playerController.RefreshMoneyView();
             comparison.Enemy.RefreshMoneyView();
 
+            if (comparison.Enemy.State.IsDefeated)
+            {
+                comparison.Enemy.PlayDefeatFadeOut();
+            }
+
             if (playerController.State.IsDefeated)
             {
                 battleSequenceView.StopAfterCurrentResult();

@@ -11,10 +11,12 @@ namespace Hwatu.UI
     {
         [SerializeField] private GameObject previewPanel;
 
+        private GameObject previewBackdrop;
+
         private void Awake()
         {
             ValidateReferences();
-            DisablePreviewRaycasts();
+            CreatePreviewBackdrop();
             previewPanel.SetActive(false);
         }
 
@@ -25,18 +27,21 @@ namespace Hwatu.UI
             bool shouldOpen = !previewPanel.activeSelf;
             if (shouldOpen)
             {
+                previewBackdrop.SetActive(true);
+                previewBackdrop.transform.SetAsLastSibling();
                 previewPanel.transform.SetAsLastSibling();
             }
 
             previewPanel.SetActive(shouldOpen);
+            if (!shouldOpen)
+            {
+                previewBackdrop.SetActive(false);
+            }
         }
 
         private void OnDisable()
         {
-            if (previewPanel != null)
-            {
-                previewPanel.SetActive(false);
-            }
+            ClosePreview();
         }
 
         private void ValidateReferences()
@@ -48,13 +53,51 @@ namespace Hwatu.UI
             }
         }
 
-        private void DisablePreviewRaycasts()
+        private void CreatePreviewBackdrop()
         {
-            Graphic[] graphics = previewPanel.GetComponentsInChildren<Graphic>(
-                includeInactive: true);
-            foreach (Graphic graphic in graphics)
+            GameObject backdropObject = new GameObject(
+                "HandRankPreviewBackdrop",
+                typeof(RectTransform),
+                typeof(CanvasRenderer),
+                typeof(Image),
+                typeof(Button));
+            backdropObject.transform.SetParent(
+                previewPanel.transform.parent,
+                worldPositionStays: false);
+
+            RectTransform backdropRect = backdropObject.GetComponent<RectTransform>();
+            backdropRect.anchorMin = Vector2.zero;
+            backdropRect.anchorMax = Vector2.one;
+            backdropRect.offsetMin = Vector2.zero;
+            backdropRect.offsetMax = Vector2.zero;
+
+            Image backdropImage = backdropObject.GetComponent<Image>();
+            backdropImage.color = Color.clear;
+            backdropImage.raycastTarget = true;
+
+            Button backdropButton = backdropObject.GetComponent<Button>();
+            backdropButton.transition = Selectable.Transition.None;
+            backdropButton.targetGraphic = backdropImage;
+            backdropButton.navigation = new Navigation
             {
-                graphic.raycastTarget = false;
+                mode = Navigation.Mode.None
+            };
+            backdropButton.onClick.AddListener(ClosePreview);
+
+            previewBackdrop = backdropObject;
+            previewBackdrop.SetActive(false);
+        }
+
+        private void ClosePreview()
+        {
+            if (previewPanel != null)
+            {
+                previewPanel.SetActive(false);
+            }
+
+            if (previewBackdrop != null)
+            {
+                previewBackdrop.SetActive(false);
             }
         }
     }

@@ -52,9 +52,18 @@ namespace Hwatu.UI
             ShowIdle();
         }
 
+        private void OnEnable()
+        {
+            if (isInitialized && idleAnimation == null)
+            {
+                ShowIdle();
+            }
+        }
+
         public void ShowIdle()
         {
             StopIdleAnimation();
+            ResetPresentation();
             SetSprite(idleSprite);
 
             if (isActiveAndEnabled)
@@ -176,6 +185,11 @@ namespace Hwatu.UI
                 return;
             }
 
+            ResetPresentation();
+        }
+
+        private void ResetPresentation()
+        {
             if (motionTarget != null)
             {
                 motionTarget.localPosition = restingLocalPosition;
@@ -244,7 +258,7 @@ namespace Hwatu.UI
 
             if (idleSprite == null || idleSprite2 == null || hitSprite == null)
             {
-                throw new InvalidOperationException("Idle, Idle2, and Attack sprites must all be assigned.");
+                throw new InvalidOperationException("Idle, Idle2, and Hit sprites must all be assigned.");
             }
 
             if (idleFrameDuration <= 0f)

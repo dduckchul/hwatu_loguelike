@@ -18,6 +18,7 @@ namespace Hwatu.UI
         [SerializeField] private Image textBorder;
         [SerializeField] private RectTransform hoverVisualRoot;
         private Vector3 defaultVisualScale;
+        private bool isBound;
 
         public event Action<CardView> Clicked;
 
@@ -30,6 +31,11 @@ namespace Hwatu.UI
             if (hoverVisualRoot == null)
             {
                 throw new InvalidOperationException("Card hover visual root is not assigned.");
+            }
+
+            if (textBorder == null)
+            {
+                throw new InvalidOperationException("Card selection border is not assigned.");
             }
 
             defaultVisualScale = hoverVisualRoot.localScale;
@@ -55,6 +61,23 @@ namespace Hwatu.UI
             }
 
             Card = card;
+            ApplyCardData(cardData);
+        }
+
+        public void BindPreview(CardData cardData)
+        {
+            if (cardData == null)
+            {
+                throw new ArgumentNullException(nameof(cardData));
+            }
+
+            Card = null;
+            ApplyCardData(cardData);
+        }
+
+        private void ApplyCardData(CardData cardData)
+        {
+            isBound = true;
             SetInteractionEnabled(true);
             SetHovered(false);
             SetSelected(false);
@@ -66,18 +89,18 @@ namespace Hwatu.UI
 
             if (monthText != null)
             {
-                monthText.text = card.Definition.Month.ToString();
+                monthText.text = cardData.Month.ToString();
             }
 
             if (typeText != null)
             {
-                typeText.text = CardTypeDisplayName.Get(card.Definition.CardType);
+                typeText.text = CardTypeDisplayName.Get(cardData.CardType);
             }
         }
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            if (Card == null || !IsInteractionEnabled)
+            if (!isBound || !IsInteractionEnabled)
             {
                 return;
             }
@@ -87,7 +110,7 @@ namespace Hwatu.UI
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            if (Card == null || !IsInteractionEnabled)
+            if (!isBound || !IsInteractionEnabled)
             {
                 return;
             }

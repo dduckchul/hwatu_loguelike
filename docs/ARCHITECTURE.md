@@ -63,8 +63,10 @@
 - `StoreCardPriceCalculator`: 구매 횟수를 `0전`, `20전`, `40전` 가격으로 변환한다.
 - `CardStoreView`: `CardData` 미리보기를 표시하고 후보 클릭을 전달한다. 소유 카드 인스턴스는 구매 성공 시 Controller가 생성한다.
 - `CardStoreSlotView`: 가격과 매진 표현을 담당한다.
+- `CardUpgradeController`: 방문당 한 번, `15전`을 사용해 선택한 `Normal` 카드를 같은 월의 `Ribbon` 또는 `Animal`로 교체한다.
+- `CardRemovalController`: 방문당 한 번, `20전`을 사용해 선택한 `CardInstance`를 `PlayerDeck`에서 제거한다.
 
-`StoreView`는 강화·제거 요청 이벤트를 제공하지만 해당 Controller와 대상 선택 패널은 아직 없다.
+`StoreView`는 구매·강화·제거·넘어가기 메뉴의 입력을 전달한다. 강화와 제거는 같은 `CardCollectionView` 선택 화면을 재사용하고, 각 Controller가 비용·사용 횟수와 덱 변경을 소유한다.
 
 ### UI
 
@@ -76,6 +78,7 @@
 - `BackgroundTransitionView`, `StoreView`: 전투/귀시장 화면 상태
 - `HandRankPreviewHover`: 족보 통이미지 미리보기
 - `HoverButtonView`: 일반 버튼 호버 표현
+- `CardCollectionView`: 월별 카드 이미지 표시, 선택 강조, 취소와 선택 작업 요청
 
 UI는 규칙 객체가 만든 결과를 표시하며 족보나 피해를 다시 계산하지 않는다.
 

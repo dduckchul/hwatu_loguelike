@@ -29,6 +29,7 @@ namespace Hwatu.Combat
         private readonly BattleStakeCalculator stakeCalculator = new BattleStakeCalculator();
         private readonly List<TurnComparison> currentTurnComparisons = new List<TurnComparison>();
         private bool turnSubmitted;
+        private bool cardExchangeUsed;
 
         private int CurrentStake => stakeCalculator.Calculate(currentBattleNumber);
         private IReadOnlyList<EnemyController> Enemies =>
@@ -64,6 +65,7 @@ namespace Hwatu.Combat
             if (playerActionView != null)
             {
                 playerActionView.SubmitClicked += HandleSubmitClicked;
+                playerActionView.RerollClicked += HandleRerollClicked;
             }
 
             if (playerController != null)
@@ -95,6 +97,7 @@ namespace Hwatu.Combat
             if (playerActionView != null)
             {
                 playerActionView.SubmitClicked -= HandleSubmitClicked;
+                playerActionView.RerollClicked -= HandleRerollClicked;
             }
 
             if (playerController != null)
@@ -182,19 +185,34 @@ namespace Hwatu.Combat
                 : null;
 
             playerHandView.RefreshSelectionDisplay(handResult);
-            playerActionView.SetSubmitInteractable(
-                !turnSubmitted && selectedCards.Count == 2);
+            playerActionView.SetSubmitInteractable(CanSubmit(selectedCards));
+            playerActionView.SetRerollInteractable(CanExchange(selectedCards));
+        }
+
+        private void HandleRerollClicked()
+        {
+            IReadOnlyList<CardInstance> selectedCards = playerHandView.SelectedCards;
+            if (!CanExchange(selectedCards))
+            {
+                return;
+            }
+
+            if (!battleDeckController.Deck.TryExchangeCard(selectedCards[0]))
+            {
+                throw new InvalidOperationException(
+                    "The selected player card could not be exchanged.");
+            }
+
+            cardExchangeUsed = true;
+            playerHandView.SetCards(battleDeckController.Deck.Hand);
+            playerHandView.SetInteractionEnabled(true);
+            deckCountView.Refresh(battleDeckController.Deck);
         }
 
         private void HandleSubmitClicked()
         {
             IReadOnlyList<CardInstance> selectedCards = playerHandView.SelectedCards;
-            if (selectedCards.Count != 2)
-            {
-                throw new InvalidOperationException("Exactly two player cards must be selected before submitting.");
-            }
-
-            if (turnSubmitted || battleSequenceView.IsPlaying)
+            if (!CanSubmit(selectedCards))
             {
                 return;
             }
@@ -202,6 +220,7 @@ namespace Hwatu.Combat
             turnSubmitted = true;
             playerHandView.SetInteractionEnabled(false);
             playerActionView.SetSubmitInteractable(false);
+            playerActionView.SetRerollInteractable(false);
 
             HandResult playerHand = handEvaluator.Evaluate(selectedCards[0], selectedCards[1]);
             var sequenceItems = new List<BattleSequenceItem>(Enemies.Count);
@@ -227,6 +246,23 @@ namespace Hwatu.Combat
             }
 
             battleSequenceView.Play(playerController.BattleView, sequenceItems);
+        }
+
+        private bool CanSubmit(IReadOnlyList<CardInstance> selectedCards)
+        {
+            return selectedCards != null
+                && selectedCards.Count == 2
+                && !turnSubmitted
+                && !battleSequenceView.IsPlaying;
+        }
+
+        private bool CanExchange(IReadOnlyList<CardInstance> selectedCards)
+        {
+            return selectedCards != null
+                && selectedCards.Count == 1
+                && !turnSubmitted
+                && !cardExchangeUsed
+                && !battleSequenceView.IsPlaying;
         }
 
         private void HandleResultMotionCompleted(int resultIndex)
@@ -281,6 +317,7 @@ namespace Hwatu.Combat
             {
                 playerHandView.SetInteractionEnabled(false);
                 playerActionView.SetSubmitInteractable(false);
+                playerActionView.SetRerollInteractable(false);
                 return;
             }
 
@@ -288,6 +325,7 @@ namespace Hwatu.Combat
             {
                 playerHandView.SetInteractionEnabled(false);
                 playerActionView.SetSubmitInteractable(false);
+                playerActionView.SetRerollInteractable(false);
                 upperUIView.ShowStore();
                 storeController.EnterStore();
                 return;
@@ -313,6 +351,7 @@ namespace Hwatu.Combat
             currentBattleNumber = checked(currentBattleNumber + 1);
             currentTurnComparisons.Clear();
             turnSubmitted = false;
+            cardExchangeUsed = false;
 
             playerHandView.Clear();
             playerActionView.SetSubmitInteractable(false);

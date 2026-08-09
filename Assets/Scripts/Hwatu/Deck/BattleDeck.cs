@@ -76,6 +76,33 @@ namespace Hwatu.Deck
             hand.Clear();
         }
 
+        public bool TryExchangeCard(CardInstance card)
+        {
+            if (card == null)
+            {
+                throw new ArgumentNullException(nameof(card));
+            }
+
+            int handIndex = hand.IndexOf(card);
+            if (handIndex < 0)
+            {
+                return false;
+            }
+
+            int targetHandSize = hand.Count;
+            hand.RemoveAt(handIndex);
+
+            int drawnCount = DrawToHand(targetHandSize);
+            if (drawnCount != 1)
+            {
+                hand.Insert(handIndex, card);
+                return false;
+            }
+
+            discardPile.Add(card);
+            return true;
+        }
+
         private bool RecycleDiscardPile()
         {
             if (discardPile.Count == 0)

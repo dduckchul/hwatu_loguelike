@@ -41,8 +41,9 @@ namespace Hwatu.Combat
             }
 
             int transferredAmount = Math.Min(Money, requestedAmount);
+            int targetMoney = checked(target.Money + transferredAmount);
             Money -= transferredAmount;
-            target.Money = checked(target.Money + transferredAmount);
+            target.Money = targetMoney;
             return transferredAmount;
         }
 

@@ -37,6 +37,10 @@ PrefabInstance:
       value: Goni
       objectReference: {fileID: 0}
     - target: {fileID: 3464487026426580440, guid: 8bfb9263e378d4e53852364257b41d14, type: 3}
+      propertyPath: hitEffect
+      value: 
+      objectReference: {fileID: 7286991627483128460}
+    - target: {fileID: 3464487026426580440, guid: 8bfb9263e378d4e53852364257b41d14, type: 3}
       propertyPath: hitSprite
       value: 
       objectReference: {fileID: 4027511241232185417, guid: c8e1bd304c683471ba64c64fcfe2a6d9, type: 3}
@@ -97,3 +101,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8bfb9263e378d4e53852364257b41d14, type: 3}
+--- !u!198 &7286991627483128460 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8910835700432184512, guid: 8bfb9263e378d4e53852364257b41d14, type: 3}
+  m_PrefabInstance: {fileID: 2200357638762497612}
+  m_PrefabAsset: {fileID: 0}

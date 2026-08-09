@@ -18,10 +18,20 @@ namespace Hwatu.Combat
 
         private readonly HandEvaluator handEvaluator = new HandEvaluator();
         private int currentPatternIndex;
+        private IReadOnlyList<CardInstance> currentCards;
+        private HandResult currentHandResult;
 
         public CharacterState State { get; private set; }
         public int CurrentPatternIndex => currentPatternIndex;
         public CharacterBattleView BattleView => battleView;
+        public HandResult CurrentHandResult
+        {
+            get
+            {
+                EnsureInitialized();
+                return currentHandResult;
+            }
+        }
 
         public void InitializeForBattle()
         {
@@ -30,7 +40,7 @@ namespace Hwatu.Combat
             currentPatternIndex = 0;
             battleView.ShowIdle();
             RefreshMoneyView();
-            RefreshHand();
+            RefreshCurrentHand();
         }
 
         public void RefreshMoneyView()
@@ -42,14 +52,14 @@ namespace Hwatu.Combat
         public IReadOnlyList<CardInstance> GetCurrentCards()
         {
             EnsureInitialized();
-            return enemyPattern.CreateCardsForTurn(currentPatternIndex);
+            return currentCards;
         }
 
         public void AdvancePattern()
         {
             EnsureInitialized();
             currentPatternIndex = (currentPatternIndex + 1) % enemyPattern.PatternCount;
-            RefreshHand();
+            RefreshCurrentHand();
         }
 
         private void EnsureInitialized()
@@ -85,13 +95,19 @@ namespace Hwatu.Combat
             enemyPattern.Validate();
         }
 
-        private void RefreshHand()
+        private void RefreshCurrentHand()
         {
-            IReadOnlyList<CardInstance> cards = GetCurrentCards();
-            HandResult handResult = handEvaluator.Evaluate(cards[0], cards[1]);
-            handView.ShowHand(
-                enemyPattern.GetCardsForTurn(currentPatternIndex),
-                handResult);
+            IReadOnlyList<CardData> cardData =
+                enemyPattern.GetCardsForTurn(currentPatternIndex);
+            var cards = new List<CardInstance>(EnemyTurnPattern.RequiredCardCount);
+            foreach (CardData card in cardData)
+            {
+                cards.Add(new CardInstance(card.ToDefinition()));
+            }
+
+            currentCards = cards.AsReadOnly();
+            currentHandResult = handEvaluator.Evaluate(currentCards[0], currentCards[1]);
+            handView.ShowHand(cardData, currentHandResult);
         }
     }
 }

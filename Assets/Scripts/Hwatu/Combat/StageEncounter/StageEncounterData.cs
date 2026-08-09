@@ -9,9 +9,6 @@ namespace Hwatu.Combat
         menuName = "Hwatu/Combat/Stage Encounter")]
     public sealed class StageEncounterData : ScriptableObject
     {
-        private const int MinimumEnemyCount = 1;
-        private const int MaximumEnemyCount = 2;
-
         [SerializeField] private string stageId;
         [SerializeField] private EnemyController[] enemyPrefabs;
 
@@ -26,11 +23,11 @@ namespace Hwatu.Combat
             }
 
             if (enemyPrefabs == null
-                || enemyPrefabs.Length < MinimumEnemyCount
-                || enemyPrefabs.Length > MaximumEnemyCount)
+                || enemyPrefabs.Length < EnemyEncounterController.MinimumEnemyCount
+                || enemyPrefabs.Length > EnemyEncounterController.MaximumEnemyCount)
             {
                 throw new InvalidOperationException(
-                    $"Stage '{stageId}' must contain between {MinimumEnemyCount} and {MaximumEnemyCount} enemy prefabs.");
+                    $"Stage '{stageId}' must contain between {EnemyEncounterController.MinimumEnemyCount} and {EnemyEncounterController.MaximumEnemyCount} enemy prefabs.");
             }
 
             for (int index = 0; index < enemyPrefabs.Length; index++)

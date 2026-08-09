@@ -7,7 +7,8 @@ namespace Hwatu.Combat
     [DisallowMultipleComponent]
     public sealed class EnemyEncounterController : MonoBehaviour
     {
-        private const int MaximumEnemyCount = 2;
+        public const int MinimumEnemyCount = 1;
+        public const int MaximumEnemyCount = 2;
 
         [SerializeField] private StageEncounterData[] encounterSequence;
         [SerializeField] private Transform[] spawnPoints;
@@ -103,11 +104,11 @@ namespace Hwatu.Combat
             }
 
             if (spawnPoints == null
-                || spawnPoints.Length == 0
+                || spawnPoints.Length < MinimumEnemyCount
                 || spawnPoints.Length > MaximumEnemyCount)
             {
                 throw new InvalidOperationException(
-                    $"Between 1 and {MaximumEnemyCount} enemy spawn points must be assigned.");
+                    $"Between {MinimumEnemyCount} and {MaximumEnemyCount} enemy spawn points must be assigned.");
             }
 
             var uniqueSpawnPoints = new HashSet<Transform>();

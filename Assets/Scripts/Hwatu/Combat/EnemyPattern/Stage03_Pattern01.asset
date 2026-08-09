@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2562fd0259f3e44c09acc1e59d7c37b7, type: 3}
+  m_Name: Stage03_Pattern01
+  m_EditorClassIdentifier: Assembly-CSharp::Hwatu.Combat.EnemyPatternData
+  patterns:
+  - cards:
+    - {fileID: 11400000, guid: d27a40c8a329c48f0906537210915bf5, type: 2}
+    - {fileID: 11400000, guid: fb2921816c53b4726936b34f5eb4fdc7, type: 2}
+  - cards:
+    - {fileID: 11400000, guid: d9593792791fc47b09744fad8fcb7071, type: 2}
+    - {fileID: 11400000, guid: e34c8b9fbcb2d4fbdb60300fa15c0684, type: 2}
+  - cards:
+    - {fileID: 11400000, guid: 748550a4fb7d24712bcfce4f4c163d56, type: 2}
+    - {fileID: 11400000, guid: e34c8b9fbcb2d4fbdb60300fa15c0684, type: 2}

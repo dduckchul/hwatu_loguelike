@@ -34,7 +34,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 569397221219444536, guid: 8bfb9263e378d4e53852364257b41d14, type: 3}
       propertyPath: startingMoney
-      value: 50
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 2900858194825079511, guid: 8bfb9263e378d4e53852364257b41d14, type: 3}
       propertyPath: m_Name

@@ -19,6 +19,8 @@ namespace Hwatu.UI
         [SerializeField] private TMP_Text collectionTitle;
         [SerializeField] private Button backdropButton;
         [SerializeField] private Button selectionCancelButton;
+        [SerializeField] private Button selectionActionButton;
+        [SerializeField] private TMP_Text selectionActionButtonText;
         [SerializeField] private RectTransform monthGrid;
         [SerializeField] private MonthCardSlotView monthCardSlotTemplate;
         [SerializeField] private CardCatalogData cardCatalog;
@@ -33,8 +35,10 @@ namespace Hwatu.UI
             new HashSet<CardInstance>();
         private bool isInitialized;
         private CardCollectionMode currentMode;
+        private CardInstance selectedCard;
 
         public event Action<CardInstance> CardSelected;
+        public event Action<CardInstance> SelectionActionRequested;
         public event Action SelectionCancelled;
 
         private sealed class CardPresentation
@@ -60,6 +64,7 @@ namespace Hwatu.UI
             EnsureInitialized();
             backdropButton.onClick.AddListener(HandleBackdropClicked);
             selectionCancelButton.onClick.AddListener(HandleSelectionCancelled);
+            selectionActionButton.onClick.AddListener(HandleSelectionActionClicked);
         }
 
         private void OnDestroy()
@@ -72,6 +77,12 @@ namespace Hwatu.UI
             if (selectionCancelButton != null)
             {
                 selectionCancelButton.onClick.RemoveListener(HandleSelectionCancelled);
+            }
+
+            if (selectionActionButton != null)
+            {
+                selectionActionButton.onClick.RemoveListener(
+                    HandleSelectionActionClicked);
             }
         }
 
@@ -94,13 +105,15 @@ namespace Hwatu.UI
                 AddSelectableCards(cards);
             }
 
+            ConfigureSelectionAction(actionLabel: null);
             ShowCore(title, cards);
         }
 
         public void ShowSelection(
             string title,
             IReadOnlyList<CardInstance> cards,
-            IReadOnlyList<CardInstance> selectable)
+            IReadOnlyList<CardInstance> selectable,
+            string actionLabel = null)
         {
             if (string.IsNullOrWhiteSpace(title))
             {
@@ -122,12 +135,14 @@ namespace Hwatu.UI
             currentMode = CardCollectionMode.Selection;
             selectableCards.Clear();
             AddSelectableCards(selectable);
+            ConfigureSelectionAction(actionLabel);
             ShowCore(title, cards);
         }
 
         private void ShowCore(string title, IReadOnlyList<CardInstance> cards)
         {
             collectionTitle.text = title;
+            selectedCard = null;
             selectionCancelButton.gameObject.SetActive(
                 currentMode == CardCollectionMode.Selection);
             backdropButton.gameObject.SetActive(true);
@@ -173,7 +188,9 @@ namespace Hwatu.UI
         {
             Clear();
             selectableCards.Clear();
+            selectedCard = null;
             selectionCancelButton.gameObject.SetActive(false);
+            selectionActionButton.gameObject.SetActive(false);
             gameObject.SetActive(false);
             backdropButton.gameObject.SetActive(false);
         }
@@ -191,6 +208,15 @@ namespace Hwatu.UI
             if (currentMode == CardCollectionMode.Selection)
             {
                 SelectionCancelled?.Invoke();
+            }
+        }
+
+        private void HandleSelectionActionClicked()
+        {
+            if (currentMode == CardCollectionMode.Selection
+                && selectedCard != null)
+            {
+                SelectionActionRequested?.Invoke(selectedCard);
             }
         }
 
@@ -305,11 +331,60 @@ namespace Hwatu.UI
                     Button artworkButton = artworkObject.AddComponent<Button>();
                     artworkButton.targetGraphic = artworkImage;
                     artworkButton.onClick.AddListener(
-                        () => CardSelected?.Invoke(presentation.Card));
+                        () => HandleCardClicked(presentation.Card));
                 }
             }
 
             presentation.BindArtworkImage(artworkImage);
+        }
+
+        private void HandleCardClicked(CardInstance card)
+        {
+            if (currentMode != CardCollectionMode.Selection
+                || !selectableCards.Contains(card))
+            {
+                return;
+            }
+
+            selectedCard = card;
+            RefreshSelectionVisuals();
+            if (selectionActionButton.gameObject.activeSelf)
+            {
+                selectionActionButton.interactable = true;
+            }
+
+            CardSelected?.Invoke(card);
+        }
+
+        private void RefreshSelectionVisuals()
+        {
+            foreach (CardPresentation presentation in generatedCards)
+            {
+                if (presentation.ArtworkImage == null
+                    || !selectableCards.Contains(presentation.Card))
+                {
+                    continue;
+                }
+
+                bool isSelected = ReferenceEquals(presentation.Card, selectedCard);
+                presentation.ArtworkImage.color = isSelected
+                    ? new Color(1f, 0.82f, 0.35f, 1f)
+                    : Color.white;
+                presentation.ArtworkImage.rectTransform.localScale = isSelected
+                    ? new Vector3(1.08f, 1.08f, 1f)
+                    : Vector3.one;
+            }
+        }
+
+        private void ConfigureSelectionAction(string actionLabel)
+        {
+            bool isVisible = !string.IsNullOrWhiteSpace(actionLabel);
+            selectionActionButton.gameObject.SetActive(isVisible);
+            selectionActionButton.interactable = false;
+            if (isVisible)
+            {
+                selectionActionButtonText.text = actionLabel;
+            }
         }
 
         private void AddSelectableCards(IReadOnlyList<CardInstance> cards)
@@ -344,6 +419,10 @@ namespace Hwatu.UI
                 ?.GetComponent<TMP_Text>();
             selectionCancelButton = transform.Find("SelectionCancelButton")
                 ?.GetComponent<Button>();
+            selectionActionButton = transform.Find("SelectionActionButton")
+                ?.GetComponent<Button>();
+            selectionActionButtonText = transform.Find("SelectionActionButton/Button_Text")
+                ?.GetComponent<TMP_Text>();
             GridLayoutGroup gridLayout =
                 GetComponentInChildren<GridLayoutGroup>(includeInactive: true);
             monthGrid = gridLayout == null
@@ -377,6 +456,19 @@ namespace Hwatu.UI
             {
                 throw new InvalidOperationException(
                     "Selection cancel button must be inside the collection panel.");
+            }
+
+            if (selectionActionButton == null
+                || selectionActionButtonText == null)
+            {
+                throw new InvalidOperationException(
+                    "Selection action button references are not fully assigned.");
+            }
+
+            if (!selectionActionButton.transform.IsChildOf(transform))
+            {
+                throw new InvalidOperationException(
+                    "Selection action button must be inside the collection panel.");
             }
 
             if (backdropButton.transform == transform

@@ -80,6 +80,23 @@ namespace Hwatu.Deck
             return upgradedCard;
         }
 
+        public void RemoveCard(CardInstance card)
+        {
+            if (card == null)
+            {
+                throw new ArgumentNullException(nameof(card));
+            }
+
+            int cardIndex = cards.IndexOf(card);
+            if (cardIndex < 0)
+            {
+                throw new InvalidOperationException(
+                    "The card to remove is not in the player deck.");
+            }
+
+            cards.RemoveAt(cardIndex);
+        }
+
         public BattleDeck CreateBattleDeck(IRandomSource randomSource)
         {
             return new BattleDeck(cards, randomSource);

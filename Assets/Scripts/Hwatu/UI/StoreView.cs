@@ -10,6 +10,8 @@ namespace Hwatu.UI
     {
         [SerializeField] private Button upgradeButton;
         [SerializeField] private TMP_Text upgradeButtonText;
+        [SerializeField] private Button removalButton;
+        [SerializeField] private TMP_Text removalButtonText;
 
         public event Action UpgradeRequested;
         public event Action RemovalRequested;
@@ -23,6 +25,11 @@ namespace Hwatu.UI
             {
                 upgradeButton.onClick.AddListener(RequestUpgrade);
             }
+
+            if (removalButton != null)
+            {
+                removalButton.onClick.AddListener(RequestRemoval);
+            }
         }
 
         private void OnDisable()
@@ -30,6 +37,11 @@ namespace Hwatu.UI
             if (upgradeButton != null)
             {
                 upgradeButton.onClick.RemoveListener(RequestUpgrade);
+            }
+
+            if (removalButton != null)
+            {
+                removalButton.onClick.RemoveListener(RequestRemoval);
             }
         }
 
@@ -57,6 +69,20 @@ namespace Hwatu.UI
                 : $"강화\n({cost}전)";
         }
 
+        public void SetRemovalState(int cost, bool interactable, bool used)
+        {
+            if (cost < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(cost));
+            }
+
+            ValidateRemovalReferences();
+            removalButton.interactable = interactable;
+            removalButtonText.text = used
+                ? "버리기\n(사용 완료)"
+                : $"버리기\n({cost}전)";
+        }
+
         public void RequestUpgrade()
         {
             UpgradeRequested?.Invoke();
@@ -78,6 +104,10 @@ namespace Hwatu.UI
                 ?.GetComponent<Button>();
             upgradeButtonText = transform.Find("EnforcementButton/Text (TMP)")
                 ?.GetComponent<TMP_Text>();
+            removalButton = transform.Find("DiscardButton")
+                ?.GetComponent<Button>();
+            removalButtonText = transform.Find("DiscardButton/Text (TMP)")
+                ?.GetComponent<TMP_Text>();
         }
 
         private void ValidateUpgradeReferences()
@@ -92,6 +122,21 @@ namespace Hwatu.UI
             {
                 throw new InvalidOperationException(
                     "Upgrade button text is not assigned.");
+            }
+        }
+
+        private void ValidateRemovalReferences()
+        {
+            if (removalButton == null)
+            {
+                throw new InvalidOperationException(
+                    "Removal button is not assigned.");
+            }
+
+            if (removalButtonText == null)
+            {
+                throw new InvalidOperationException(
+                    "Removal button text is not assigned.");
             }
         }
     }

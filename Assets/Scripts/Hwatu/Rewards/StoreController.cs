@@ -21,6 +21,7 @@ namespace Hwatu.Rewards
         [SerializeField] private StoreView storeView;
         [SerializeField] private CardStoreController cardStoreController;
         [SerializeField] private CardUpgradeController cardUpgradeController;
+        [SerializeField] private CardRemovalController cardRemovalController;
 
         [Header("Fade")]
         [SerializeField, Min(0f)] private float presentationFadeDuration = 0.5f;
@@ -77,6 +78,7 @@ namespace Hwatu.Rewards
             SetBattleUiInteractionEnabled(true);
             cardStoreController.Close();
             cardUpgradeController.Close();
+            cardRemovalController.Close();
             storeView.Hide();
         }
 
@@ -114,6 +116,7 @@ namespace Hwatu.Rewards
             SetEnemyVisibility(0f);
             cardStoreController.Close();
             cardUpgradeController.Close();
+            cardRemovalController.Close();
             storeView.Hide();
             targetStoreOpen = false;
             transitionCoroutine = StartCoroutine(ExitStoreCore());
@@ -131,6 +134,7 @@ namespace Hwatu.Rewards
             transitionCoroutine = null;
             storeView.Show();
             cardUpgradeController.BeginVisit();
+            cardRemovalController.BeginVisit();
             cardStoreController.Open();
             StoreOpened?.Invoke();
         }
@@ -300,6 +304,11 @@ namespace Hwatu.Rewards
                 cardUpgradeController.Close();
             }
 
+            if (cardRemovalController != null)
+            {
+                cardRemovalController.Close();
+            }
+
             if (transitionCoroutine != null)
             {
                 StopCoroutine(transitionCoroutine);
@@ -363,6 +372,12 @@ namespace Hwatu.Rewards
             {
                 throw new InvalidOperationException(
                     "Card upgrade controller is not assigned.");
+            }
+
+            if (cardRemovalController == null)
+            {
+                throw new InvalidOperationException(
+                    "Card removal controller is not assigned.");
             }
 
             if (enemyEncounterController == null)

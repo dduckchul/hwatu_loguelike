@@ -9,7 +9,8 @@ namespace Hwatu.UI
     {
         [SerializeField] private GameObject dialogueRoot;
         [SerializeField] private TMP_Text dialogueText;
-        [SerializeField, Min(0f)] private float displayDuration = 2.5f;
+        [SerializeField, Min(0f)] private float openingDelay = 1f;
+        [SerializeField, Min(0f)] private float displayDuration = 3f;
 
         private Coroutine hideRoutine;
 
@@ -19,6 +20,16 @@ namespace Hwatu.UI
             {
                 dialogueRoot.SetActive(false);
             }
+        }
+
+        private IEnumerator Start()
+        {
+            if (openingDelay > 0f)
+            {
+                yield return new WaitForSeconds(openingDelay);
+            }
+
+            Show();
         }
 
         public void Show()

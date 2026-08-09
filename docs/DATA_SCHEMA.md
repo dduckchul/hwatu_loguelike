@@ -46,6 +46,8 @@
 
 가격과 구매·강화·제거 여부는 `CardData`에 저장하지 않는다. 강화 후보는 같은 월의 `Ribbon`, `Animal` 카드 데이터를 카탈로그에서 조회하고, 제거 대상은 현재 `PlayerDeck`의 `CardInstance`다.
 
+모든 상점 결제는 `CharacterState.TrySpendMoney()`를 통과한다. 보유 전이 비용보다 클 때만 차감해 결제 후 최소 `1전`을 보장한다.
+
 ## 적 패턴
 
 ### `EnemyPatternData`
@@ -53,7 +55,7 @@
 - `EnemyTurnPattern`: 한 턴에 공개하고 제출할 `CardData` 두 장
 - `EnemyPatternData`: 한 개 이상의 턴 패턴을 순환 제공
 
-패턴은 null 카드와 정확히 두 장이 아닌 턴을 거부한다. 현재 `Stage01_Pattern.asset`, `Stage02_Pattern.asset`이 있다.
+패턴은 null 카드와 정확히 두 장이 아닌 턴을 거부한다. 현재 `Stage01_Pattern.asset`, `Stage02_Pattern.asset`, `Stage03_Pattern01.asset`, `Stage03_Pattern02.asset`이 있다.
 
 ## 스테이지 조우
 
@@ -70,6 +72,7 @@
 
 - `Stage01_Enemies.asset` → `Rorni.prefab`
 - `Stage02_Enemies.asset` → `Goni.prefab`
+- `Stage03_Enemies.asset` → `Rorni_Round3.prefab`, `Goni_Round3.prefab`
 - `EnemyBase.prefab` → 적 공통 구조
 
 조우 자산과 프리팹에는 현재 전, 패턴 인덱스, 피격 상태를 기록하지 않는다. `EnemyEncounterController`와 생성된 `EnemyController`가 이 런타임 상태를 가진다.
@@ -82,7 +85,6 @@
 
 ## 아직 정의하지 않는 데이터
 
-- 3스테이지 조우와 패턴 콘텐츠
 - 보상 레벨별 카드 풀
 - 카드별로 현재 월·타입 규칙과 다른 강화 대상을 지정하는 데이터
 - 카드 제거 최소 덱 크기

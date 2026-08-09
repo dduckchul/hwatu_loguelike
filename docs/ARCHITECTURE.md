@@ -51,9 +51,12 @@
 - `EnemyEncounterController`: 조우 순서, 적 인스턴스 생성·제거와 `CurrentEnemies`를 소유한다.
 - `EnemyBase.prefab`: 적의 공통 계층과 컴포넌트를 가진 기준 프리팹이다.
 - `Rorni.prefab`, `Goni.prefab`: 현재 몬스터 프리팹이다.
+- `Rorni_Round3.prefab`, `Goni_Round3.prefab`: 3스테이지의 2인 조우 프리팹이다.
 - 씬의 스폰 포인트 배열은 조우 데이터의 적 배열 순서와 대응한다.
 
 `BattleController`는 적 프리팹을 선택하지 않고 `CurrentEnemies`만 사용한다. `StoreController`도 적 선택 규칙을 알지 않으며 현재 적의 Fade 대상만 수집한다.
+
+현재 `CombatExample`에는 `Stage01_Enemies`, `Stage02_Enemies`, `Stage03_Enemies`가 순서대로 연결되어 있다. 마지막 조우 여부는 `EnemyEncounterController.IsLastEncounter`가 제공한다.
 
 ### 귀시장
 
@@ -68,6 +71,8 @@
 
 `StoreView`는 구매·강화·제거·넘어가기 메뉴의 입력을 전달한다. 강화와 제거는 같은 `CardCollectionView` 선택 화면을 재사용하고, 각 Controller가 비용·사용 횟수와 덱 변경을 소유한다.
 
+`StoreController.EnterRunComplete()`는 상점을 열지 않고 기존 배경 전환, 전투 UI·적 FadeOut과 플레이어 중앙 이동만 재사용한 뒤 `RunCompleteView`를 표시한다.
+
 ### UI
 
 - `PlayerHandView`, `CardView`, `FanCardLayout`: 손패 생성·선택·배치
@@ -79,6 +84,8 @@
 - `HandRankPreviewHover`: 족보 통이미지 미리보기
 - `HoverButtonView`: 일반 버튼 호버 표현
 - `CardCollectionView`: 월별 카드 이미지 표시, 선택 강조, 취소와 선택 작업 요청
+- `DefeatView`: 사망 문구, 전체 UI 숨김, 화면 FadeOut과 타이틀 씬 복귀
+- `RunCompleteView`: `To Be Continued..` 표시와 타이틀 씬 복귀
 
 UI는 규칙 객체가 만든 결과를 표시하며 족보나 피해를 다시 계산하지 않는다.
 
@@ -124,7 +131,22 @@ BattleController.Start
   → FadeIn 완료 후 손패 3장 드로우
 ```
 
-현재 씬에는 1·2스테이지 조우만 등록되어 있다. 마지막 조우 뒤의 런 완료 분기는 아직 없다.
+### 런 종료
+
+```text
+플레이어 패배
+  → 전투 결과 연출 종료
+  → DefeatView
+  → 사망 문구와 화면 FadeOut
+  → 1초 후 TitleScene
+
+마지막 조우 승리
+  → StoreController.EnterRunComplete
+  → 귀시장 배경 전환, 전투 UI·적 FadeOut, 플레이어 중앙 이동
+  → RunCompleteView
+  → To Be Continued.. 표시
+  → 1초 후 TitleScene
+```
 
 ## 의존 방향
 

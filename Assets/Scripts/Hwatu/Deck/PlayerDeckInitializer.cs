@@ -24,6 +24,17 @@ namespace Hwatu.Deck
         {
             Deck = CreateStartingDeck();
 
+            RebuildBattleDeck();
+        }
+
+        public void RebuildBattleDeck()
+        {
+            if (Deck == null)
+            {
+                throw new InvalidOperationException(
+                    "Player deck is not initialized.");
+            }
+
             if (battleDeckController == null)
             {
                 throw new InvalidOperationException("Battle deck controller is not assigned.");
@@ -69,12 +80,6 @@ namespace Hwatu.Deck
                     throw new InvalidOperationException("Starting deck cannot contain a null card.");
                 }
 
-                if (cardData.CardType != CardType.Normal)
-                {
-                    throw new InvalidOperationException(
-                        $"Starting card '{cardData.CardId}' must be a normal card.");
-                }
-
                 if (cardData.Month < CardDefinition.MinMonth
                     || cardData.Month > CardDefinition.MaxMonth)
                 {
@@ -82,22 +87,7 @@ namespace Hwatu.Deck
                         $"Starting card '{cardData.CardId}' has an invalid month.");
                 }
 
-                if (includedMonths[cardData.Month])
-                {
-                    throw new InvalidOperationException(
-                        $"Starting deck contains more than one card for month {cardData.Month}.");
-                }
-
                 includedMonths[cardData.Month] = true;
-            }
-
-            for (int month = CardDefinition.MinMonth; month <= CardDefinition.MaxMonth; month++)
-            {
-                if (!includedMonths[month])
-                {
-                    throw new InvalidOperationException(
-                        $"Starting deck is missing a normal card for month {month}.");
-                }
             }
         }
     }

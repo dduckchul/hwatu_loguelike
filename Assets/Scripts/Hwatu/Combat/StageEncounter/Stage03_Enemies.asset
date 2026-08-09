@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94191036ea7594df982b9570a0088fd0, type: 3}
+  m_Name: Stage03_Enemies
+  m_EditorClassIdentifier: Assembly-CSharp::Hwatu.Combat.StageEncounterData
+  stageId: stage_03
+  enemyPrefabs:
+  - {fileID: 1956921876191128877, guid: d8fc6e8593b55484a96429bc0e30313e, type: 3}
+  - {fileID: 1832923665518338420, guid: bb0f1f75a1a14469eb7543d2b87f4b9b, type: 3}

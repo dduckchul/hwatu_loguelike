@@ -31,7 +31,7 @@ namespace Hwatu.UI
 
             resultText.text = enemyCount == 1
                 ? resultName
-                : $"적 {enemyIndex + 1} 상대: {resultName}";
+                : $"적 {enemyIndex + 1} : {resultName}";
             resultRoot.SetActive(true);
         }
 

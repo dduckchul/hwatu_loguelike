@@ -18,6 +18,7 @@ namespace Hwatu.UI
     {
         [SerializeField] private TMP_Text collectionTitle;
         [SerializeField] private Button backdropButton;
+        [SerializeField] private Button selectionCancelButton;
         [SerializeField] private RectTransform monthGrid;
         [SerializeField] private MonthCardSlotView monthCardSlotTemplate;
         [SerializeField] private CardCatalogData cardCatalog;
@@ -28,8 +29,13 @@ namespace Hwatu.UI
                 CardDefinition.MaxMonth - CardDefinition.MinMonth + 1];
         private readonly List<CardPresentation> generatedCards =
             new List<CardPresentation>();
+        private readonly HashSet<CardInstance> selectableCards =
+            new HashSet<CardInstance>();
         private bool isInitialized;
         private CardCollectionMode currentMode;
+
+        public event Action<CardInstance> CardSelected;
+        public event Action SelectionCancelled;
 
         private sealed class CardPresentation
         {
@@ -53,6 +59,7 @@ namespace Hwatu.UI
         {
             EnsureInitialized();
             backdropButton.onClick.AddListener(HandleBackdropClicked);
+            selectionCancelButton.onClick.AddListener(HandleSelectionCancelled);
         }
 
         private void OnDestroy()
@@ -60,6 +67,11 @@ namespace Hwatu.UI
             if (backdropButton != null)
             {
                 backdropButton.onClick.RemoveListener(HandleBackdropClicked);
+            }
+
+            if (selectionCancelButton != null)
+            {
+                selectionCancelButton.onClick.RemoveListener(HandleSelectionCancelled);
             }
         }
 
@@ -76,7 +88,48 @@ namespace Hwatu.UI
             }
 
             currentMode = mode;
+            selectableCards.Clear();
+            if (mode == CardCollectionMode.Selection)
+            {
+                AddSelectableCards(cards);
+            }
+
+            ShowCore(title, cards);
+        }
+
+        public void ShowSelection(
+            string title,
+            IReadOnlyList<CardInstance> cards,
+            IReadOnlyList<CardInstance> selectable)
+        {
+            if (string.IsNullOrWhiteSpace(title))
+            {
+                throw new ArgumentException(
+                    "Collection title cannot be empty.",
+                    nameof(title));
+            }
+
+            if (cards == null)
+            {
+                throw new ArgumentNullException(nameof(cards));
+            }
+
+            if (selectable == null)
+            {
+                throw new ArgumentNullException(nameof(selectable));
+            }
+
+            currentMode = CardCollectionMode.Selection;
+            selectableCards.Clear();
+            AddSelectableCards(selectable);
+            ShowCore(title, cards);
+        }
+
+        private void ShowCore(string title, IReadOnlyList<CardInstance> cards)
+        {
             collectionTitle.text = title;
+            selectionCancelButton.gameObject.SetActive(
+                currentMode == CardCollectionMode.Selection);
             backdropButton.gameObject.SetActive(true);
             gameObject.SetActive(true);
             Refresh(cards);
@@ -119,6 +172,8 @@ namespace Hwatu.UI
         public void Hide()
         {
             Clear();
+            selectableCards.Clear();
+            selectionCancelButton.gameObject.SetActive(false);
             gameObject.SetActive(false);
             backdropButton.gameObject.SetActive(false);
         }
@@ -128,6 +183,14 @@ namespace Hwatu.UI
             if (currentMode == CardCollectionMode.Browse)
             {
                 Hide();
+            }
+        }
+
+        private void HandleSelectionCancelled()
+        {
+            if (currentMode == CardCollectionMode.Selection)
+            {
+                SelectionCancelled?.Invoke();
             }
         }
 
@@ -228,7 +291,40 @@ namespace Hwatu.UI
             artworkImage.sprite = presentation.Data.Artwork;
             artworkImage.preserveAspect = true;
             artworkImage.raycastTarget = false;
+
+            if (currentMode == CardCollectionMode.Selection)
+            {
+                bool isSelectable = selectableCards.Contains(presentation.Card);
+                artworkImage.color = isSelectable
+                    ? Color.white
+                    : new Color(1f, 1f, 1f, 0.35f);
+
+                if (isSelectable)
+                {
+                    artworkImage.raycastTarget = true;
+                    Button artworkButton = artworkObject.AddComponent<Button>();
+                    artworkButton.targetGraphic = artworkImage;
+                    artworkButton.onClick.AddListener(
+                        () => CardSelected?.Invoke(presentation.Card));
+                }
+            }
+
             presentation.BindArtworkImage(artworkImage);
+        }
+
+        private void AddSelectableCards(IReadOnlyList<CardInstance> cards)
+        {
+            foreach (CardInstance card in cards)
+            {
+                if (card == null)
+                {
+                    throw new ArgumentException(
+                        "Selectable cards cannot contain a null card.",
+                        nameof(cards));
+                }
+
+                selectableCards.Add(card);
+            }
         }
 
         private static int CompareCards(CardPresentation first, CardPresentation second)
@@ -246,6 +342,8 @@ namespace Hwatu.UI
         {
             collectionTitle = transform.Find("CollectionTitle")
                 ?.GetComponent<TMP_Text>();
+            selectionCancelButton = transform.Find("SelectionCancelButton")
+                ?.GetComponent<Button>();
             GridLayoutGroup gridLayout =
                 GetComponentInChildren<GridLayoutGroup>(includeInactive: true);
             monthGrid = gridLayout == null
@@ -267,6 +365,18 @@ namespace Hwatu.UI
             {
                 throw new InvalidOperationException(
                     "Collection backdrop button is not assigned.");
+            }
+
+            if (selectionCancelButton == null)
+            {
+                throw new InvalidOperationException(
+                    "Selection cancel button is not assigned.");
+            }
+
+            if (!selectionCancelButton.transform.IsChildOf(transform))
+            {
+                throw new InvalidOperationException(
+                    "Selection cancel button must be inside the collection panel.");
             }
 
             if (backdropButton.transform == transform

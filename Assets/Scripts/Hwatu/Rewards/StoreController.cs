@@ -20,6 +20,7 @@ namespace Hwatu.Rewards
         [Header("Store")]
         [SerializeField] private StoreView storeView;
         [SerializeField] private CardStoreController cardStoreController;
+        [SerializeField] private CardUpgradeController cardUpgradeController;
 
         [Header("Fade")]
         [SerializeField, Min(0f)] private float presentationFadeDuration = 0.5f;
@@ -75,6 +76,7 @@ namespace Hwatu.Rewards
             battlePlayerLocalPosition = playerRoot.localPosition;
             SetBattleUiInteractionEnabled(true);
             cardStoreController.Close();
+            cardUpgradeController.Close();
             storeView.Hide();
         }
 
@@ -111,6 +113,7 @@ namespace Hwatu.Rewards
             CaptureEnemyVisuals();
             SetEnemyVisibility(0f);
             cardStoreController.Close();
+            cardUpgradeController.Close();
             storeView.Hide();
             targetStoreOpen = false;
             transitionCoroutine = StartCoroutine(ExitStoreCore());
@@ -127,6 +130,7 @@ namespace Hwatu.Rewards
             IsStoreOpen = true;
             transitionCoroutine = null;
             storeView.Show();
+            cardUpgradeController.BeginVisit();
             cardStoreController.Open();
             StoreOpened?.Invoke();
         }
@@ -291,6 +295,11 @@ namespace Hwatu.Rewards
                 cardStoreController.Close();
             }
 
+            if (cardUpgradeController != null)
+            {
+                cardUpgradeController.Close();
+            }
+
             if (transitionCoroutine != null)
             {
                 StopCoroutine(transitionCoroutine);
@@ -348,6 +357,12 @@ namespace Hwatu.Rewards
             {
                 throw new InvalidOperationException(
                     "Card store controller is not assigned.");
+            }
+
+            if (cardUpgradeController == null)
+            {
+                throw new InvalidOperationException(
+                    "Card upgrade controller is not assigned.");
             }
 
             if (enemyEncounterController == null)

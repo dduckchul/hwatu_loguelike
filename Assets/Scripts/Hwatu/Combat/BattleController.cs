@@ -192,7 +192,9 @@ namespace Hwatu.Combat
 
             playerHandView.RefreshSelectionDisplay(handResult);
             playerActionView.SetSubmitInteractable(CanSubmit(selectedCards));
-            playerActionView.SetRerollInteractable(CanExchange(selectedCards));
+            playerActionView.SetRerollState(
+                CanExchange(selectedCards),
+                cardExchangeUsed);
         }
 
         private void HandleRerollClicked()
@@ -374,7 +376,9 @@ namespace Hwatu.Combat
         private void DisableActionButtons()
         {
             playerActionView.SetSubmitInteractable(false);
-            playerActionView.SetRerollInteractable(false);
+            playerActionView.SetRerollState(
+                isInteractable: false,
+                isUsed: cardExchangeUsed);
         }
 
         private bool AreAllEnemiesDefeated()

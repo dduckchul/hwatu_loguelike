@@ -12,10 +12,14 @@ namespace Hwatu.Deck
         private readonly List<CardInstance> drawPile;
         private readonly List<CardInstance> hand = new List<CardInstance>();
         private readonly List<CardInstance> discardPile = new List<CardInstance>();
+        private readonly IReadOnlyList<CardInstance> readOnlyDrawPile;
         private readonly IReadOnlyList<CardInstance> readOnlyHand;
+        private readonly IReadOnlyList<CardInstance> readOnlyDiscardPile;
         private readonly IRandomSource randomSource;
 
+        public IReadOnlyList<CardInstance> DrawPile => readOnlyDrawPile;
         public IReadOnlyList<CardInstance> Hand => readOnlyHand;
+        public IReadOnlyList<CardInstance> DiscardPile => readOnlyDiscardPile;
         public int DrawPileCount => drawPile.Count;
         public int HandCount => hand.Count;
         public int DiscardPileCount => discardPile.Count;
@@ -42,7 +46,9 @@ namespace Hwatu.Deck
                 drawPile.Add(card);
             }
 
+            readOnlyDrawPile = drawPile.AsReadOnly();
             readOnlyHand = hand.AsReadOnly();
+            readOnlyDiscardPile = discardPile.AsReadOnly();
             Shuffle(drawPile);
         }
 

@@ -7,8 +7,7 @@ namespace Hwatu.UI
 {
     [DisallowMultipleComponent]
     public sealed class HandRankPreviewHover : MonoBehaviour,
-        IPointerEnterHandler,
-        IPointerExitHandler
+        IPointerClickHandler
     {
         [SerializeField] private GameObject previewPanel;
 
@@ -19,19 +18,17 @@ namespace Hwatu.UI
             previewPanel.SetActive(false);
         }
 
-        public void OnPointerEnter(PointerEventData eventData)
+        public void OnPointerClick(PointerEventData eventData)
         {
             ValidateReferences();
-            previewPanel.transform.SetAsLastSibling();
-            previewPanel.SetActive(true);
-        }
 
-        public void OnPointerExit(PointerEventData eventData)
-        {
-            if (previewPanel != null)
+            bool shouldOpen = !previewPanel.activeSelf;
+            if (shouldOpen)
             {
-                previewPanel.SetActive(false);
+                previewPanel.transform.SetAsLastSibling();
             }
+
+            previewPanel.SetActive(shouldOpen);
         }
 
         private void OnDisable()

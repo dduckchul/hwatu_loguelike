@@ -12,11 +12,10 @@ namespace Hwatu.UI
         [Header("UI")]
         [SerializeField] private Transform uiRoot;
         [SerializeField] private GameObject defeatOverlayRoot;
-        [SerializeField] private CanvasGroup screenFadeCanvasGroup;
+        [SerializeField] private BlackScreenView blackScreenView;
         [SerializeField] private TMP_Text defeatText;
 
         [Header("Transition")]
-        [SerializeField, Min(0f)] private float fadeDuration = 0.5f;
         [SerializeField, Min(0f)] private float titleLoadDelay = 1f;
         [SerializeField] private string titleSceneName = "TitleScene";
 
@@ -27,9 +26,6 @@ namespace Hwatu.UI
         private void Awake()
         {
             ValidateReferences();
-            screenFadeCanvasGroup.alpha = 0f;
-            screenFadeCanvasGroup.interactable = false;
-            screenFadeCanvasGroup.blocksRaycasts = false;
             defeatOverlayRoot.SetActive(false);
         }
 
@@ -49,24 +45,12 @@ namespace Hwatu.UI
             HideExistingUi();
 
             defeatText.text = "사망";
-            screenFadeCanvasGroup.alpha = 0f;
-            screenFadeCanvasGroup.interactable = true;
-            screenFadeCanvasGroup.blocksRaycasts = true;
             defeatOverlayRoot.SetActive(true);
+            blackScreenView.gameObject.SetActive(true);
+            blackScreenView.transform.SetAsLastSibling();
+            defeatOverlayRoot.transform.SetAsLastSibling();
 
-            if (fadeDuration > 0f)
-            {
-                float elapsed = 0f;
-                while (elapsed < fadeDuration)
-                {
-                    elapsed += Time.unscaledDeltaTime;
-                    float progress = Mathf.Clamp01(elapsed / fadeDuration);
-                    screenFadeCanvasGroup.alpha = Mathf.SmoothStep(0f, 1f, progress);
-                    yield return null;
-                }
-            }
-
-            screenFadeCanvasGroup.alpha = 1f;
+            yield return blackScreenView.FadeToBlack();
 
             if (titleLoadDelay > 0f)
             {
@@ -81,7 +65,8 @@ namespace Hwatu.UI
             for (int index = 0; index < uiRoot.childCount; index++)
             {
                 GameObject child = uiRoot.GetChild(index).gameObject;
-                if (child != defeatOverlayRoot)
+                if (child != defeatOverlayRoot
+                    && child != blackScreenView.gameObject)
                 {
                     child.SetActive(false);
                 }
@@ -117,10 +102,16 @@ namespace Hwatu.UI
                     "Defeat overlay root must be a direct child of the UI root.");
             }
 
-            if (screenFadeCanvasGroup == null)
+            if (blackScreenView == null)
             {
                 throw new InvalidOperationException(
-                    "Screen fade canvas group is not assigned.");
+                    "Black screen view is not assigned.");
+            }
+
+            if (blackScreenView.transform.parent != uiRoot)
+            {
+                throw new InvalidOperationException(
+                    "Black screen view must be a direct child of the UI root.");
             }
 
             if (defeatText == null)

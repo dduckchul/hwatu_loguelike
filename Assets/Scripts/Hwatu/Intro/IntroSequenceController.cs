@@ -215,7 +215,14 @@ namespace Hwatu.Intro
             }
 
             Mouse mouse = Mouse.current;
-            return mouse != null && mouse.leftButton.wasPressedThisFrame;
+            if (mouse != null && mouse.leftButton.wasPressedThisFrame)
+            {
+                return true;
+            }
+
+            Touchscreen touchscreen = Touchscreen.current;
+            return touchscreen != null
+                && touchscreen.primaryTouch.press.wasPressedThisFrame;
         }
     }
 }
